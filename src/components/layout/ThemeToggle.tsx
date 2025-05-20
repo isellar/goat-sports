@@ -1,47 +1,35 @@
-
-import React, { useEffect, useState } from 'react';
-import { Switch } from '@/components/ui/switch';
-import { Sun, Moon } from 'lucide-react';
-import { cn } from '@/lib/utils';
+import React from "react";
+import { Switch } from "@/components/ui/switch";
+import { Sun, Moon } from "lucide-react";
+import { cn } from "@/lib/utils";
+import { useTheme } from "next-themes";
 
 const ThemeToggle: React.FC = () => {
-  const [isDarkMode, setIsDarkMode] = useState<boolean>(false);
-
-  useEffect(() => {
-    // Check if dark mode is saved in localStorage
-    const savedTheme = localStorage.getItem('theme');
-    const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
-    
-    // Initialize based on localStorage or system preference
-    if (savedTheme === 'dark' || (!savedTheme && prefersDark)) {
-      setIsDarkMode(true);
-      document.documentElement.classList.add('dark');
-    }
-  }, []);
-
-  const toggleTheme = () => {
-    const newMode = !isDarkMode;
-    setIsDarkMode(newMode);
-    
-    // Update DOM and localStorage
-    if (newMode) {
-      document.documentElement.classList.add('dark');
-      localStorage.setItem('theme', 'dark');
-    } else {
-      document.documentElement.classList.remove('dark');
-      localStorage.setItem('theme', 'light');
-    }
-  };
+  const { resolvedTheme, setTheme } = useTheme();
 
   return (
     <div className="flex items-center gap-2">
-      <Sun size={16} className={cn("text-hockey-light-slate", isDarkMode && "opacity-50")} />
-      <Switch 
-        checked={isDarkMode} 
-        onCheckedChange={toggleTheme}
+      <Sun
+        size={16}
+        className={cn(
+          "text-hockey-light-slate",
+          resolvedTheme === "dark" && "opacity-50"
+        )}
+      />
+      <Switch
+        checked={resolvedTheme === "dark"}
+        onCheckedChange={() =>
+          setTheme(resolvedTheme === "dark" ? "light" : "dark")
+        }
         aria-label="Toggle dark mode"
       />
-      <Moon size={16} className={cn("text-hockey-light-slate", !isDarkMode && "opacity-50")} />
+      <Moon
+        size={16}
+        className={cn(
+          "text-hockey-light-slate",
+          resolvedTheme !== "dark" && "opacity-50"
+        )}
+      />
     </div>
   );
 };
