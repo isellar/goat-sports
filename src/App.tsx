@@ -12,6 +12,7 @@ import Players from "./pages/Players";
 import Matchup from "./pages/Matchup";
 import Standings from "./pages/Standings";
 import Settings from "./pages/Settings";
+import Countries from "./pages/Countries";
 import Layout from "./components/layout/Layout";
 import MobileNav from "./components/layout/MobileNav";
 
@@ -30,7 +31,7 @@ const App = () => {
         <TooltipProvider>
           <Toaster />
           <Sonner />
-          <BrowserRouter>
+          <BrowserRouter future={{ v7_startTransition: true }}>
             <Layout>
               <Routes>
                 <Route path="/" element={<Index />} />
@@ -39,6 +40,7 @@ const App = () => {
                 <Route path="/matchup" element={<Matchup />} />
                 <Route path="/standings" element={<Standings />} />
                 <Route path="/settings" element={<Settings />} />
+                <Route path="/countries" element={<Countries />} />
                 <Route path="*" element={<NotFound />} />
               </Routes>
               <MobileNav
