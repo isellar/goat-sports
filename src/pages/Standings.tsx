@@ -1,4 +1,3 @@
-
 import React, { useState } from 'react';
 import { Trophy, Users, Filter, ChevronDown, ChevronUp, BarChart3, CalendarClock } from 'lucide-react';
 import { Card } from '@/components/ui/card';
@@ -160,12 +159,12 @@ const Standings = () => {
       <div className="flex flex-col gap-2">
         <span className="text-sm font-medium text-hockey-blue">League Standings</span>
         <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-2">
-          <h1 className="text-3xl sm:text-4xl font-display font-bold text-hockey-slate">Northern Ice Breakers</h1>
+          <h1 className="text-3xl sm:text-4xl font-display font-bold text-foreground">Northern Ice Breakers</h1>
           <Button size="sm" variant="outline" className="h-9">
             <Filter size={15} className="mr-1.5" /> Filter
           </Button>
         </div>
-        <p className="text-hockey-light-slate max-w-2xl">
+        <p className="text-muted-foreground max-w-2xl">
           View current league standings, team records, and statistical leaders.
         </p>
       </div>
@@ -217,7 +216,7 @@ const Standings = () => {
                   {sortedTeams.map((team, index) => (
                     <tr 
                       key={team.id} 
-                      className={`border-b border-slate-100 ${team.abbr === 'IC' ? 'bg-hockey-blue/5' : ''}`}
+                      className={`border-b border-border ${team.abbr === 'IC' ? 'bg-hockey-blue/5' : 'bg-card'}`}
                     >
                       <td className="px-4 py-3">
                         <div className="flex items-center">
@@ -225,15 +224,15 @@ const Standings = () => {
                           <div className={`w-8 h-8 rounded-md ${team.color} flex items-center justify-center text-white text-xs font-bold mr-3`}>
                             {team.abbr}
                           </div>
-                          <span className={`font-medium ${team.abbr === 'IC' ? 'text-hockey-blue' : 'text-hockey-slate'}`}>
+                          <span className={`font-medium text-card-foreground`}>
                             {team.name}
                           </span>
                         </div>
                       </td>
-                      <td className="px-4 py-3 text-center font-medium text-hockey-slate">{team.record.wins}</td>
-                      <td className="px-4 py-3 text-center text-hockey-slate">{team.record.losses}</td>
-                      <td className="px-4 py-3 text-center text-hockey-slate">{team.record.ties}</td>
-                      <td className="px-4 py-3 text-center font-medium text-hockey-slate">{team.points}</td>
+                      <td className="px-4 py-3 text-center font-medium text-card-foreground">{team.record.wins}</td>
+                      <td className="px-4 py-3 text-center text-card-foreground">{team.record.losses}</td>
+                      <td className="px-4 py-3 text-center text-card-foreground">{team.record.ties}</td>
+                      <td className="px-4 py-3 text-center font-medium text-card-foreground">{team.points}</td>
                       <td className="px-4 py-3 text-center">
                         <span 
                           className={`px-2 py-0.5 rounded text-xs font-medium ${
@@ -243,7 +242,7 @@ const Standings = () => {
                           {team.streakType}{team.streakCount}
                         </span>
                       </td>
-                      <td className="px-4 py-3 text-hockey-slate">
+                      <td className="px-4 py-3 text-card-foreground">
                         {team.owner === 'You' ? (
                           <span className="font-medium text-hockey-blue">You</span>
                         ) : (
@@ -378,7 +377,7 @@ const Standings = () => {
                 <div className="h-full flex items-end gap-4">
                   {teams.slice(0, 4).map((team, i) => (
                     <div key={i} className="flex-1 flex flex-col items-center">
-                      <div className="w-full bg-slate-100 rounded-lg overflow-hidden">
+                      <div className="w-full bg-card rounded-lg overflow-hidden">
                         <div 
                           className={`w-full ${team.color}`}
                           style={{ height: `${(team.points / 270) * 180}px` }}
@@ -407,11 +406,11 @@ const Standings = () => {
                   <div className="space-y-8">
                     <div className="flex items-center">
                       <div className="w-8 text-center font-medium text-hockey-light-slate mr-2">1</div>
-                      <div className="flex items-center bg-white rounded-lg border border-slate-200 p-3 shadow-sm relative z-10">
+                      <div className="flex items-center bg-card rounded-lg border border-border p-3 shadow-sm relative z-10">
                         <div className="w-8 h-8 rounded-md bg-purple-500 flex items-center justify-center text-white text-xs font-bold mr-3">
                           PM
                         </div>
-                        <span className="font-medium text-hockey-slate">Puck Masters</span>
+                        <span className="font-medium text-card-foreground">Puck Masters</span>
                       </div>
                     </div>
                     
@@ -424,7 +423,7 @@ const Standings = () => {
                     
                     <div className="flex items-center">
                       <div className="w-8 text-center font-medium text-hockey-light-slate mr-2">4</div>
-                      <div className="flex items-center bg-white rounded-lg border border-slate-200 p-3 shadow-sm relative z-10">
+                      <div className="flex items-center bg-card rounded-lg border border-border p-3 shadow-sm relative z-10">
                         <div className="w-8 h-8 rounded-md bg-hockey-red flex items-center justify-center text-white text-xs font-bold mr-3">
                           FB
                         </div>
@@ -434,7 +433,7 @@ const Standings = () => {
                     
                     <div className="flex items-center">
                       <div className="w-8 text-center font-medium text-hockey-light-slate mr-2">2</div>
-                      <div className="flex items-center bg-white rounded-lg border border-slate-200 p-3 shadow-sm relative z-10">
+                      <div className="flex items-center bg-card rounded-lg border border-border p-3 shadow-sm relative z-10">
                         <div className="w-8 h-8 rounded-md bg-hockey-blue flex items-center justify-center text-white text-xs font-bold mr-3">
                           IC
                         </div>
@@ -453,7 +452,7 @@ const Standings = () => {
                     
                     <div className="flex items-center">
                       <div className="w-8 text-center font-medium text-hockey-light-slate mr-2">3</div>
-                      <div className="flex items-center bg-white rounded-lg border border-slate-200 p-3 shadow-sm relative z-10">
+                      <div className="flex items-center bg-card rounded-lg border border-border p-3 shadow-sm relative z-10">
                         <div className="w-8 h-8 rounded-md bg-blue-500 flex items-center justify-center text-white text-xs font-bold mr-3">
                           SS
                         </div>
@@ -479,7 +478,7 @@ const Standings = () => {
                         </span>
                       </div>
                       <div className="flex-1">
-                        <div className="w-full bg-slate-100 rounded-full h-2.5">
+                        <div className="w-full bg-card rounded-full h-2.5">
                           <div 
                             className={`h-2.5 rounded-full ${team.color}`}
                             style={{ width: `${100 - (index * 12)}%` }}
@@ -498,7 +497,7 @@ const Standings = () => {
                 <div className="p-4">
                   <div className="space-y-3">
                     {teams.slice(0, 4).map((team, index) => (
-                      <div key={index} className="flex justify-between items-center p-2 rounded-lg border border-slate-100">
+                      <div key={index} className="flex justify-between items-center p-2 rounded-lg border border-border">
                         <div className="flex items-center">
                           <div className={`w-8 h-8 rounded-md ${team.color} flex items-center justify-center text-white text-xs font-bold mr-3`}>
                             {team.abbr}
@@ -507,7 +506,7 @@ const Standings = () => {
                             {team.name}
                           </span>
                         </div>
-                        <div className="px-3 py-1 rounded-full bg-slate-100 text-sm font-medium text-hockey-slate">
+                        <div className="px-3 py-1 rounded-full bg-card text-sm font-medium text-hockey-slate">
                           {20 - team.record.wins - team.record.losses - team.record.ties} games
                         </div>
                       </div>

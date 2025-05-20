@@ -5,6 +5,8 @@ import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { useState } from "react";
 import { ThemeProvider } from "next-themes";
+import { AuthProvider } from "@/contexts/AuthContext";
+import { ProtectedRoute } from "@/components/auth/ProtectedRoute";
 import Index from "./pages/Index";
 import NotFound from "./pages/NotFound";
 import Roster from "./pages/Roster";
@@ -13,6 +15,7 @@ import Matchup from "./pages/Matchup";
 import Standings from "./pages/Standings";
 import Settings from "./pages/Settings";
 import Countries from "./pages/Countries";
+import Login from "./pages/Login";
 import Layout from "./components/layout/Layout";
 import MobileNav from "./components/layout/MobileNav";
 
@@ -28,28 +31,116 @@ const App = () => {
   return (
     <ThemeProvider attribute="class" defaultTheme="system" enableSystem>
       <QueryClientProvider client={queryClient}>
-        <TooltipProvider>
-          <Toaster />
-          <Sonner />
-          <BrowserRouter future={{ v7_startTransition: true }}>
-            <Layout>
+        <AuthProvider>
+          <TooltipProvider>
+            <Toaster />
+            <Sonner />
+            <BrowserRouter future={{ v7_startTransition: true }}>
               <Routes>
-                <Route path="/" element={<Index />} />
-                <Route path="/roster" element={<Roster />} />
-                <Route path="/players" element={<Players />} />
-                <Route path="/matchup" element={<Matchup />} />
-                <Route path="/standings" element={<Standings />} />
-                <Route path="/settings" element={<Settings />} />
-                <Route path="/countries" element={<Countries />} />
+                <Route path="/login" element={<Login />} />
+                <Route
+                  path="/"
+                  element={
+                    <ProtectedRoute>
+                      <Layout>
+                        <Index />
+                        <MobileNav
+                          isOpen={mobileNavOpen}
+                          onClose={() => setMobileNavOpen(false)}
+                        />
+                      </Layout>
+                    </ProtectedRoute>
+                  }
+                />
+                <Route
+                  path="/roster"
+                  element={
+                    <ProtectedRoute>
+                      <Layout>
+                        <Roster />
+                        <MobileNav
+                          isOpen={mobileNavOpen}
+                          onClose={() => setMobileNavOpen(false)}
+                        />
+                      </Layout>
+                    </ProtectedRoute>
+                  }
+                />
+                <Route
+                  path="/players"
+                  element={
+                    <ProtectedRoute>
+                      <Layout>
+                        <Players />
+                        <MobileNav
+                          isOpen={mobileNavOpen}
+                          onClose={() => setMobileNavOpen(false)}
+                        />
+                      </Layout>
+                    </ProtectedRoute>
+                  }
+                />
+                <Route
+                  path="/matchup"
+                  element={
+                    <ProtectedRoute>
+                      <Layout>
+                        <Matchup />
+                        <MobileNav
+                          isOpen={mobileNavOpen}
+                          onClose={() => setMobileNavOpen(false)}
+                        />
+                      </Layout>
+                    </ProtectedRoute>
+                  }
+                />
+                <Route
+                  path="/standings"
+                  element={
+                    <ProtectedRoute>
+                      <Layout>
+                        <Standings />
+                        <MobileNav
+                          isOpen={mobileNavOpen}
+                          onClose={() => setMobileNavOpen(false)}
+                        />
+                      </Layout>
+                    </ProtectedRoute>
+                  }
+                />
+                <Route
+                  path="/settings"
+                  element={
+                    <ProtectedRoute>
+                      <Layout>
+                        <Settings />
+                        <MobileNav
+                          isOpen={mobileNavOpen}
+                          onClose={() => setMobileNavOpen(false)}
+                        />
+                      </Layout>
+                    </ProtectedRoute>
+                  }
+                />
+                <Route
+                  path="/countries"
+                  element={
+                    <ProtectedRoute>
+                      <Layout>
+                        <Countries />
+                        <MobileNav
+                          isOpen={mobileNavOpen}
+                          onClose={() => setMobileNavOpen(false)}
+                        />
+                      </Layout>
+                    </ProtectedRoute>
+                  }
+                />
                 <Route path="*" element={<NotFound />} />
               </Routes>
-              <MobileNav
-                isOpen={mobileNavOpen}
-                onClose={() => setMobileNavOpen(false)}
-              />
-            </Layout>
-          </BrowserRouter>
-        </TooltipProvider>
+            </BrowserRouter>
+          </TooltipProvider>
+        </AuthProvider>
       </QueryClientProvider>
     </ThemeProvider>
   );

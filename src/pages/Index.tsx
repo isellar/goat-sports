@@ -21,10 +21,10 @@ const Index = () => {
         <span className="text-sm font-medium text-hockey-blue">
           League Dashboard
         </span>
-        <h1 className="text-3xl sm:text-4xl font-display font-bold text-hockey-slate dark:text-hockey-ice">
+        <h1 className="text-3xl sm:text-4xl font-display font-bold text-foreground">
           RDHL
         </h1>
-        <p className="text-hockey-light-slate max-w-2xl">
+        <p className="text-muted-foreground max-w-2xl">
           Welcome to your fantasy hockey league dashboard. View your team stats,
           upcoming matchups, and league standings.
         </p>
@@ -72,18 +72,17 @@ const Index = () => {
           <DashboardCard
             title="Current Matchup"
             icon={<CalendarClock size={20} />}
-            variant="ice"
           >
             <div className="flex flex-col sm:flex-row justify-between items-center gap-6 p-3">
               <div className="flex flex-col items-center text-center">
                 <div className="w-16 h-16 rounded-full bg-hockey-blue flex items-center justify-center mb-2">
                   <span className="text-2xl font-bold text-white">IC</span>
                 </div>
-                <h4 className="font-semibold text-hockey-slate">
+                <h4 className="font-semibold text-card-foreground">
                   Ice Crushers
                 </h4>
-                <p className="text-sm text-hockey-light-slate">Your Team</p>
-                <div className="mt-2 text-2xl font-bold text-hockey-slate">
+                <p className="text-sm text-muted-foreground">Your Team</p>
+                <div className="mt-2 text-2xl font-bold text-card-foreground">
                   126
                 </div>
               </div>
@@ -104,11 +103,11 @@ const Index = () => {
                 <div className="w-16 h-16 rounded-full bg-hockey-red flex items-center justify-center mb-2">
                   <span className="text-2xl font-bold text-white">FB</span>
                 </div>
-                <h4 className="font-semibold text-hockey-slate">
+                <h4 className="font-semibold text-card-foreground">
                   Frozen Blades
                 </h4>
-                <p className="text-sm text-hockey-light-slate">John's Team</p>
-                <div className="mt-2 text-2xl font-bold text-hockey-slate">
+                <p className="text-sm text-muted-foreground">John's Team</p>
+                <div className="mt-2 text-2xl font-bold text-card-foreground">
                   98
                 </div>
               </div>
@@ -175,7 +174,7 @@ const Index = () => {
             icon={<CalendarClock size={20} />}
           >
             <div className="space-y-3">
-              <div className="p-3 rounded-lg border border-slate-200 bg-white">
+              <div className="p-3 rounded-lg border border-border bg-card">
                 <div className="flex justify-between items-center">
                   <div className="text-hockey-blue font-medium">Week 13</div>
                   <div className="text-xs text-hockey-light-slate">
@@ -193,7 +192,7 @@ const Index = () => {
                 </div>
               </div>
 
-              <div className="p-3 rounded-lg border border-slate-200 bg-white">
+              <div className="p-3 rounded-lg border border-border bg-card">
                 <div className="flex justify-between items-center">
                   <div className="text-hockey-blue font-medium">Week 14</div>
                   <div className="text-xs text-hockey-light-slate">
@@ -211,7 +210,7 @@ const Index = () => {
                 </div>
               </div>
 
-              <div className="p-3 rounded-lg border border-slate-200 bg-white">
+              <div className="p-3 rounded-lg border border-border bg-card">
                 <div className="flex justify-between items-center">
                   <div className="text-hockey-blue font-medium">Week 15</div>
                   <div className="text-xs text-hockey-light-slate">
@@ -232,9 +231,12 @@ const Index = () => {
           </DashboardCard>
 
           {/* Notifications */}
-          <DashboardCard title="Notifications" icon={<BellRing size={20} />}>
+          <DashboardCard
+            title="Notifications"
+            icon={<BellRing size={20} />}
+          >
             <div className="space-y-3">
-              <div className="p-3 rounded-lg border border-slate-200 bg-white">
+              <div className="p-3 rounded-lg border border-border bg-card">
                 <div className="flex items-start gap-3">
                   <div className="p-1.5 rounded-lg bg-amber-100 text-amber-600">
                     <ShieldAlert size={16} />
@@ -253,7 +255,7 @@ const Index = () => {
                 </div>
               </div>
 
-              <div className="p-3 rounded-lg border border-slate-200 bg-white">
+              <div className="p-3 rounded-lg border border-border bg-card">
                 <div className="flex items-start gap-3">
                   <div className="p-1.5 rounded-lg bg-blue-100 text-blue-600">
                     <TrendingUp size={16} />

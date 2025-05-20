@@ -1,4 +1,3 @@
-
 import React from 'react';
 import { Search } from 'lucide-react';
 
@@ -17,7 +16,7 @@ const RosterSearch: React.FC<RosterSearchProps> = ({
       <input
         type="text"
         placeholder="Search by player name, team, or position..."
-        className="w-full pl-10 pr-4 py-2.5 rounded-lg border border-slate-200 text-hockey-slate bg-white dark:bg-hockey-slate/40 dark:border-hockey-slate/60 dark:text-hockey-ice focus:outline-none focus:ring-2 focus:ring-hockey-blue/20 focus:border-hockey-blue/30"
+        className="w-full pl-10 pr-4 py-2.5 rounded-lg border border-border text-card-foreground bg-card focus:outline-none focus:ring-2 focus:ring-hockey-blue/20 focus:border-hockey-blue/30"
         value={searchTerm}
         onChange={(e) => setSearchTerm(e.target.value)}
       />

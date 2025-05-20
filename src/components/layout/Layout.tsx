@@ -1,4 +1,3 @@
-
 import React from 'react';
 import { useLocation } from 'react-router-dom';
 import Navbar from './Navbar';
@@ -30,13 +29,13 @@ const Layout: React.FC<LayoutProps> = ({ children }) => {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-b from-hockey-ice to-white dark:from-hockey-slate/90 dark:to-hockey-slate">
+    <div className="min-h-screen flex flex-col bg-background text-foreground">
       <Navbar />
-      <main className={`pt-24 pb-16 px-4 md:px-6 container mx-auto ${getAnimationClass()}`}>
+      <main className={`flex-1 pt-24 pb-16 px-4 md:px-6 container mx-auto ${getAnimationClass()}`}>
         {children}
       </main>
-      <footer className="py-6 border-t border-slate-200 bg-white/70 backdrop-blur-sm dark:bg-hockey-slate/70 dark:border-hockey-slate/50 dark:text-hockey-ice/80">
-        <div className="container mx-auto px-4 md:px-6 text-center text-sm text-hockey-light-slate dark:text-hockey-ice/60">
+      <footer className="py-6 border-t border-border bg-background/80 backdrop-blur-sm text-center text-sm">
+        <div className="container mx-auto px-4 md:px-6">
           <p>© {new Date().getFullYear()} Goat Sports. All rights reserved.</p>
         </div>
       </footer>

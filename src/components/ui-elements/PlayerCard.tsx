@@ -1,5 +1,4 @@
-
-import React from 'react';
+import React, { useState } from 'react';
 import { cn } from '@/lib/utils';
 
 interface PlayerStats {
@@ -39,6 +38,32 @@ interface PlayerCardProps {
   nextStart?: string | null;
 }
 
+// Add a simple AnimatedNumber component for stat animation
+const AnimatedNumber = ({ value }: { value: number }) => {
+  const [display, setDisplay] = useState(value);
+  React.useEffect(() => {
+    let frame: number;
+    const start = display;
+    const end = value;
+    const duration = 400;
+    let startTime: number | null = null;
+    const animate = (timestamp: number) => {
+      if (!startTime) startTime = timestamp;
+      const progress = Math.min((timestamp - startTime) / duration, 1);
+      setDisplay(start + (end - start) * progress);
+      if (progress < 1) {
+        frame = requestAnimationFrame(animate);
+      } else {
+        setDisplay(end);
+      }
+    };
+    frame = requestAnimationFrame(animate);
+    return () => cancelAnimationFrame(frame);
+    // eslint-disable-next-line
+  }, [value]);
+  return <span>{display.toFixed(1)}</span>;
+};
+
 const PlayerCard: React.FC<PlayerCardProps> = ({
   name,
   team,
@@ -61,50 +86,62 @@ const PlayerCard: React.FC<PlayerCardProps> = ({
     out: 'bg-red-500',
   };
 
-  const positionColors = {
-    'C': 'text-blue-600 border-blue-200',
-    'LW': 'text-green-600 border-green-200',
-    'RW': 'text-green-600 border-green-200',
-    'D': 'text-red-600 border-red-200',
-    'G': 'text-purple-600 border-purple-200',
+  // Status tooltip helper
+  const statusLabels = {
+    healthy: 'Healthy',
+    questionable: 'Questionable',
+    injured: 'Injured',
+    out: 'Out',
   };
 
-  // Determine position color
-  const getPositionColor = () => {
-    for (const [pos, color] of Object.entries(positionColors)) {
+  const positionBadgeColors = {
+    'LW': 'bg-green-500 text-white shadow-green-400/40',
+    'RW': 'bg-blue-500 text-white shadow-blue-400/40',
+    'C': 'bg-red-500 text-white shadow-red-400/40',
+    'D': 'bg-teal-500 text-white shadow-teal-400/40',
+    'G': 'bg-purple-500 text-white shadow-purple-400/40',
+  };
+  const getPositionBadgeColor = () => {
+    for (const [pos, color] of Object.entries(positionBadgeColors)) {
       if (position.includes(pos)) {
         return color;
       }
     }
-    return 'text-gray-600 border-gray-200';
+    return 'bg-muted text-card-foreground';
   };
 
   if (compact) {
     return (
-      <div className={cn("flex items-center p-3 rounded-lg bg-white border border-slate-200 shadow-sm hover:shadow transition-shadow", className)}>
-        <div className="w-10 h-10 rounded-full bg-hockey-ice/50 flex items-center justify-center mr-3 overflow-hidden">
+      <div className={cn(
+        "flex items-center p-3 rounded-lg bg-card text-card-foreground border border-border shadow-sm hover:scale-[1.025] hover:shadow-lg hover:border-hockey-blue/60 transition-transform duration-200 relative overflow-hidden",
+        className
+      )}>
+        {/* Ice pattern overlay */}
+        <svg className="absolute inset-0 w-full h-full pointer-events-none opacity-10" viewBox="0 0 100 100" fill="none"><defs><pattern id="ice" width="20" height="20" patternUnits="userSpaceOnUse"><path d="M0 0L20 20ZM20 0L0 20Z" stroke="#38BDF8" strokeWidth="0.5"/></pattern></defs><rect width="100" height="100" fill="url(#ice)" /></svg>
+        <div className="w-10 h-10 rounded-full bg-muted flex items-center justify-center mr-3 overflow-hidden relative">
           {image ? (
             <img src={image} alt={name} className="w-full h-full object-cover" />
           ) : (
-            <span className="text-hockey-blue font-semibold">{name.charAt(0)}</span>
+            <span className="font-bold text-hockey-blue text-lg">{name.charAt(0)}</span>
           )}
+          {/* Status dot with tooltip */}
+          <div className="absolute -bottom-1 -right-1 group">
+            <span className={cn("block w-3 h-3 rounded-full border-2 border-card", statusColors[status])}></span>
+            <span className="absolute left-1/2 -translate-x-1/2 mt-2 px-2 py-1 rounded bg-card text-xs text-card-foreground opacity-0 group-hover:opacity-100 pointer-events-none transition-opacity whitespace-nowrap z-10 shadow-lg">{statusLabels[status]}</span>
+          </div>
         </div>
         <div className="flex-1">
           <div className="flex items-center gap-2">
-            <h3 className="font-medium text-hockey-slate">{name}</h3>
-            <div className={cn("h-2 w-2 rounded-full", statusColors[status])} title={status}></div>
-            {nextStart && position === 'G' && (
-              <span className="text-xs text-green-600 font-medium">Starting</span>
-            )}
+            <h3 className="font-medium">{name}</h3>
           </div>
-          <div className="flex items-center text-xs text-hockey-light-slate">
-            <span className={cn("px-1.5 py-0.5 rounded border", getPositionColor())}>{position}</span>
-            <span className="mx-1.5">•</span>
-            <span>{team}</span>
+          <div className="flex items-center text-xs">
+            <span className={cn("px-1.5 py-0.5 rounded font-bold shadow-md ring-2 ring-white/30 dark:ring-black/30", getPositionBadgeColor())}>{position}</span>
+            <span className="mx-1.5 text-muted-foreground">•</span>
+            <span className="text-muted-foreground">{team}</span>
             {owner && !available && (
               <>
-                <span className="mx-1.5">•</span>
-                <span className="text-hockey-light-slate">{owner}</span>
+                <span className="mx-1.5 text-muted-foreground">•</span>
+                <span className="text-muted-foreground">{owner}</span>
               </>
             )}
           </div>
@@ -113,15 +150,19 @@ const PlayerCard: React.FC<PlayerCardProps> = ({
           <div className="text-right">
             {position !== 'G' ? (
               <>
-                <div className="text-sm font-semibold text-hockey-slate">{stats.points} pts</div>
-                <div className="text-xs text-hockey-light-slate">
+                <div className="text-sm font-semibold text-card-foreground">
+                  <AnimatedNumber value={Number(stats.points)} /> pts
+                </div>
+                <div className="text-xs text-muted-foreground">
                   {stats.goals || 0}G, {stats.assists || 0}A
                 </div>
               </>
             ) : (
               <>
-                <div className="text-sm font-semibold text-hockey-slate">{stats.wins}-{stats.losses}-0</div>
-                <div className="text-xs text-hockey-light-slate">
+                <div className="text-sm font-semibold text-card-foreground">
+                  <AnimatedNumber value={Number(stats.wins)} />-{stats.losses}-0
+                </div>
+                <div className="text-xs text-muted-foreground">
                   {stats.savePercentage ? (stats.savePercentage.toFixed(3)).toString().substring(1) : '.000'} SV%
                 </div>
               </>
@@ -136,7 +177,7 @@ const PlayerCard: React.FC<PlayerCardProps> = ({
   }
 
   return (
-    <div className={cn("rounded-xl bg-white border border-slate-200 shadow-sm overflow-hidden hover-card", className)}>
+    <div className={cn("rounded-xl bg-card text-card-foreground border border-border shadow-sm overflow-hidden hover-card", className)}>
       <div className="p-4">
         <div className="flex items-start justify-between">
           <div className="flex items-center">
@@ -144,17 +185,17 @@ const PlayerCard: React.FC<PlayerCardProps> = ({
               {image ? (
                 <img src={image} alt={name} className="w-full h-full object-cover" />
               ) : (
-                <span className="text-2xl text-hockey-blue font-semibold">{name.charAt(0)}</span>
+                <span className="font-bold text-hockey-blue text-lg">{name.charAt(0)}</span>
               )}
             </div>
             <div>
-              <h3 className="text-xl font-medium text-hockey-slate flex items-center gap-2">
+              <h3 className="text-xl font-medium flex items-center gap-2">
                 {name}
                 {number && <span className="text-sm text-hockey-light-slate">#{number}</span>}
                 <div className={cn("ml-2 h-2.5 w-2.5 rounded-full", statusColors[status])} title={status}></div>
               </h3>
               <div className="flex items-center gap-3 mt-1 text-sm text-hockey-light-slate">
-                <span className={cn("px-2 py-0.5 rounded-md border", getPositionColor())}>{position}</span>
+                <span className={cn("px-2 py-0.5 rounded-md border", getPositionBadgeColor())}>{position}</span>
                 <span>{team}</span>
                 {owner && !available && (
                   <span className="text-hockey-light-slate">Owned by: {owner}</span>

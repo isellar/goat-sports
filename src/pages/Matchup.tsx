@@ -1,4 +1,3 @@
-
 import React, { useState } from 'react';
 import { CalendarClock, ChevronLeft, ChevronRight, Info, Users, BarChart3, Trophy } from 'lucide-react';
 import { Card } from '@/components/ui/card';
@@ -139,22 +138,22 @@ const Matchup = () => {
     <div className="space-y-8">
       <div className="flex flex-col gap-2">
         <span className="text-sm font-medium text-hockey-blue">Weekly Matchup</span>
-        <h1 className="text-3xl sm:text-4xl font-display font-bold text-hockey-slate">Week 12</h1>
-        <p className="text-hockey-light-slate max-w-2xl">
+        <h1 className="text-3xl sm:text-4xl font-display font-bold text-foreground">Week 12</h1>
+        <p className="text-muted-foreground max-w-2xl">
           View your fantasy points matchup and daily performance.
         </p>
       </div>
 
       {/* Matchup Overview */}
-      <div className="ice-panel rounded-xl p-5 md:p-8">
+      <div className="bg-card rounded-xl p-5 md:p-8 border border-border">
         <div className="flex flex-col md:flex-row justify-between items-center gap-8">
           <div className="text-center">
             <div className={`w-20 h-20 rounded-xl bg-${team1.color} mx-auto flex items-center justify-center mb-3`}>
               <span className="text-3xl font-bold text-white">{team1.abbr}</span>
             </div>
-            <h2 className="text-2xl font-display font-semibold text-hockey-slate">{team1.name}</h2>
-            <p className="text-sm text-hockey-light-slate">{team1.owner}</p>
-            <div className="mt-3 text-3xl font-bold text-hockey-slate">{currentTotals.team1.toFixed(1)}</div>
+            <h2 className="text-2xl font-display font-semibold text-card-foreground">{team1.name}</h2>
+            <p className="text-sm text-muted-foreground">{team1.owner}</p>
+            <div className="mt-3 text-3xl font-bold text-card-foreground">{currentTotals.team1.toFixed(1)}</div>
             
             <div className="mt-4 space-y-1">
               <div className="flex items-center justify-center gap-2">
@@ -213,9 +212,9 @@ const Matchup = () => {
             <div className={`w-20 h-20 rounded-xl bg-${team2.color} mx-auto flex items-center justify-center mb-3`}>
               <span className="text-3xl font-bold text-white">{team2.abbr}</span>
             </div>
-            <h2 className="text-2xl font-display font-semibold text-hockey-slate">{team2.name}</h2>
-            <p className="text-sm text-hockey-light-slate">{team2.owner}</p>
-            <div className="mt-3 text-3xl font-bold text-hockey-slate">{currentTotals.team2.toFixed(1)}</div>
+            <h2 className="text-2xl font-display font-semibold text-card-foreground">{team2.name}</h2>
+            <p className="text-sm text-muted-foreground">{team2.owner}</p>
+            <div className="mt-3 text-3xl font-bold text-card-foreground">{currentTotals.team2.toFixed(1)}</div>
             
             <div className="mt-4 space-y-1">
               <div className="flex items-center justify-center gap-2">
@@ -347,9 +346,9 @@ const Matchup = () => {
         
         <TabsContent value="dailyStats">
           <div className="space-y-6">
-            <div className="glass-panel rounded-xl overflow-hidden">
-              <div className="px-5 py-4 border-b border-slate-200/50 flex items-center justify-between">
-                <h3 className="font-semibold text-hockey-slate font-display">Daily Points</h3>
+            <div className="bg-card rounded-xl overflow-hidden border border-border">
+              <div className="px-5 py-4 border-b border-border flex items-center justify-between">
+                <h3 className="font-semibold font-display">Daily Points</h3>
                 <CalendarClock size={18} className="text-hockey-light-blue" />
               </div>
               <div className="p-5">
@@ -357,12 +356,10 @@ const Matchup = () => {
                   {dailyScores.map((day, index) => (
                     <div 
                       key={index} 
-                      className={`p-3 rounded-lg border ${currentDay === day.day ? 'border-hockey-blue bg-hockey-blue/5' : 'border-slate-200 bg-white'}`}
+                      className={`p-3 rounded-lg border ${currentDay === day.day ? 'border-hockey-blue bg-hockey-blue/5' : 'border-border bg-card'}`}
                     >
                       <div className="flex justify-between items-center">
-                        <div className={`text-sm font-medium ${currentDay === day.day ? 'text-hockey-blue' : 'text-hockey-slate'}`}>
-                          {day.date}
-                        </div>
+                        <div className={`text-sm font-medium ${currentDay === day.day ? 'text-hockey-blue' : 'text-card-foreground'}`}>{day.date}</div>
                         <div className="text-xs text-hockey-light-slate">Day {day.day}</div>
                       </div>
                       <div className="mt-3 flex justify-between items-center">
@@ -386,9 +383,9 @@ const Matchup = () => {
               </div>
             </div>
             
-            <div className="glass-panel rounded-xl overflow-hidden">
-              <div className="px-5 py-4 border-b border-slate-200/50 flex items-center justify-between">
-                <h3 className="font-semibold text-hockey-slate font-display">Cumulative Score</h3>
+            <div className="bg-card rounded-xl overflow-hidden border border-border">
+              <div className="px-5 py-4 border-b border-border flex items-center justify-between">
+                <h3 className="font-semibold font-display">Cumulative Score</h3>
                 <BarChart3 size={18} className="text-hockey-light-blue" />
               </div>
               <div className="p-5">
