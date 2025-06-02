@@ -18,6 +18,7 @@ import Countries from "./pages/Countries";
 import Login from "./pages/Login";
 import Layout from "./components/layout/Layout";
 import MobileNav from "./components/layout/MobileNav";
+import Draft from "./pages/PlayerDraft";
 
 const queryClient = new QueryClient();
 
@@ -128,6 +129,20 @@ const App = () => {
                     <ProtectedRoute>
                       <Layout>
                         <Countries />
+                        <MobileNav
+                          isOpen={mobileNavOpen}
+                          onClose={() => setMobileNavOpen(false)}
+                        />
+                      </Layout>
+                    </ProtectedRoute>
+                  }
+                />
+                <Route
+                  path="/draft"
+                  element={
+                    <ProtectedRoute>
+                      <Layout>
+                        <Draft draftId={1} />
                         <MobileNav
                           isOpen={mobileNavOpen}
                           onClose={() => setMobileNavOpen(false)}
