@@ -8,6 +8,10 @@ import {
   TrendingUp,
   ShieldAlert,
   BellRing,
+  UserPlus,
+  ArrowRightLeft,
+  AlertTriangle,
+  Gavel,
 } from "lucide-react";
 import DashboardCard from "@/components/dashboard/DashboardCard";
 import StatItem from "@/components/dashboard/StatItem";
@@ -64,6 +68,46 @@ const Index = () => {
           className="p-4 glass-panel rounded-xl"
         />
       </div>
+
+      {/* Quick Actions */}
+      <DashboardCard title="Quick Actions" icon={<ArrowRight size={20} />}>
+        <div className="grid grid-cols-2 md:grid-cols-4 gap-3">
+          <Link
+            to="/players"
+            className="p-3 rounded-lg border border-border bg-card hover:bg-accent transition-colors text-center"
+          >
+            <UserPlus size={20} className="mx-auto mb-2 text-hockey-blue" />
+            <span className="text-sm font-medium">Add Player</span>
+          </Link>
+          <Link
+            to="/trades"
+            className="p-3 rounded-lg border border-border bg-card hover:bg-accent transition-colors text-center"
+          >
+            <ArrowRightLeft
+              size={20}
+              className="mx-auto mb-2 text-hockey-blue"
+            />
+            <span className="text-sm font-medium">Propose Trade</span>
+          </Link>
+          <Link
+            to="/waivers"
+            className="p-3 rounded-lg border border-border bg-card hover:bg-accent transition-colors text-center"
+          >
+            <AlertTriangle
+              size={20}
+              className="mx-auto mb-2 text-hockey-blue"
+            />
+            <span className="text-sm font-medium">View Waivers</span>
+          </Link>
+          <Link
+            to="/league"
+            className="p-3 rounded-lg border border-border bg-card hover:bg-accent transition-colors text-center"
+          >
+            <Gavel size={20} className="mx-auto mb-2 text-hockey-blue" />
+            <span className="text-sm font-medium">League Votes</span>
+          </Link>
+        </div>
+      </DashboardCard>
 
       {/* Main Dashboard Content */}
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
@@ -231,10 +275,7 @@ const Index = () => {
           </DashboardCard>
 
           {/* Notifications */}
-          <DashboardCard
-            title="Notifications"
-            icon={<BellRing size={20} />}
-          >
+          <DashboardCard title="Notifications" icon={<BellRing size={20} />}>
             <div className="space-y-3">
               <div className="p-3 rounded-lg border border-border bg-card">
                 <div className="flex items-start gap-3">

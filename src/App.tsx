@@ -19,6 +19,10 @@ import Login from "./pages/Login";
 import Layout from "./components/layout/Layout";
 import MobileNav from "./components/layout/MobileNav";
 import Draft from "./pages/PlayerDraft";
+import Trades from "./pages/Trades";
+import Waivers from "./pages/Waivers";
+import Transactions from "./pages/Transactions";
+import League from "./pages/League";
 
 const queryClient = new QueryClient();
 
@@ -143,6 +147,62 @@ const App = () => {
                     <ProtectedRoute>
                       <Layout>
                         <Draft draftId={1} />
+                        <MobileNav
+                          isOpen={mobileNavOpen}
+                          onClose={() => setMobileNavOpen(false)}
+                        />
+                      </Layout>
+                    </ProtectedRoute>
+                  }
+                />
+                <Route
+                  path="/trades"
+                  element={
+                    <ProtectedRoute>
+                      <Layout>
+                        <Trades />
+                        <MobileNav
+                          isOpen={mobileNavOpen}
+                          onClose={() => setMobileNavOpen(false)}
+                        />
+                      </Layout>
+                    </ProtectedRoute>
+                  }
+                />
+                <Route
+                  path="/waivers"
+                  element={
+                    <ProtectedRoute>
+                      <Layout>
+                        <Waivers />
+                        <MobileNav
+                          isOpen={mobileNavOpen}
+                          onClose={() => setMobileNavOpen(false)}
+                        />
+                      </Layout>
+                    </ProtectedRoute>
+                  }
+                />
+                <Route
+                  path="/transactions"
+                  element={
+                    <ProtectedRoute>
+                      <Layout>
+                        <Transactions />
+                        <MobileNav
+                          isOpen={mobileNavOpen}
+                          onClose={() => setMobileNavOpen(false)}
+                        />
+                      </Layout>
+                    </ProtectedRoute>
+                  }
+                />
+                <Route
+                  path="/league"
+                  element={
+                    <ProtectedRoute>
+                      <Layout>
+                        <League />
                         <MobileNav
                           isOpen={mobileNavOpen}
                           onClose={() => setMobileNavOpen(false)}

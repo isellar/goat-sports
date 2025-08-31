@@ -1,8 +1,29 @@
-import React from "react";
+import React, { useState } from "react";
 import { NavLink } from "react-router-dom";
-import { Trophy, Users, CalendarDays, BarChart2, Settings } from "lucide-react";
+import {
+  Trophy,
+  Users,
+  CalendarDays,
+  BarChart2,
+  Settings,
+  UserPlus,
+  ArrowRightLeft,
+  AlertTriangle,
+  FileText,
+  Gavel,
+  ChevronDown,
+  MoreHorizontal,
+} from "lucide-react";
 import { cn } from "@/lib/utils";
 import ThemeToggle from "./ThemeToggle";
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuTrigger,
+  DropdownMenuSeparator,
+} from "@/components/ui/dropdown-menu";
+import { Button } from "@/components/ui/button";
 
 const NavItem = ({
   to,
@@ -17,17 +38,37 @@ const NavItem = ({
     to={to}
     className={({ isActive }) =>
       cn(
-        "flex items-center gap-3 px-4 py-3 rounded-lg transition-all duration-200",
+        "flex items-center gap-2 px-3 py-2 rounded-lg transition-all duration-200 text-sm font-medium",
         "hover:bg-hockey-blue/10 hover:text-hockey-blue dark:hover:bg-hockey-blue/20",
         isActive
-          ? "bg-hockey-blue/10 text-hockey-blue font-medium dark:bg-hockey-blue/20"
+          ? "bg-hockey-blue/10 text-hockey-blue dark:bg-hockey-blue/20"
           : "text-hockey-slate dark:text-hockey-ice"
       )
     }
   >
-    <Icon size={20} className="flex-shrink-0" />
+    <Icon size={16} className="flex-shrink-0" />
     <span>{label}</span>
   </NavLink>
+);
+
+const DropdownNavItem = ({
+  to,
+  icon: Icon,
+  label,
+}: {
+  to: string;
+  icon: React.ElementType;
+  label: string;
+}) => (
+  <DropdownMenuItem asChild>
+    <NavLink
+      to={to}
+      className="flex items-center gap-2 w-full px-2 py-2 text-sm cursor-pointer"
+    >
+      <Icon size={16} className="flex-shrink-0" />
+      <span>{label}</span>
+    </NavLink>
+  </DropdownMenuItem>
 );
 
 const Navbar = () => {
@@ -48,9 +89,66 @@ const Navbar = () => {
         <nav className="hidden md:flex items-center space-x-1">
           <NavItem to="/" icon={BarChart2} label="Dashboard" />
           <NavItem to="/roster" icon={Users} label="Roster" />
+          <NavItem to="/players" icon={UserPlus} label="Players" />
+
+          {/* Team Management Dropdown */}
+          <DropdownMenu>
+            <DropdownMenuTrigger asChild>
+              <Button
+                variant="ghost"
+                size="sm"
+                className="flex items-center gap-2 px-3 py-2 text-sm font-medium text-hockey-slate dark:text-hockey-ice hover:bg-hockey-blue/10 hover:text-hockey-blue"
+              >
+                <ArrowRightLeft size={16} />
+                <span>Manage</span>
+                <ChevronDown size={12} />
+              </Button>
+            </DropdownMenuTrigger>
+            <DropdownMenuContent align="start" className="w-48">
+              <DropdownNavItem
+                to="/trades"
+                icon={ArrowRightLeft}
+                label="Trades"
+              />
+              <DropdownNavItem
+                to="/waivers"
+                icon={AlertTriangle}
+                label="Waivers"
+              />
+              <DropdownNavItem
+                to="/transactions"
+                icon={FileText}
+                label="Transactions"
+              />
+              <DropdownMenuSeparator />
+              <DropdownNavItem to="/draft" icon={Trophy} label="Draft" />
+            </DropdownMenuContent>
+          </DropdownMenu>
+
           <NavItem to="/matchup" icon={CalendarDays} label="Matchup" />
           <NavItem to="/standings" icon={Trophy} label="Standings" />
-          <NavItem to="/settings" icon={Settings} label="Settings" />
+
+          {/* More Menu Dropdown */}
+          <DropdownMenu>
+            <DropdownMenuTrigger asChild>
+              <Button
+                variant="ghost"
+                size="sm"
+                className="flex items-center gap-2 px-3 py-2 text-sm font-medium text-hockey-slate dark:text-hockey-ice hover:bg-hockey-blue/10 hover:text-hockey-blue"
+              >
+                <MoreHorizontal size={16} />
+              </Button>
+            </DropdownMenuTrigger>
+            <DropdownMenuContent align="end" className="w-48">
+              <DropdownNavItem to="/league" icon={Gavel} label="League" />
+              <DropdownMenuSeparator />
+              <DropdownNavItem
+                to="/settings"
+                icon={Settings}
+                label="Settings"
+              />
+            </DropdownMenuContent>
+          </DropdownMenu>
         </nav>
 
         <div className="flex items-center gap-4">

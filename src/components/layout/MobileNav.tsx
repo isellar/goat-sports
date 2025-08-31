@@ -1,34 +1,47 @@
-
-import React, { useState } from 'react';
-import { NavLink } from 'react-router-dom';
-import { X, Trophy, Users, CalendarDays, BarChart2, Settings } from 'lucide-react';
-import { cn } from '@/lib/utils';
+import React, { useState } from "react";
+import { NavLink } from "react-router-dom";
+import {
+  X,
+  Trophy,
+  Users,
+  CalendarDays,
+  BarChart2,
+  Settings,
+  UserPlus,
+  ArrowRightLeft,
+  AlertTriangle,
+  FileText,
+  Gavel,
+} from "lucide-react";
+import { cn } from "@/lib/utils";
 
 interface MobileNavProps {
   isOpen: boolean;
   onClose: () => void;
 }
 
-const NavItem = ({ 
-  to, 
-  icon: Icon, 
+const NavItem = ({
+  to,
+  icon: Icon,
   label,
-  onClick 
-}: { 
-  to: string; 
-  icon: React.ElementType; 
+  onClick,
+}: {
+  to: string;
+  icon: React.ElementType;
   label: string;
   onClick: () => void;
 }) => (
   <NavLink
     to={to}
-    className={({ isActive }) => cn(
-      "flex items-center gap-3 px-4 py-3 rounded-lg transition-all duration-200",
-      "hover:bg-hockey-blue/10 hover:text-hockey-blue",
-      isActive 
-        ? "bg-hockey-blue/10 text-hockey-blue font-medium" 
-        : "text-hockey-slate"
-    )}
+    className={({ isActive }) =>
+      cn(
+        "flex items-center gap-3 px-4 py-3 rounded-lg transition-all duration-200",
+        "hover:bg-hockey-blue/10 hover:text-hockey-blue",
+        isActive
+          ? "bg-hockey-blue/10 text-hockey-blue font-medium"
+          : "text-hockey-slate"
+      )
+    }
     onClick={onClick}
   >
     <Icon size={20} className="flex-shrink-0" />
@@ -47,19 +60,92 @@ const MobileNav: React.FC<MobileNavProps> = ({ isOpen, onClose }) => {
             <div className="w-8 h-8 rounded-md bg-gradient-to-br from-hockey-blue to-hockey-light-blue flex items-center justify-center">
               <Trophy size={18} className="text-white" />
             </div>
-            <span className="text-xl font-display font-semibold text-hockey-slate">FantasyHockey</span>
+            <span className="text-xl font-display font-semibold text-hockey-slate">
+              FantasyHockey
+            </span>
           </div>
-          <button onClick={onClose} className="p-2 rounded-full hover:bg-slate-100">
+          <button
+            onClick={onClose}
+            className="p-2 rounded-full hover:bg-slate-100"
+          >
             <X size={20} className="text-hockey-slate" />
           </button>
         </div>
-        
+
         <nav className="p-4 space-y-1">
-          <NavItem to="/" icon={BarChart2} label="Dashboard" onClick={onClose} />
+          {/* Core Navigation */}
+          <NavItem
+            to="/"
+            icon={BarChart2}
+            label="Dashboard"
+            onClick={onClose}
+          />
           <NavItem to="/roster" icon={Users} label="Roster" onClick={onClose} />
-          <NavItem to="/matchup" icon={CalendarDays} label="Matchup" onClick={onClose} />
-          <NavItem to="/standings" icon={Trophy} label="Standings" onClick={onClose} />
-          <NavItem to="/settings" icon={Settings} label="Settings" onClick={onClose} />
+          <NavItem
+            to="/players"
+            icon={UserPlus}
+            label="Players"
+            onClick={onClose}
+          />
+
+          {/* Team Management Section */}
+          <div className="pt-4 pb-2">
+            <div className="text-xs font-semibold text-hockey-light-slate uppercase tracking-wider px-2">
+              Team Management
+            </div>
+          </div>
+          <NavItem
+            to="/trades"
+            icon={ArrowRightLeft}
+            label="Trades"
+            onClick={onClose}
+          />
+          <NavItem
+            to="/waivers"
+            icon={AlertTriangle}
+            label="Waivers"
+            onClick={onClose}
+          />
+          <NavItem
+            to="/transactions"
+            icon={FileText}
+            label="Transactions"
+            onClick={onClose}
+          />
+          <NavItem to="/draft" icon={Trophy} label="Draft" onClick={onClose} />
+
+          {/* League & Competition Section */}
+          <div className="pt-4 pb-2">
+            <div className="text-xs font-semibold text-hockey-light-slate uppercase tracking-wider px-2">
+              League & Competition
+            </div>
+          </div>
+          <NavItem
+            to="/matchup"
+            icon={CalendarDays}
+            label="Matchup"
+            onClick={onClose}
+          />
+          <NavItem
+            to="/standings"
+            icon={Trophy}
+            label="Standings"
+            onClick={onClose}
+          />
+          <NavItem to="/league" icon={Gavel} label="League" onClick={onClose} />
+
+          {/* Settings Section */}
+          <div className="pt-4 pb-2">
+            <div className="text-xs font-semibold text-hockey-light-slate uppercase tracking-wider px-2">
+              Settings
+            </div>
+          </div>
+          <NavItem
+            to="/settings"
+            icon={Settings}
+            label="Settings"
+            onClick={onClose}
+          />
         </nav>
       </div>
     </div>
