@@ -1,0 +1,63 @@
+AI Team Playbook
+1. Product Manager (Vision → Backlog)
+Tools: Claude (Opus/Sonnet), ChatGPT (if available)
+Input: High-level goal (feature, product idea, bug report).
+Ask:
+Break this into epics → stories → tasks.
+Include acceptance criteria.
+Prioritize tasks (P0, P1, P2).
+Output: A backlog you can “hand down” to your engineer agents.
+Example prompt:
+“Act as my product manager. I want to add a login flow to my app. Break this into developer tasks with acceptance criteria and testing notes.”
+
+2. Tech Lead (Architecture & Scaffolding)
+Tools: Claude Code, ChatGPT, or Cursor in explain/planning mode
+Input: A chosen task from the PM.
+Ask:
+Suggest architecture / design patterns.
+Identify dependencies, risks, edge cases.
+Generate scaffolding (empty classes, functions, file layout).
+Output: Skeleton code + design notes.
+📝 Example prompt:
+“You’re the tech lead. For the login flow, propose file structure, outline classes/functions, and note security risks to address.”
+
+3. Engineer (Implementation)
+Tools: Jules (background async), Cursor (interactive pair programmer)
+Input: Scaffolding and task.
+Ask:
+Jules: “Generate implementation for this module and unit tests.”
+Cursor: Iterate interactively, fix errors, adapt output to the repo.
+Output: Working code + tests.
+
+
+📝 Example prompt for Jules:
+“Write the full implementation for auth_service.py using JWT-based sessions. Include error handling and at least 3 unit tests.”
+
+4. QA Engineer (Testing & Validation)
+Tools: Cursor, Claude, Bugbot (optional)
+Input: Implemented feature.
+Ask:
+
+
+Generate additional test cases (happy path, edge cases, failure modes).
+Run/debug tests.
+Suggest improvements to make code more robust.
+Output: Expanded test suite + QA notes.
+📝 Example prompt:
+“Act as QA. Generate edge-case tests for the login flow (expired token, malformed input, SQL injection attempt).”
+
+5. You (Director)
+Keep your focus on vision and integration:
+Make sure the PM → Tech Lead → Engineer → QA pipeline flows.
+Step in when agents stall or hallucinate.
+Decide priorities and when “good enough” is good enough.
+
+Workflow Checklist
+Define Vision → PM agent makes backlog.
+Choose a Task → Tech Lead agent plans architecture.
+Delegate Implementation → Engineer agent (Jules) builds it.
+Refine & Debug → Pair with Cursor to fix gaps.
+Run QA → Testing agent expands coverage.
+Review & Ship → You approve, integrate, move on.
+
+📌 Pro tip: Don’t try to automate the handoffs yet. Treat each role as a station you walk the task through. Later, when orchestration tools mature, you’ll just replace the manual steps with automated flows — but your management style will already be solid.
