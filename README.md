@@ -16,7 +16,7 @@ A next-generation fantasy sports platform built with modern web technologies, de
 ## Overview
 
 GOAT Sports is a fantasy sports platform that combines:
-- **Modern Architecture**: Next.js 14+, Drizzle ORM, TypeScript throughout
+- **Modern Architecture**: Next.js 15, Drizzle ORM, TypeScript throughout
 - **Advanced Analytics**: Insight-forward analytics and predictive modeling
 - **Social Features**: Community building, chat, forums, leaderboards
 - **Real-time Updates**: Live scoring, game updates, notifications
@@ -24,7 +24,7 @@ GOAT Sports is a fantasy sports platform that combines:
 
 ## Tech Stack Summary
 
-- **Frontend**: Next.js 14+ (App Router), React, TypeScript, Tailwind CSS, shadcn/ui
+- **Frontend**: Next.js 15 (App Router), React 18, TypeScript, Tailwind CSS, shadcn/ui
 - **Backend**: Next.js API Routes, Drizzle ORM
 - **Database**: PostgreSQL (via Supabase)
 - **Real-time**: Supabase real-time subscriptions
@@ -33,10 +33,73 @@ GOAT Sports is a fantasy sports platform that combines:
 
 ## Getting Started
 
-*Setup instructions will be added here once the migration to Next.js is complete.*
+### Prerequisites
+
+- Node.js 20+ (or Bun)
+- PostgreSQL database (or Supabase)
+- Environment variables configured
+
+### Installation
+
+1. **Install dependencies:**
+   ```bash
+   npm install
+   # or
+   bun install
+   ```
+
+2. **Set up environment variables:**
+   Create a `.env.local` file in the root directory:
+   ```env
+   SUPABASE_URL=your_supabase_url
+   SUPABASE_KEY=your_supabase_anon_key
+   DATABASE_URL=postgresql://user:password@host:port/database
+   ```
+
+3. **Set up the database:**
+   ```bash
+   # Generate migration from schema
+   npm run db:generate
+   
+   # Apply migrations
+   npm run db:migrate
+   
+   # Or push schema directly (development)
+   npm run db:push
+   ```
+
+4. **Start the development server:**
+   ```bash
+   npm run dev
+   ```
+
+   Open [http://localhost:3000](http://localhost:3000) in your browser.
+
+### Available Scripts
+
+- `npm run dev` - Start development server
+- `npm run build` - Build for production
+- `npm run start` - Start production server
+- `npm run lint` - Run ESLint
+- `npm run type-check` - Run TypeScript type checking
+- `npm run db:generate` - Generate Drizzle migrations
+- `npm run db:migrate` - Run database migrations
+- `npm run db:push` - Push schema to database (dev)
+- `npm run db:studio` - Open Drizzle Studio
 
 ## Project Status
 
-Currently in **Phase 1: Foundation & Migration** - Migrating from React/Vite to Next.js architecture.
+✅ **Phase 1: Foundation & Migration** - **COMPLETE**
+- Next.js 15 with App Router set up
+- Drizzle ORM configured
+- TypeScript strict mode enabled
+- Project structure established
+- UI components migrated
+
+**Next Steps:**
+- Migrate existing pages to Next.js App Router
+- Set up API routes for data fetching
+- Complete database schema definition
+- Build ETL pipeline infrastructure
 
 See [Roadmap](./docs/ROADMAP.md) for detailed phase information.
