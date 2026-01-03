@@ -1,33 +1,42 @@
-# Goat Sports
+# GOAT Sports
 
-A fantasy sports platform for hockey enthusiasts.
+A next-generation fantasy sports platform built with modern web technologies, designed for intelligent insights, seamless user experience, and social engagement.
 
-## Development
+## Quick Links
 
-To work on this project locally:
+- [Architecture](./docs/ARCHITECTURE.md) - System architecture, tech stack, and technical decisions
+- [Roadmap](./docs/ROADMAP.md) - Development phases and high-level plan
+- [Development](./docs/DEVELOPMENT.md) - Development workflow, principles, and best practices
+- [Deployment](./docs/DEPLOYMENT.md) - Deployment strategy and CI/CD
+- [Data](./docs/DATA.md) - Data sources, ETL pipeline, and database schema
+- [Security](./docs/SECURITY.md) - Security considerations and best practices
+- [Performance](./docs/PERFORMANCE.md) - Performance targets and optimization
+- [Limitations](./docs/LIMITATIONS.md) - Known limitations, trade-offs, and technical debt
 
-1. Clone this repository
-2. Install dependencies with `bun install`
-3. Start the development server with `bun run dev`
+## Overview
 
-## Building for Production
+GOAT Sports is a fantasy sports platform that combines:
+- **Modern Architecture**: Next.js 14+, Drizzle ORM, TypeScript throughout
+- **Advanced Analytics**: Insight-forward analytics and predictive modeling
+- **Social Features**: Community building, chat, forums, leaderboards
+- **Real-time Updates**: Live scoring, game updates, notifications
+- **Data-Driven**: Robust ETL pipeline for sports data ingestion
 
-To build the project for production:
+## Tech Stack Summary
 
-1. Run `bun run build`
-2. The built files will be in the `dist` directory
+- **Frontend**: Next.js 14+ (App Router), React, TypeScript, Tailwind CSS, shadcn/ui
+- **Backend**: Next.js API Routes, Drizzle ORM
+- **Database**: PostgreSQL (via Supabase)
+- **Real-time**: Supabase real-time subscriptions
+- **ETL**: Hybrid approach (Next.js API routes + separate workers)
+- **Hosting**: Vercel (frontend/API), Railway/Render (workers)
 
-## Dependency Management with Bun
+## Getting Started
 
-If you need to refresh your dependencies or resolve lockfile issues, you can delete and recreate the Bun lockfile:
+*Setup instructions will be added here once the migration to Next.js is complete.*
 
-```sh
-rm bun.lockb
-bun install
-```
+## Project Status
 
-This will generate a new `bun.lockb` based on your `package.json`.
+Currently in **Phase 1: Foundation & Migration** - Migrating from React/Vite to Next.js architecture.
 
-## Deployment
-
-The project can be deployed to any static hosting service that supports Vite applications.
+See [Roadmap](./docs/ROADMAP.md) for detailed phase information.
