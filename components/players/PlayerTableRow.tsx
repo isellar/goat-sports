@@ -6,7 +6,8 @@ import {
   calculateFantasyPointsPerGame,
   estimateGamesPlayed,
 } from '@/lib/utils/fantasy';
-import { calculateAge, isInNextSlate, formatGameDateTime } from '@/lib/utils/player';
+import { isInNextSlate, formatGameDateTime } from '@/lib/utils/player';
+import { PlayerCard } from './PlayerCard';
 import { cn } from '@/lib/utils';
 
 interface PlayerWithTeam extends Player {
@@ -27,7 +28,6 @@ export function PlayerTableRow({ player, getStatusColor }: PlayerTableRowProps) 
   const fantasyPoints = calculateFantasyPoints(player);
   const gamesPlayed = estimateGamesPlayed(player);
   const fantasyPointsPerGame = calculateFantasyPointsPerGame(player, gamesPlayed);
-  const age = calculateAge(player.dateOfBirth);
   
   // Determine next opponent
   let nextOpponent: Team | null = null;
@@ -51,36 +51,12 @@ export function PlayerTableRow({ player, getStatusColor }: PlayerTableRowProps) 
 
   return (
     <TableRow className="hover:bg-muted/50">
-      {/* Name */}
-      <TableCell className="font-medium">{player.name}</TableCell>
-
-      {/* Position */}
-      <TableCell>
-        <Badge variant="outline" className="text-xs">
-          {player.position}
-        </Badge>
-      </TableCell>
-
-      {/* Team - just abbreviation */}
-      <TableCell>
-        {player.team ? (
-          <span className="font-medium">{player.team.abbreviation}</span>
-        ) : (
-          <span className="text-muted-foreground">-</span>
-        )}
-      </TableCell>
-
-      {/* Age */}
-      <TableCell className="text-right">
-        {age !== null ? age : '-'}
-      </TableCell>
-
-      {/* Status */}
-      <TableCell>
-        <Badge variant="outline" className={cn('text-xs', getStatusColor(player.status || 'healthy'))}>
-          {(player.status || 'healthy').charAt(0).toUpperCase() +
-            (player.status || 'healthy').slice(1)}
-        </Badge>
+      {/* Player Card - consolidates Name, Position, Team, Age, Status */}
+      <TableCell className="py-1.5 w-[190px]">
+        <PlayerCard 
+          player={player} 
+          team={player.team}
+        />
       </TableCell>
 
       {/* Next Opponent */}

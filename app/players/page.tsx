@@ -240,32 +240,15 @@ export default function PlayersPage() {
               <Table>
                 <TableHeader>
                   <TableRow>
+                    {/* Player Card - consolidates Name, Position, Team, Age, Status */}
                     <SortableTableHead
                       field="name"
                       currentSort={sortBy}
                       sortOrder={sortOrder}
                       onSort={handleSort}
                     >
-                      Name
+                      Player
                     </SortableTableHead>
-                    <SortableTableHead
-                      field="position"
-                      currentSort={sortBy}
-                      sortOrder={sortOrder}
-                      onSort={handleSort}
-                    >
-                      Pos
-                    </SortableTableHead>
-                    <SortableTableHead
-                      field="team"
-                      currentSort={sortBy}
-                      sortOrder={sortOrder}
-                      onSort={handleSort}
-                    >
-                      Team
-                    </SortableTableHead>
-                    <TableHead className="text-right">Age</TableHead>
-                    <TableHead>Status</TableHead>
                     <TableHead>Opp</TableHead>
                     <TableHead className="text-right">GP</TableHead>
                     <SortableTableHead
