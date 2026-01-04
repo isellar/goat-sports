@@ -261,46 +261,9 @@ export default function PlayersPage() {
                       FPts
                     </SortableTableHead>
                     <TableHead className="text-right">FP/G</TableHead>
-                    <SortableTableHead
-                      field="goals"
-                      currentSort={sortBy}
-                      sortOrder={sortOrder}
-                      onSort={handleSort}
-                      className="text-right"
-                    >
-                      G
-                    </SortableTableHead>
-                    <SortableTableHead
-                      field="assists"
-                      currentSort={sortBy}
-                      sortOrder={sortOrder}
-                      onSort={handleSort}
-                      className="text-right"
-                    >
-                      A
-                    </SortableTableHead>
-                    <SortableTableHead
-                      field="points"
-                      currentSort={sortBy}
-                      sortOrder={sortOrder}
-                      onSort={handleSort}
-                      className="text-right"
-                    >
-                      Pts
-                    </SortableTableHead>
-                    <SortableTableHead
-                      field="plusMinus"
-                      currentSort={sortBy}
-                      sortOrder={sortOrder}
-                      onSort={handleSort}
-                      className="text-right"
-                    >
-                      +/-
-                    </SortableTableHead>
-                    <TableHead className="text-right">W</TableHead>
-                    <TableHead className="text-right">L</TableHead>
-                    <TableHead className="text-right">SO</TableHead>
-                    <TableHead className="text-right">SV%</TableHead>
+                    <TableHead className="text-right">Pos Rank</TableHead>
+                    <TableHead className="text-right">Pos Rank L10</TableHead>
+                    <TableHead className="text-center w-12"></TableHead>
                   </TableRow>
                 </TableHeader>
                 <TableBody>

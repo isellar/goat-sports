@@ -24,15 +24,34 @@ export const players = pgTable('players', {
   jerseyNumber: integer('jersey_number'),
   dateOfBirth: timestamp('date_of_birth'), // For calculating age
   // Current season stats (will be updated via ETL)
+  // Skater stats
   goals: integer('goals').default(0),
   assists: integer('assists').default(0),
   points: integer('points').default(0),
   plusMinus: integer('plus_minus').default(0),
+  penaltyMinutes: integer('penalty_minutes').default(0), // PIM
+  shotsOnGoal: integer('shots_on_goal').default(0), // SOG
+  powerPlayPoints: integer('power_play_points').default(0), // PPP
+  shortHandedPoints: integer('short_handed_points').default(0), // SHP
+  hits: integer('hits').default(0), // Hit
+  blocks: integer('blocks').default(0), // Blk
+  takeaways: integer('takeaways').default(0), // Tk
   // Goalie stats
   wins: integer('wins').default(0),
+  overtimeWins: integer('overtime_wins').default(0), // OW
+  overtimeLosses: integer('overtime_losses').default(0), // OL
+  shootoutLosses: integer('shootout_losses').default(0), // SHL
+  goalsAgainst: integer('goals_against').default(0), // GA
+  saves: integer('saves').default(0), // SV
+  shutouts: integer('shutouts').default(0), // SHO
+  shootoutWins: integer('shootout_wins').default(0), // ShW
+  goalieGoals: integer('goalie_goals').default(0), // G (for goalies)
+  goalieAssists: integer('goalie_assists').default(0), // A (for goalies)
   losses: integer('losses').default(0),
-  shutouts: integer('shutouts').default(0),
   savePercentage: integer('save_percentage'), // Stored as integer (e.g., 925 for .925)
+  // Rankings
+  positionRank: integer('position_rank'), // Pos Rank
+  positionRankLast10: integer('position_rank_last_10'), // Pos Rank Last 10
   // Status
   status: text('status').default('healthy'), // 'healthy', 'questionable', 'injured', 'out'
   createdAt: timestamp('created_at').defaultNow(),

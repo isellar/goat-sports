@@ -1,5 +1,9 @@
+'use client';
+
+import { useState } from 'react';
 import { TableCell, TableRow } from '@/components/ui/table';
-import { Badge } from '@/components/ui/badge';
+import { Button } from '@/components/ui/button';
+import { ChevronRight } from 'lucide-react';
 import type { Player, Team, Game } from '@/lib/db/schema';
 import {
   calculateFantasyPoints,
@@ -8,6 +12,7 @@ import {
 } from '@/lib/utils/fantasy';
 import { isInNextSlate, formatGameDateTime } from '@/lib/utils/player';
 import { PlayerCard } from './PlayerCard';
+import { PlayerStatsModal } from './PlayerStatsModal';
 import { cn } from '@/lib/utils';
 
 interface PlayerWithTeam extends Player {
@@ -24,7 +29,7 @@ interface PlayerTableRowProps {
 }
 
 export function PlayerTableRow({ player, getStatusColor }: PlayerTableRowProps) {
-  const isGoalie = player.position === 'G';
+  const [modalOpen, setModalOpen] = useState(false);
   const fantasyPoints = calculateFantasyPoints(player);
   const gamesPlayed = estimateGamesPlayed(player);
   const fantasyPointsPerGame = calculateFantasyPointsPerGame(player, gamesPlayed);
@@ -50,90 +55,81 @@ export function PlayerTableRow({ player, getStatusColor }: PlayerTableRowProps) 
   }
 
   return (
-    <TableRow className="hover:bg-muted/50">
-      {/* Player Card - consolidates Name, Position, Team, Age, Status */}
-      <TableCell className="py-1.5 w-[190px]">
-        <PlayerCard 
-          player={player} 
-          team={player.team}
-        />
-      </TableCell>
+    <>
+      <TableRow className="hover:bg-muted/50">
+        {/* Player Card - consolidates Name, Position, Team, Age, Status */}
+        <TableCell className="py-1.5 w-[190px]">
+          <PlayerCard 
+            player={player} 
+            team={player.team}
+          />
+        </TableCell>
 
-      {/* Next Opponent */}
-      <TableCell>
-        {nextOpponent ? (
-          <div className={cn('flex flex-col', isNextSlate && 'font-semibold text-blue-600 dark:text-blue-400')}>
-            <span>{nextOpponent.abbreviation}</span>
-            {nextGameDate && (
-              <span className={cn('text-xs', isNextSlate ? 'text-blue-600 dark:text-blue-400' : 'text-muted-foreground')}>
-                {formatGameDateTime(nextGameDate)}
-              </span>
-            )}
-          </div>
-        ) : (
-          <span className="text-muted-foreground">-</span>
-        )}
-      </TableCell>
+        {/* Next Opponent */}
+        <TableCell>
+          {nextOpponent ? (
+            <div className={cn('flex flex-col', isNextSlate && 'font-semibold text-blue-600 dark:text-blue-400')}>
+              <span>{nextOpponent.abbreviation}</span>
+              {nextGameDate && (
+                <span className={cn('text-xs', isNextSlate ? 'text-blue-600 dark:text-blue-400' : 'text-muted-foreground')}>
+                  {formatGameDateTime(nextGameDate)}
+                </span>
+              )}
+            </div>
+          ) : (
+            <span className="text-muted-foreground">-</span>
+          )}
+        </TableCell>
 
-      {/* Games Played */}
-      <TableCell className="text-right">{gamesPlayed || '-'}</TableCell>
+        {/* Games Played */}
+        <TableCell className="text-right">{gamesPlayed || '-'}</TableCell>
 
-      {/* Fantasy Points - Prominent */}
-      <TableCell className="text-right font-semibold text-orange-600 dark:text-orange-400">
-        {fantasyPoints.toFixed(2)}
-      </TableCell>
+        {/* Fantasy Points - Prominent */}
+        <TableCell className="text-right font-semibold text-orange-600 dark:text-orange-400">
+          {fantasyPoints.toFixed(2)}
+        </TableCell>
 
-      {/* Fantasy Points Per Game - Prominent */}
-      <TableCell className="text-right font-semibold text-orange-600 dark:text-orange-400">
-        {gamesPlayed > 0 ? fantasyPointsPerGame.toFixed(2) : '-'}
-      </TableCell>
+        {/* Fantasy Points Per Game - Prominent */}
+        <TableCell className="text-right font-semibold text-orange-600 dark:text-orange-400">
+          {gamesPlayed > 0 ? fantasyPointsPerGame.toFixed(2) : '-'}
+        </TableCell>
 
-      {/* Skater Stats (shown for skaters, empty for goalies) */}
-      <TableCell className="text-right">
-        {!isGoalie ? (player.goals ?? 0) : '-'}
-      </TableCell>
-      <TableCell className="text-right">
-        {!isGoalie ? (player.assists ?? 0) : '-'}
-      </TableCell>
-      <TableCell className="text-right">
-        {!isGoalie ? (player.points ?? 0) : '-'}
-      </TableCell>
-      <TableCell className="text-right">
-        {!isGoalie && player.plusMinus !== null && player.plusMinus !== undefined ? (
-          <span
-            className={cn(
-              player.plusMinus > 0
-                ? 'text-green-600 dark:text-green-400'
-                : player.plusMinus < 0
-                  ? 'text-red-600 dark:text-red-400'
-                  : ''
-            )}
+        {/* Position Rank */}
+        <TableCell className="text-right">
+          {player.positionRank !== null && player.positionRank !== undefined ? (
+            <span className="font-medium">#{player.positionRank}</span>
+          ) : (
+            <span className="text-muted-foreground">-</span>
+          )}
+        </TableCell>
+
+        {/* Position Rank Last 10 */}
+        <TableCell className="text-right">
+          {player.positionRankLast10 !== null && player.positionRankLast10 !== undefined ? (
+            <span className="font-medium">#{player.positionRankLast10}</span>
+          ) : (
+            <span className="text-muted-foreground">-</span>
+          )}
+        </TableCell>
+
+        {/* Expand Button */}
+        <TableCell className="text-center">
+          <Button
+            variant="ghost"
+            size="sm"
+            className="h-8 w-8 p-0"
+            onClick={() => setModalOpen(true)}
           >
-            {player.plusMinus > 0 ? '+' : ''}
-            {player.plusMinus}
-          </span>
-        ) : (
-          <span className="text-muted-foreground">-</span>
-        )}
-      </TableCell>
+            <ChevronRight className="h-4 w-4" />
+          </Button>
+        </TableCell>
+      </TableRow>
 
-      {/* Goalie Stats (shown for goalies, empty for skaters) */}
-      <TableCell className="text-right">
-        {isGoalie ? (player.wins ?? 0) : '-'}
-      </TableCell>
-      <TableCell className="text-right">
-        {isGoalie ? (player.losses ?? 0) : '-'}
-      </TableCell>
-      <TableCell className="text-right">
-        {isGoalie ? (player.shutouts ?? 0) : '-'}
-      </TableCell>
-      <TableCell className="text-right">
-        {isGoalie && player.savePercentage ? (
-          <span>{(player.savePercentage / 1000).toFixed(3)}</span>
-        ) : (
-          <span className="text-muted-foreground">-</span>
-        )}
-      </TableCell>
-    </TableRow>
+      <PlayerStatsModal
+        player={player}
+        open={modalOpen}
+        onOpenChange={setModalOpen}
+      />
+    </>
   );
 }
