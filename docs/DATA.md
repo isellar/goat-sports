@@ -74,9 +74,13 @@
 - Relationships: Leagues (many-to-many), Teams (one-to-many)
 
 #### Players
-- Player information (name, position, team, stats)
+- Player information (name, position, team, jersey number, date of birth, status)
+- **Skater Stats**: Goals, Assists, Points, Plus/Minus, PIM, SOG, PPP, SHP, Hits, Blocks, Takeaways
+- **Goalie Stats**: Wins, Overtime Wins, Overtime Losses, Shootout Losses, Goals Against, Saves, Shutouts, Shootout Wins, Goals, Assists
+- **Analytics**: Position Rank, Position Rank Last 10, Heat Score (-3 to 3), Trend Score
+- **Fantasy Metrics**: Fantasy Points, Fantasy Points per Game (calculated)
 - Historical and current season data
-- Relationships: Teams (many-to-one), Stats (one-to-many), Rosters (many-to-many)
+- Relationships: Teams (many-to-one), Games (via team), Rosters (many-to-many)
 
 #### Teams (Sports Teams)
 - NFL/NBA/etc. teams
@@ -85,8 +89,9 @@
 
 #### Games
 - Scheduled and completed games
-- Scores, status, weather conditions
-- Relationships: Teams (many-to-two), Stats (one-to-many)
+- Game date, home/away teams, scores, status (scheduled/in_progress/final)
+- Used for next opponent tracking and slate identification
+- Relationships: Teams (many-to-two: homeTeam, awayTeam)
 
 #### Leagues
 - Fantasy leagues

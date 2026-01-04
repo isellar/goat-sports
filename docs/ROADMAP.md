@@ -6,24 +6,32 @@
 **Goal**: Establish modern architecture and migrate from existing React/Vite setup
 
 **Tasks**:
-- [ ] Migrate from React Router to Next.js App Router
-- [ ] Set up Drizzle ORM with PostgreSQL schema
-- [ ] Migrate existing Supabase schema to Drizzle definitions
-- [ ] Set up Next.js API routes for existing functionality
-- [ ] Establish ETL pipeline structure
-- [ ] Set up development environment and tooling
+- [x] Migrate from React Router to Next.js App Router
+- [x] Set up Drizzle ORM with PostgreSQL schema
+- [x] Create NHL player database schema (players, teams, games)
+- [x] Set up Next.js API routes for player/team data
+- [x] Build player list/search page with filtering
+- [x] Implement player card component with status indicators
+- [x] Add next opponent tracking with slate highlighting
+- [x] Create expandable stats modal for detailed stats
+- [x] Add heat score and trend score indicators
+- [ ] Establish ETL pipeline structure for real data ingestion
+- [x] Set up development environment and tooling
 
 **Key Deliverables**:
-- Working Next.js application with core pages migrated
-- Drizzle schema matching current database structure
-- Basic ETL pipeline for ingesting player and game data
-- Authentication flow working with Supabase
+- ✅ Working Next.js application with player search page
+- ✅ Drizzle schema for NHL players, teams, and games
+- ✅ Player filtering and sorting functionality
+- ✅ Comprehensive stats tracking (skaters and goalies)
+- ⏳ Basic ETL pipeline for ingesting player and game data (structure ready, needs real data source)
+- ⏳ Authentication flow working with Supabase (infrastructure ready)
 
 ### Phase 2: Core Fantasy Sports Features
 **Goal**: Complete essential fantasy sports functionality
 
 **Tasks**:
-- [ ] Player database with advanced filtering (position, team, date ranges, stats)
+- [x] Player database with advanced filtering (position, team, stats)
+- [ ] Player database filtering by date ranges (needs game-by-game stats)
 - [ ] League management (create, join, settings)
 - [ ] Roster management (add/drop players, lineups)
 - [ ] Draft system (snake draft, auction draft)

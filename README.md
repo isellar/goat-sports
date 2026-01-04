@@ -6,6 +6,7 @@ A next-generation fantasy sports platform built with modern web technologies, de
 
 - [Architecture](./docs/ARCHITECTURE.md) - System architecture, tech stack, and technical decisions
 - [Roadmap](./docs/ROADMAP.md) - Development phases and high-level plan
+- [Current Features](./docs/CURRENT_FEATURES.md) - Currently implemented features and functionality
 - [Development](./docs/DEVELOPMENT.md) - Development workflow, principles, and best practices
 - [Deployment](./docs/DEPLOYMENT.md) - Deployment strategy and CI/CD
 - [Data](./docs/DATA.md) - Data sources, ETL pipeline, and database schema
@@ -24,7 +25,7 @@ GOAT Sports is a fantasy sports platform that combines:
 
 ## Tech Stack Summary
 
-- **Frontend**: Next.js 15 (App Router), React 18, TypeScript, Tailwind CSS, shadcn/ui
+- **Frontend**: Next.js 15 (App Router), React 19, TypeScript, Tailwind CSS, shadcn/ui
 - **Backend**: Next.js API Routes, Drizzle ORM
 - **Database**: PostgreSQL (via Supabase)
 - **Real-time**: Supabase real-time subscriptions
@@ -51,8 +52,8 @@ GOAT Sports is a fantasy sports platform that combines:
 2. **Set up environment variables:**
    Create a `.env.local` file in the root directory:
    ```env
-   SUPABASE_URL=your_supabase_url
-   SUPABASE_KEY=your_supabase_anon_key
+   NEXT_PUBLIC_SUPABASE_URL=your_supabase_url
+   NEXT_PUBLIC_SUPABASE_PUBLISHABLE_DEFAULT_KEY=your_supabase_anon_key
    DATABASE_URL=postgresql://user:password@host:port/database
    ```
 
@@ -61,11 +62,14 @@ GOAT Sports is a fantasy sports platform that combines:
    # Generate migration from schema
    npm run db:generate
    
-   # Apply migrations
+   # Apply migrations (or use manual migration scripts if needed)
    npm run db:migrate
    
    # Or push schema directly (development)
    npm run db:push
+   
+   # Seed database with sample NHL data
+   npm run db:seed
    ```
 
 4. **Start the development server:**
@@ -85,21 +89,35 @@ GOAT Sports is a fantasy sports platform that combines:
 - `npm run db:generate` - Generate Drizzle migrations
 - `npm run db:migrate` - Run database migrations
 - `npm run db:push` - Push schema to database (dev)
+- `npm run db:seed` - Seed database with sample NHL data
 - `npm run db:studio` - Open Drizzle Studio
 
 ## Project Status
 
-✅ **Phase 1: Foundation & Migration** - **COMPLETE**
-- Next.js 15 with App Router set up
-- Drizzle ORM configured
-- TypeScript strict mode enabled
-- Project structure established
-- UI components migrated
+✅ **Phase 1: Foundation & Migration** - **IN PROGRESS**
+- ✅ Next.js 15 with App Router set up
+- ✅ Drizzle ORM configured
+- ✅ TypeScript strict mode enabled
+- ✅ Project structure established
+- ✅ UI components migrated
+- ✅ NHL Player database schema implemented
+- ✅ Player list/search page with filtering
+- ✅ Database migrations and seeding working
+
+**Current Features:**
+- NHL player database with comprehensive stats (skaters and goalies)
+- Player search and filtering (name, position, team, stats)
+- Sortable player table with fantasy points
+- Player card component (consolidates name, position, team, age, status)
+- Next opponent display with slate highlighting
+- Heat score (🔥/❄️) and trend score indicators
+- Expandable stats modal with detailed position-specific stats
+- Games/schedule tracking
 
 **Next Steps:**
-- Migrate existing pages to Next.js App Router
-- Set up API routes for data fetching
-- Complete database schema definition
-- Build ETL pipeline infrastructure
+- Complete ETL pipeline for real NHL data ingestion
+- Add league management features
+- Implement roster management
+- Build draft system
 
 See [Roadmap](./docs/ROADMAP.md) for detailed phase information.
