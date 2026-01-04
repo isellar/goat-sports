@@ -52,6 +52,9 @@ export const players = pgTable('players', {
   // Rankings
   positionRank: integer('position_rank'), // Pos Rank
   positionRankLast10: integer('position_rank_last_10'), // Pos Rank Last 10
+  // Heat & Trend
+  heatScore: integer('heat_score').default(0), // -3 to 3 (negative = ice, positive = fire)
+  trendScore: integer('trend_score').default(0), // Trend score (how much more frequently added)
   // Status
   status: text('status').default('healthy'), // 'healthy', 'questionable', 'injured', 'out'
   createdAt: timestamp('created_at').defaultNow(),

@@ -263,6 +263,8 @@ export default function PlayersPage() {
                     <TableHead className="text-right">FP/G</TableHead>
                     <TableHead className="text-right">Pos Rank</TableHead>
                     <TableHead className="text-right">Pos Rank L10</TableHead>
+                    <TableHead className="text-center">Heat</TableHead>
+                    <TableHead className="text-center">Trend</TableHead>
                     <TableHead className="text-center w-12"></TableHead>
                   </TableRow>
                 </TableHeader>

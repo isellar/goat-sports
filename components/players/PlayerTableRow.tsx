@@ -13,6 +13,8 @@ import {
 import { isInNextSlate, formatGameDateTime } from '@/lib/utils/player';
 import { PlayerCard } from './PlayerCard';
 import { PlayerStatsModal } from './PlayerStatsModal';
+import { HeatScore } from './HeatScore';
+import { TrendScore } from './TrendScore';
 import { cn } from '@/lib/utils';
 
 interface PlayerWithTeam extends Player {
@@ -110,6 +112,16 @@ export function PlayerTableRow({ player, getStatusColor }: PlayerTableRowProps) 
           ) : (
             <span className="text-muted-foreground">-</span>
           )}
+        </TableCell>
+
+        {/* Heat Score */}
+        <TableCell className="text-center">
+          <HeatScore score={player.heatScore} />
+        </TableCell>
+
+        {/* Trend Score */}
+        <TableCell className="text-center">
+          <TrendScore score={player.trendScore} />
         </TableCell>
 
         {/* Expand Button */}
