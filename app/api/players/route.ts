@@ -70,6 +70,21 @@ export async function GET(request: NextRequest) {
           ? sql`${players.assists} DESC NULLS LAST, ${players.name} ASC`
           : sql`${players.assists} ASC NULLS LAST, ${players.name} ASC`;
         break;
+      case 'plusMinus':
+        orderByClause = sortOrder === 'desc'
+          ? sql`${players.plusMinus} DESC NULLS LAST, ${players.name} ASC`
+          : sql`${players.plusMinus} ASC NULLS LAST, ${players.name} ASC`;
+        break;
+      case 'position':
+        orderByClause = sortOrder === 'desc'
+          ? sql`${players.position} DESC, ${players.name} ASC`
+          : sql`${players.position} ASC, ${players.name} ASC`;
+        break;
+      case 'team':
+        orderByClause = sortOrder === 'desc'
+          ? sql`${teams.name} DESC NULLS LAST, ${players.name} ASC`
+          : sql`${teams.name} ASC NULLS LAST, ${players.name} ASC`;
+        break;
       default:
         orderByClause = sortOrder === 'desc'
           ? sql`${players.name} DESC`

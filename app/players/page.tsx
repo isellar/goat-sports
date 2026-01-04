@@ -1,8 +1,7 @@
 'use client';
 
 import { useState, useEffect } from 'react';
-import { Search, Filter, ArrowUpDown } from 'lucide-react';
-import { Button } from '@/components/ui/button';
+import { Search, Filter } from 'lucide-react';
 import { Input } from '@/components/ui/input';
 import {
   Select,
@@ -13,12 +12,31 @@ import {
 } from '@/components/ui/select';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Label } from '@/components/ui/label';
-import PlayerCard from '@/components/ui-elements/PlayerCard';
+import {
+  Table,
+  TableBody,
+  TableHead,
+  TableHeader,
+  TableRow,
+} from '@/components/ui/table';
+import { SortableTableHead } from '@/components/players/SortableTableHead';
+import { PlayerTableRow } from '@/components/players/PlayerTableRow';
+import { calculateFantasyPoints } from '@/lib/utils/fantasy';
 import type { Player, Team } from '@/lib/db/schema';
 
 interface PlayerWithTeam extends Player {
   team: Team | null;
 }
+
+type SortField =
+  | 'name'
+  | 'points'
+  | 'goals'
+  | 'assists'
+  | 'plusMinus'
+  | 'position'
+  | 'team'
+  | 'fantasyPoints';
 
 export default function PlayersPage() {
   const [players, setPlayers] = useState<PlayerWithTeam[]>([]);
@@ -29,7 +47,7 @@ export default function PlayersPage() {
   const [teamId, setTeamId] = useState('all');
   const [minPoints, setMinPoints] = useState('');
   const [minGoals, setMinGoals] = useState('');
-  const [sortBy, setSortBy] = useState('name');
+  const [sortBy, setSortBy] = useState<SortField>('name');
   const [sortOrder, setSortOrder] = useState<'asc' | 'desc'>('asc');
 
   // Fetch teams on mount
@@ -49,13 +67,29 @@ export default function PlayersPage() {
     if (teamId !== 'all') params.set('teamId', teamId);
     if (minPoints) params.set('minPoints', minPoints);
     if (minGoals) params.set('minGoals', minGoals);
-    params.set('sortBy', sortBy);
-    params.set('sortOrder', sortOrder);
+    
+    // Only send sortBy to API if it's a database field
+    // Fantasy points will be sorted client-side
+    if (sortBy !== 'fantasyPoints') {
+      params.set('sortBy', sortBy);
+      params.set('sortOrder', sortOrder);
+    }
 
     fetch(`/api/players?${params.toString()}`)
       .then((res) => res.json())
       .then((data) => {
-        setPlayers(data.players || []);
+        let sortedPlayers = data.players || [];
+        
+        // Client-side sorting for fantasy points
+        if (sortBy === 'fantasyPoints') {
+          sortedPlayers = [...sortedPlayers].sort((a, b) => {
+            const fpA = calculateFantasyPoints(a);
+            const fpB = calculateFantasyPoints(b);
+            return sortOrder === 'asc' ? fpA - fpB : fpB - fpA;
+          });
+        }
+        
+        setPlayers(sortedPlayers);
         setLoading(false);
       })
       .catch((err) => {
@@ -63,6 +97,30 @@ export default function PlayersPage() {
         setLoading(false);
       });
   }, [search, position, teamId, minPoints, minGoals, sortBy, sortOrder]);
+
+  const handleSort = (field: string) => {
+    if (sortBy === field) {
+      setSortOrder(sortOrder === 'asc' ? 'desc' : 'asc');
+    } else {
+      setSortBy(field as SortField);
+      setSortOrder('asc');
+    }
+  };
+
+  const getStatusColor = (status: string) => {
+    switch (status) {
+      case 'healthy':
+        return 'bg-green-500/20 text-green-700 dark:text-green-400';
+      case 'questionable':
+        return 'bg-yellow-500/20 text-yellow-700 dark:text-yellow-400';
+      case 'injured':
+        return 'bg-orange-500/20 text-orange-700 dark:text-orange-400';
+      case 'out':
+        return 'bg-red-500/20 text-red-700 dark:text-red-400';
+      default:
+        return 'bg-gray-500/20 text-gray-700 dark:text-gray-400';
+    }
+  };
 
   return (
     <div className="container mx-auto py-8 space-y-6">
@@ -127,8 +185,8 @@ export default function PlayersPage() {
               </Select>
             </div>
 
-            {/* Second Row: Stats Filters and Sorting */}
-            <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
+            {/* Second Row: Stats Filters */}
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
               {/* Min Points */}
               <div className="space-y-2">
                 <Label htmlFor="minPoints">Min Points</Label>
@@ -152,42 +210,12 @@ export default function PlayersPage() {
                   onChange={(e) => setMinGoals(e.target.value)}
                 />
               </div>
-
-              {/* Sort By */}
-              <div className="space-y-2">
-                <Label htmlFor="sortBy">Sort By</Label>
-                <Select value={sortBy} onValueChange={setSortBy}>
-                  <SelectTrigger id="sortBy">
-                    <SelectValue />
-                  </SelectTrigger>
-                  <SelectContent>
-                    <SelectItem value="name">Name</SelectItem>
-                    <SelectItem value="points">Points</SelectItem>
-                    <SelectItem value="goals">Goals</SelectItem>
-                    <SelectItem value="assists">Assists</SelectItem>
-                  </SelectContent>
-                </Select>
-              </div>
-
-              {/* Sort Order */}
-              <div className="space-y-2">
-                <Label htmlFor="sortOrder">Order</Label>
-                <Button
-                  id="sortOrder"
-                  variant="outline"
-                  className="w-full justify-between"
-                  onClick={() => setSortOrder(sortOrder === 'asc' ? 'desc' : 'asc')}
-                >
-                  {sortOrder === 'asc' ? 'Ascending' : 'Descending'}
-                  <ArrowUpDown className="ml-2 h-4 w-4" />
-                </Button>
-              </div>
             </div>
           </div>
         </CardContent>
       </Card>
 
-      {/* Results */}
+      {/* Results Table */}
       {loading ? (
         <div className="text-center py-12">
           <p className="text-muted-foreground">Loading players...</p>
@@ -197,32 +225,105 @@ export default function PlayersPage() {
           <p className="text-muted-foreground">No players found</p>
         </div>
       ) : (
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-          {players.map((player) => (
-            <PlayerCard
-              key={player.id}
-              name={player.name}
-              team={player.team?.abbreviation || 'N/A'}
-              position={player.position}
-              number={player.jerseyNumber?.toString()}
-              stats={{
-                goals: player.goals || 0,
-                assists: player.assists || 0,
-                points: player.points || 0,
-                plusMinus: player.plusMinus || 0,
-                wins: player.wins || 0,
-                losses: player.losses || 0,
-                shutouts: player.shutouts || 0,
-                savePercentage: player.savePercentage
-                  ? player.savePercentage / 1000
-                  : undefined,
-              }}
-              status={player.status as 'healthy' | 'questionable' | 'injured' | 'out'}
-            />
-          ))}
-        </div>
+        <Card>
+          <CardContent className="p-0">
+            <div className="overflow-x-auto">
+              <Table>
+                <TableHeader>
+                  <TableRow>
+                    <SortableTableHead
+                      field="name"
+                      currentSort={sortBy}
+                      sortOrder={sortOrder}
+                      onSort={handleSort}
+                    >
+                      Name
+                    </SortableTableHead>
+                    <SortableTableHead
+                      field="position"
+                      currentSort={sortBy}
+                      sortOrder={sortOrder}
+                      onSort={handleSort}
+                    >
+                      Pos
+                    </SortableTableHead>
+                    <SortableTableHead
+                      field="team"
+                      currentSort={sortBy}
+                      sortOrder={sortOrder}
+                      onSort={handleSort}
+                    >
+                      Team
+                    </SortableTableHead>
+                    <TableHead>#</TableHead>
+                    <TableHead>Status</TableHead>
+                    <TableHead className="text-right">GP</TableHead>
+                    <SortableTableHead
+                      field="fantasyPoints"
+                      currentSort={sortBy}
+                      sortOrder={sortOrder}
+                      onSort={handleSort}
+                      className="text-right"
+                    >
+                      FPts
+                    </SortableTableHead>
+                    <TableHead className="text-right">FP/G</TableHead>
+                    <SortableTableHead
+                      field="goals"
+                      currentSort={sortBy}
+                      sortOrder={sortOrder}
+                      onSort={handleSort}
+                      className="text-right"
+                    >
+                      G
+                    </SortableTableHead>
+                    <SortableTableHead
+                      field="assists"
+                      currentSort={sortBy}
+                      sortOrder={sortOrder}
+                      onSort={handleSort}
+                      className="text-right"
+                    >
+                      A
+                    </SortableTableHead>
+                    <SortableTableHead
+                      field="points"
+                      currentSort={sortBy}
+                      sortOrder={sortOrder}
+                      onSort={handleSort}
+                      className="text-right"
+                    >
+                      Pts
+                    </SortableTableHead>
+                    <SortableTableHead
+                      field="plusMinus"
+                      currentSort={sortBy}
+                      sortOrder={sortOrder}
+                      onSort={handleSort}
+                      className="text-right"
+                    >
+                      +/-
+                    </SortableTableHead>
+                    <TableHead className="text-right">W</TableHead>
+                    <TableHead className="text-right">L</TableHead>
+                    <TableHead className="text-right">SO</TableHead>
+                    <TableHead className="text-right">SV%</TableHead>
+                  </TableRow>
+                </TableHeader>
+                <TableBody>
+                  {players.map((player) => (
+                    <PlayerTableRow
+                      key={player.id}
+                      player={player}
+                      getStatusColor={getStatusColor}
+                    />
+                  ))}
+                </TableBody>
+              </Table>
+            </div>
+          </CardContent>
+        </Card>
       )}
     </div>
   );
 }
-
