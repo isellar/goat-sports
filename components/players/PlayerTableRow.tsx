@@ -1,15 +1,20 @@
 import { TableCell, TableRow } from '@/components/ui/table';
 import { Badge } from '@/components/ui/badge';
-import type { Player, Team } from '@/lib/db/schema';
+import type { Player, Team, Game } from '@/lib/db/schema';
 import {
   calculateFantasyPoints,
   calculateFantasyPointsPerGame,
   estimateGamesPlayed,
 } from '@/lib/utils/fantasy';
+import { calculateAge, isInNextSlate, formatGameDateTime } from '@/lib/utils/player';
 import { cn } from '@/lib/utils';
 
 interface PlayerWithTeam extends Player {
   team: Team | null;
+  nextGame?: Game & {
+    homeTeam?: Team | null;
+    awayTeam?: Team | null;
+  } | null;
 }
 
 interface PlayerTableRowProps {
@@ -22,6 +27,27 @@ export function PlayerTableRow({ player, getStatusColor }: PlayerTableRowProps) 
   const fantasyPoints = calculateFantasyPoints(player);
   const gamesPlayed = estimateGamesPlayed(player);
   const fantasyPointsPerGame = calculateFantasyPointsPerGame(player, gamesPlayed);
+  const age = calculateAge(player.dateOfBirth);
+  
+  // Determine next opponent
+  let nextOpponent: Team | null = null;
+  let nextGameDate: Date | null = null;
+  let isNextSlate = false;
+  
+  if (player.nextGame && player.team) {
+    const game = player.nextGame;
+    // Determine opponent based on which team the player is on
+    if (game.homeTeam?.id === player.team.id) {
+      nextOpponent = game.awayTeam || null;
+    } else if (game.awayTeam?.id === player.team.id) {
+      nextOpponent = game.homeTeam || null;
+    }
+    
+    if (game.gameDate) {
+      nextGameDate = typeof game.gameDate === 'string' ? new Date(game.gameDate) : game.gameDate;
+      isNextSlate = isInNextSlate(nextGameDate);
+    }
+  }
 
   return (
     <TableRow className="hover:bg-muted/50">
@@ -44,13 +70,9 @@ export function PlayerTableRow({ player, getStatusColor }: PlayerTableRowProps) 
         )}
       </TableCell>
 
-      {/* Jersey Number */}
-      <TableCell>
-        {player.jerseyNumber ? (
-          <span className="font-mono text-sm">{player.jerseyNumber}</span>
-        ) : (
-          <span className="text-muted-foreground">-</span>
-        )}
+      {/* Age */}
+      <TableCell className="text-right">
+        {age !== null ? age : '-'}
       </TableCell>
 
       {/* Status */}
@@ -59,6 +81,22 @@ export function PlayerTableRow({ player, getStatusColor }: PlayerTableRowProps) 
           {(player.status || 'healthy').charAt(0).toUpperCase() +
             (player.status || 'healthy').slice(1)}
         </Badge>
+      </TableCell>
+
+      {/* Next Opponent */}
+      <TableCell>
+        {nextOpponent ? (
+          <div className={cn('flex flex-col', isNextSlate && 'font-semibold text-blue-600 dark:text-blue-400')}>
+            <span>{nextOpponent.abbreviation}</span>
+            {nextGameDate && (
+              <span className={cn('text-xs', isNextSlate ? 'text-blue-600 dark:text-blue-400' : 'text-muted-foreground')}>
+                {formatGameDateTime(nextGameDate)}
+              </span>
+            )}
+          </div>
+        ) : (
+          <span className="text-muted-foreground">-</span>
+        )}
       </TableCell>
 
       {/* Games Played */}
@@ -123,4 +161,3 @@ export function PlayerTableRow({ player, getStatusColor }: PlayerTableRowProps) 
     </TableRow>
   );
 }
-

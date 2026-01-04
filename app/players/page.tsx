@@ -22,10 +22,11 @@ import {
 import { SortableTableHead } from '@/components/players/SortableTableHead';
 import { PlayerTableRow } from '@/components/players/PlayerTableRow';
 import { calculateFantasyPoints } from '@/lib/utils/fantasy';
-import type { Player, Team } from '@/lib/db/schema';
+import type { Player, Team, Game } from '@/lib/db/schema';
 
-interface PlayerWithTeam extends Player {
+interface PlayerWithTeamAndNextGame extends Player {
   team: Team | null;
+  nextGame: (Game & { homeTeam: Team; awayTeam: Team }) | null;
 }
 
 type SortField =
@@ -39,7 +40,7 @@ type SortField =
   | 'fantasyPoints';
 
 export default function PlayersPage() {
-  const [players, setPlayers] = useState<PlayerWithTeam[]>([]);
+  const [players, setPlayers] = useState<PlayerWithTeamAndNextGame[]>([]);
   const [teams, setTeams] = useState<Team[]>([]);
   const [loading, setLoading] = useState(true);
   const [search, setSearch] = useState('');
@@ -76,9 +77,16 @@ export default function PlayersPage() {
     }
 
     fetch(`/api/players?${params.toString()}`)
-      .then((res) => res.json())
+      .then((res) => {
+        if (!res.ok) {
+          throw new Error(`HTTP error! status: ${res.status}`);
+        }
+        return res.json();
+      })
       .then((data) => {
+        console.log('Players data received:', data);
         let sortedPlayers = data.players || [];
+        console.log('Number of players:', sortedPlayers.length);
         
         // Client-side sorting for fantasy points
         if (sortBy === 'fantasyPoints') {
@@ -95,6 +103,7 @@ export default function PlayersPage() {
       .catch((err) => {
         console.error('Error fetching players:', err);
         setLoading(false);
+        setPlayers([]);
       });
   }, [search, position, teamId, minPoints, minGoals, sortBy, sortOrder]);
 
@@ -255,8 +264,9 @@ export default function PlayersPage() {
                     >
                       Team
                     </SortableTableHead>
-                    <TableHead>#</TableHead>
+                    <TableHead className="text-right">Age</TableHead>
                     <TableHead>Status</TableHead>
+                    <TableHead>Opp</TableHead>
                     <TableHead className="text-right">GP</TableHead>
                     <SortableTableHead
                       field="fantasyPoints"

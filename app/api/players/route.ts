@@ -1,7 +1,7 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { db } from '@/lib/db';
-import { players, teams } from '@/lib/db/schema';
-import { eq, and, or, like, inArray, sql } from 'drizzle-orm';
+import { players, teams, games } from '@/lib/db/schema';
+import { eq, and, or, like, sql, gt } from 'drizzle-orm';
 
 export async function GET(request: NextRequest) {
   try {
@@ -34,7 +34,7 @@ export async function GET(request: NextRequest) {
 
     // Filter by position
     if (position && position !== 'all') {
-      conditions.push(eq(players.position, position));
+      conditions.push(eq(players.position, position as 'C' | 'LW' | 'RW' | 'D' | 'G'));
     }
 
     // Filter by team
@@ -114,11 +114,66 @@ export async function GET(request: NextRequest) {
 
     const [{ count }] = await countQuery;
 
+    // Get next games for each team (simplified - will be optimized later)
+    const now = new Date();
+    const teamIds = results
+      .map((r) => r.player.teamId)
+      .filter((id): id is string => id !== null);
+    
+    const nextGameByTeam = new Map<string, any>();
+    
+    if (teamIds.length > 0) {
+      // Get upcoming games for these teams
+      const upcomingGames = await db
+        .select()
+        .from(games)
+        .where(
+          and(
+            or(
+              ...teamIds.map((id) => eq(games.homeTeamId, id)),
+              ...teamIds.map((id) => eq(games.awayTeamId, id))
+            ),
+            gt(games.gameDate, now),
+            eq(games.status, 'scheduled')
+          )
+        )
+        .orderBy(games.gameDate);
+
+      // For each game, get team info and store the earliest game per team
+      for (const game of upcomingGames) {
+        const teamId = game.homeTeamId || game.awayTeamId;
+        if (teamId && !nextGameByTeam.has(teamId)) {
+          // Get home and away team info
+          const [homeTeam] = await db
+            .select()
+            .from(teams)
+            .where(eq(teams.id, game.homeTeamId))
+            .limit(1);
+          
+          const [awayTeam] = await db
+            .select()
+            .from(teams)
+            .where(eq(teams.id, game.awayTeamId))
+            .limit(1);
+
+          nextGameByTeam.set(teamId, {
+            ...game,
+            homeTeam: homeTeam || null,
+            awayTeam: awayTeam || null,
+          });
+        }
+      }
+    }
+
     // Format response
-    const formattedResults = results.map(({ player, team }) => ({
-      ...player,
-      team: team || null,
-    }));
+    const formattedResults = results.map(({ player, team }) => {
+      const nextGame = player.teamId ? nextGameByTeam.get(player.teamId) : null;
+      return {
+        ...player,
+        team: team || null,
+        nextGame: nextGame || null,
+      };
+    });
 
     return NextResponse.json({
       players: formattedResults,
