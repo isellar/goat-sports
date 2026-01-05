@@ -15,6 +15,14 @@ const nextConfig: NextConfig = {
     // your project has ESLint errors.
     ignoreDuringBuilds: false,
   },
+  experimental: {
+    // Optimize package imports for better tree-shaking and faster builds
+    optimizePackageImports: [
+      '@radix-ui/react-icons',
+      'lucide-react',
+      '@radix-ui/react-slot',
+    ],
+  },
 };
 
 export default nextConfig;

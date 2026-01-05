@@ -1,7 +1,7 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { db } from '@/lib/db';
 import { players, teams, games } from '@/lib/db/schema';
-import { eq, and, or, like, sql, gt } from 'drizzle-orm';
+import { eq, and, or, like, sql, gt, inArray } from 'drizzle-orm';
 
 export async function GET(request: NextRequest) {
   try {
@@ -139,27 +139,33 @@ export async function GET(request: NextRequest) {
         )
         .orderBy(games.gameDate);
 
+      // Batch fetch all teams at once instead of N+1 queries
+      const uniqueTeamIds = new Set<string>();
+      upcomingGames.forEach(game => {
+        if (game.homeTeamId) uniqueTeamIds.add(game.homeTeamId);
+        if (game.awayTeamId) uniqueTeamIds.add(game.awayTeamId);
+      });
+      
+      const teamList = Array.from(uniqueTeamIds);
+      const teamMap = new Map<string, Team>();
+      
+      if (teamList.length > 0) {
+        const fetchedTeams = await db
+          .select()
+          .from(teams)
+          .where(inArray(teams.id, teamList));
+        
+        fetchedTeams.forEach(team => teamMap.set(team.id, team));
+      }
+
       // For each game, get team info and store the earliest game per team
       for (const game of upcomingGames) {
         const teamId = game.homeTeamId || game.awayTeamId;
         if (teamId && !nextGameByTeam.has(teamId)) {
-          // Get home and away team info
-          const [homeTeam] = await db
-            .select()
-            .from(teams)
-            .where(eq(teams.id, game.homeTeamId))
-            .limit(1);
-          
-          const [awayTeam] = await db
-            .select()
-            .from(teams)
-            .where(eq(teams.id, game.awayTeamId))
-            .limit(1);
-
           nextGameByTeam.set(teamId, {
             ...game,
-            homeTeam: homeTeam || null,
-            awayTeam: awayTeam || null,
+            homeTeam: teamMap.get(game.homeTeamId) || null,
+            awayTeam: teamMap.get(game.awayTeamId) || null,
           });
         }
       }
