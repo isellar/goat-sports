@@ -13,6 +13,7 @@ A next-generation fantasy sports platform built with modern web technologies, de
 - [Security](./docs/SECURITY.md) - Security considerations and best practices
 - [Performance](./docs/PERFORMANCE.md) - Performance targets and optimization
 - [Limitations](./docs/LIMITATIONS.md) - Known limitations, trade-offs, and technical debt
+- [Cursor Optimization](./docs/CURSOR_OPTIMIZATION.md) - AI assistant optimization setup and usage
 
 ## Overview
 
