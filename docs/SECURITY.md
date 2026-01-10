@@ -45,7 +45,7 @@
 
 ### Security Best Practices
 - **Dependency Updates**: Regular security updates
-- **Security Audits**: Regular dependency audits (`npm audit`)
+- **Security Audits**: Regular dependency audits (`bun audit` or `npm audit`)
 - **Secrets Management**: Never commit secrets to repository
 - **Error Handling**: Don't expose sensitive information in error messages
 - **Logging**: Log security events, but not sensitive data

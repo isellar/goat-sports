@@ -36,7 +36,7 @@ GOAT Sports is a fantasy sports platform that combines:
 
 ### Prerequisites
 
-- Node.js 20+ (or Bun)
+- **Bun** 1.0+ (recommended) or Node.js 20.9+ / 24+
 - PostgreSQL database (or Supabase)
 - Environment variables configured
 
@@ -44,9 +44,8 @@ GOAT Sports is a fantasy sports platform that combines:
 
 1. **Install dependencies:**
    ```bash
-   npm install
-   # or
    bun install
+   # or npm install (if you prefer npm)
    ```
 
 2. **Set up environment variables:**
@@ -60,37 +59,39 @@ GOAT Sports is a fantasy sports platform that combines:
 3. **Set up the database:**
    ```bash
    # Generate migration from schema
-   npm run db:generate
+   bun run db:generate
    
    # Apply migrations (or use manual migration scripts if needed)
-   npm run db:migrate
+   bun run db:migrate
    
    # Or push schema directly (development)
-   npm run db:push
+   bun run db:push
    
    # Seed database with sample NHL data
-   npm run db:seed
+   bun run db:seed
    ```
 
 4. **Start the development server:**
    ```bash
-   npm run dev
+   bun run dev
    ```
 
    Open [http://localhost:3000](http://localhost:3000) in your browser.
 
 ### Available Scripts
 
-- `npm run dev` - Start development server
-- `npm run build` - Build for production
-- `npm run start` - Start production server
-- `npm run lint` - Run ESLint
-- `npm run type-check` - Run TypeScript type checking
-- `npm run db:generate` - Generate Drizzle migrations
-- `npm run db:migrate` - Run database migrations
-- `npm run db:push` - Push schema to database (dev)
-- `npm run db:seed` - Seed database with sample NHL data
-- `npm run db:studio` - Open Drizzle Studio
+- `bun run dev` - Start development server
+- `bun run build` - Build for production
+- `bun run start` - Start production server
+- `bun run lint` - Run ESLint
+- `bun run type-check` - Run TypeScript type checking
+- `bun run db:generate` - Generate Drizzle migrations
+- `bun run db:migrate` - Run database migrations
+- `bun run db:push` - Push schema to database (dev)
+- `bun run db:seed` - Seed database with sample NHL data
+- `bun run db:studio` - Open Drizzle Studio
+
+**Note:** This project uses Bun as the recommended package manager for faster installs and better performance. You can also use `npm` if preferred.
 
 ## Project Status
 

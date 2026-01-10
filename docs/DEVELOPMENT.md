@@ -62,9 +62,9 @@ public/                # Static assets
 
 ### Local Development
 1. Clone repository
-2. Install dependencies: `npm install` or `bun install`
+2. Install dependencies: `bun install` (or `npm install` if preferred)
 3. Set up environment variables (`.env.local`)
-4. Run database migrations: `npx drizzle-kit migrate`
-5. Start dev server: `npm run dev`
-6. Start workers (if needed): `npm run dev:worker`
+4. Run database migrations: `bun run db:migrate` (or `bunx drizzle-kit migrate`)
+5. Start dev server: `bun run dev`
+6. Start workers (if needed): `bun run dev:worker`
 
