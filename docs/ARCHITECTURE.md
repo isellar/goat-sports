@@ -3,7 +3,7 @@
 ## Architecture Components
 
 ### Frontend
-- **Framework**: Next.js 14+ (App Router) with TypeScript
+- **Framework**: Next.js 15 (App Router) with TypeScript
 - **UI Library**: shadcn/ui components built on Radix UI
 - **Styling**: Tailwind CSS
 - **State Management**: React Query (TanStack Query) for server state
@@ -48,13 +48,15 @@
 ## Tech Stack Details
 
 ### Core Framework
-- **Next.js**: 14+ (App Router)
+- **Next.js**: 15 (App Router)
   - Server Components for optimal performance
   - API Routes for backend functionality
   - Built-in optimizations (image, font, script)
-- **TypeScript**: 5.5+
+  - SWC minification enabled by default
+- **TypeScript**: 5.7+
   - Strict mode enabled
   - Shared types between frontend and backend
+  - Incremental compilation for faster builds
 
 ### UI & Styling
 - **shadcn/ui**: Component library built on Radix UI primitives

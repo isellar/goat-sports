@@ -17,8 +17,8 @@
 
 ### Database Migrations
 1. **Development**: 
-   - Create migration: `npx drizzle-kit generate`
-   - Apply locally: `npx drizzle-kit migrate`
+   - Create migration: `bun run db:generate` (or `bunx drizzle-kit generate`)
+   - Apply locally: `bun run db:migrate` (or `bunx drizzle-kit migrate`)
    - Test migration
 2. **Staging**: 
    - Apply migration to staging database
