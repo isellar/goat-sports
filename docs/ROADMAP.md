@@ -32,9 +32,9 @@
 **Tasks**:
 - [x] Player database with advanced filtering (position, team, stats)
 - [ ] Player database filtering by date ranges (needs game-by-game stats)
-- [ ] League management (create, join, settings)
-- [ ] Roster management (add/drop players, lineups)
-- [ ] Draft system (snake draft, auction draft)
+- [x] League management (create, join, settings)
+- [x] Roster management (add/drop players, lineups)
+- [x] Draft system (snake draft implemented, auction draft structure ready)
 - [ ] Matchup tracking and scoring
 - [ ] Standings and statistics
 - [ ] Transaction history (trades, waivers, free agent pickups)

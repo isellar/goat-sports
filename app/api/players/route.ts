@@ -1,6 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { db } from '@/lib/db';
-import { players, teams, games } from '@/lib/db/schema';
+import { players, teams, games, type Team } from '@/lib/db/schema';
 import { eq, and, or, like, sql, gt, inArray } from 'drizzle-orm';
 
 export async function GET(request: NextRequest) {

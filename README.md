@@ -113,11 +113,17 @@ GOAT Sports is a fantasy sports platform that combines:
 - Heat score (🔥/❄️) and trend score indicators
 - Expandable stats modal with detailed position-specific stats
 - Games/schedule tracking
+- League management (create, join, view leagues)
+- Roster management (add/drop players, manage lineups)
+- Draft system (snake draft with live updates)
+- Navigation header with theme toggle and mobile menu
 
 **Next Steps:**
 - Complete ETL pipeline for real NHL data ingestion
-- Add league management features
-- Implement roster management
-- Build draft system
+- Implement auction draft type
+- Add draft timer functionality
+- Implement matchup tracking and scoring
+- Add standings and statistics
+- Build transaction history (trades, waivers)
 
 See [Roadmap](./docs/ROADMAP.md) for detailed phase information.

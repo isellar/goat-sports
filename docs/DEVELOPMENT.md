@@ -68,3 +68,12 @@ public/                # Static assets
 5. Start dev server: `npm run dev`
 6. Start workers (if needed): `npm run dev:worker`
 
+### Build Optimizations
+- **Package Import Optimization**: Next.js `optimizePackageImports` configured for:
+  - `@radix-ui/react-icons` - Tree-shaking for icon imports
+  - `lucide-react` - Optimized icon bundle
+  - `@radix-ui/react-slot` - Reduced bundle size
+- **TypeScript Dev Builds**: Some strict checks disabled in dev for faster builds:
+  - `noUnusedLocals` and `noUnusedParameters` disabled
+  - Full type checking still runs via `npm run type-check` script
+  - Production builds maintain full type safety

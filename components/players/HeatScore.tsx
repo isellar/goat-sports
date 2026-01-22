@@ -35,3 +35,5 @@ export function HeatScore({ score }: HeatScoreProps) {
   );
 }
 
+
+

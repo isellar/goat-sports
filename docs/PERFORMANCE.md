@@ -35,6 +35,16 @@
 - **API Rate Limiting**: Prevent abuse, allow legitimate usage
 - **CDN Caching**: Static assets cached at edge
 
+### Build Performance
+- **Package Import Optimization**: Next.js `optimizePackageImports` configured for:
+  - `@radix-ui/react-icons` - Tree-shaking for icon imports
+  - `lucide-react` - Optimized icon bundle
+  - `@radix-ui/react-slot` - Reduced bundle size
+- **TypeScript Compilation**: 
+  - Dev builds: Some strict checks disabled for faster iteration
+  - Production builds: Full type checking via `type-check` script
+  - Incremental compilation enabled
+
 ### Monitoring & Optimization
 - **Performance Budgets**: Set and monitor bundle sizes
 - **Regular Audits**: Lighthouse, WebPageTest
