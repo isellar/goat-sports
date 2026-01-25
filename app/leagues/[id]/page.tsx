@@ -17,11 +17,122 @@ import {
 } from '@/components/ui/table';
 import Link from 'next/link';
 import type { League, User, FantasyTeam } from '@/lib/db/schema';
+import { formatWinPercentage, getRankSuffix } from '@/lib/utils/standings';
 
 interface LeagueDetails extends League {
   commissioner?: User;
   members?: (User & { joinedAt: Date })[];
   teams?: (FantasyTeam & { owner: User })[];
+}
+
+interface TeamStanding {
+  rank: number;
+  teamId: string;
+  teamName: string;
+  ownerName: string;
+  ownerEmail: string;
+  totalFantasyPoints: number;
+  rosterSize: number;
+  wins: number;
+  losses: number;
+  ties: number;
+  winPercentage: number;
+}
+
+function StandingsTab({ leagueId }: { leagueId: string }) {
+  const [standings, setStandings] = useState<TeamStanding[]>([]);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    setLoading(true);
+    fetch(`/api/leagues/${leagueId}/standings`)
+      .then((res) => res.json())
+      .then((data) => {
+        setStandings(data.standings || []);
+        setLoading(false);
+      })
+      .catch((err) => {
+        console.error('Error fetching standings:', err);
+        setLoading(false);
+      });
+  }, [leagueId]);
+
+  if (loading) {
+    return (
+      <Card>
+        <CardContent className="py-12 text-center">
+          <p className="text-muted-foreground">Loading standings...</p>
+        </CardContent>
+      </Card>
+    );
+  }
+
+  if (standings.length === 0) {
+    return (
+      <Card>
+        <CardContent className="py-12 text-center">
+          <p className="text-muted-foreground">No standings available yet</p>
+          <p className="text-sm text-muted-foreground mt-2">
+            Standings will appear once teams have players on their rosters
+          </p>
+        </CardContent>
+      </Card>
+    );
+  }
+
+  return (
+    <Card>
+      <CardHeader>
+        <CardTitle>League Standings</CardTitle>
+        <CardDescription>
+          Teams ranked by total fantasy points
+        </CardDescription>
+      </CardHeader>
+      <CardContent>
+        <Table>
+          <TableHeader>
+            <TableRow>
+              <TableHead className="w-16">Rank</TableHead>
+              <TableHead>Team</TableHead>
+              <TableHead>Owner</TableHead>
+              <TableHead className="text-right">FPts</TableHead>
+              <TableHead className="text-right">W</TableHead>
+              <TableHead className="text-right">L</TableHead>
+              <TableHead className="text-right">T</TableHead>
+              <TableHead className="text-right">Win %</TableHead>
+              <TableHead className="text-right">Roster</TableHead>
+            </TableRow>
+          </TableHeader>
+          <TableBody>
+            {standings.map((standing) => (
+              <TableRow key={standing.teamId}>
+                <TableCell className="font-medium">
+                  <div className="flex items-center gap-2">
+                    {standing.rank === 1 && <Trophy className="h-4 w-4 text-yellow-500" />}
+                    <span>{standing.rank}</span>
+                  </div>
+                </TableCell>
+                <TableCell className="font-medium">{standing.teamName}</TableCell>
+                <TableCell className="text-muted-foreground">
+                  {standing.ownerName}
+                </TableCell>
+                <TableCell className="text-right font-medium">
+                  {standing.totalFantasyPoints.toFixed(2)}
+                </TableCell>
+                <TableCell className="text-right">{standing.wins}</TableCell>
+                <TableCell className="text-right">{standing.losses}</TableCell>
+                <TableCell className="text-right">{standing.ties}</TableCell>
+                <TableCell className="text-right">
+                  {formatWinPercentage(standing.winPercentage)}%
+                </TableCell>
+                <TableCell className="text-right">{standing.rosterSize}</TableCell>
+              </TableRow>
+            ))}
+          </TableBody>
+        </Table>
+      </CardContent>
+    </Card>
+  );
 }
 
 export default function LeagueDetailPage() {
@@ -113,11 +224,16 @@ export default function LeagueDetailPage() {
       <Tabs defaultValue="overview" className="space-y-4">
         <TabsList>
           <TabsTrigger value="overview">Overview</TabsTrigger>
+          <TabsTrigger value="standings">Standings</TabsTrigger>
           <TabsTrigger value="teams">Teams</TabsTrigger>
           <TabsTrigger value="members">Members</TabsTrigger>
           <TabsTrigger value="draft">Draft</TabsTrigger>
           <TabsTrigger value="settings">Settings</TabsTrigger>
         </TabsList>
+
+        <TabsContent value="standings" className="space-y-4">
+          <StandingsTab leagueId={leagueId} />
+        </TabsContent>
 
         <TabsContent value="overview" className="space-y-4">
           <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-4">

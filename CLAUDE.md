@@ -34,6 +34,74 @@ bun run db:studio        # Open Drizzle Studio for database inspection
 bun run db:seed          # Seed database with sample NHL data
 ```
 
+## Beads Workflow (Issue Tracking)
+
+This project uses **beads** (`bd`) for persistent issue tracking across sessions. Issues survive conversation compaction and provide context for multi-session work.
+
+### Core Commands
+```bash
+bd ready                 # Find available work (no blockers)
+bd show <id>             # View issue details with dependencies
+bd list --status=open    # All open issues
+bd create --title="..." --type=task|bug|feature --priority=2
+bd update <id> --status=in_progress  # Claim work
+bd close <id>            # Complete work
+bd close <id1> <id2>     # Close multiple issues efficiently
+bd sync                  # Sync beads changes with git
+bd dep add <issue> <depends-on>  # Add dependency
+bd blocked               # Show all blocked issues
+```
+
+### When to Use Beads
+- **Multi-session work** that needs persistence across conversations
+- **Complex tasks** with dependencies or blockers
+- **Strategic work** that must survive conversation compaction
+- **Discovered work** during implementation (create issues as you find them)
+- **Parallel work** - create multiple issues and work through them
+
+### Priority Levels
+Use numeric priorities: `0-4` or `P0-P4`
+- **P0/0**: Critical (production down, data loss)
+- **P1/1**: High (blocks key features)
+- **P2/2**: Medium (normal work, default)
+- **P3/3**: Low (nice to have)
+- **P4/4**: Backlog (future consideration)
+
+### Session Completion Checklist
+
+**MANDATORY STEPS** before ending ANY session:
+
+```bash
+# 1. Create issues for remaining work
+bd create --title="..." --type=task --priority=2
+
+# 2. Run quality gates (if code changed)
+bun run type-check && bun run lint && bun run test
+
+# 3. Update beads status
+bd close <id1> <id2>  # Close completed work
+bd update <id> --notes="Current status..."  # Update in-progress
+
+# 4. Commit code changes
+git add <files>
+git commit -m "Description
+
+Co-Authored-By: Claude Sonnet 4.5 <noreply@anthropic.com>"
+
+# 5. Push to remote (MANDATORY)
+git pull --rebase
+bd sync
+git push
+git status  # MUST show "up to date with origin"
+```
+
+**CRITICAL RULES:**
+- Work is NOT complete until `git push` succeeds
+- NEVER stop before pushing - stranded local work is lost work
+- NEVER say "ready to push when you are" - YOU must push
+- If push fails, resolve conflicts and retry until success
+- Create issues for ALL remaining work before ending session
+
 ## Architecture
 
 ### Database as Source of Truth
@@ -58,6 +126,8 @@ All API routes follow Next.js 15 App Router conventions:
 - **UI Components**: Located in `components/ui/` - these are shadcn/ui components (don't modify directly)
 - **Feature Components**: Organized in `components/[feature]/` by feature area
 - **Type Props Explicitly**: Always use TypeScript interfaces for component props
+- **Tailwind CSS**: Use utility classes, avoid inline styles
+- **Accessibility**: All interactive elements must be keyboard accessible and follow ARIA best practices
 
 ### State Management
 - **Server State**: React Query (TanStack Query) for caching and refetching
@@ -68,6 +138,33 @@ All API routes follow Next.js 15 App Router conventions:
 - Hybrid approach: Next.js API routes for quick jobs, separate workers for long-running processes
 - Structure: `lib/etl/sources/` (API adapters), `lib/etl/transformers/` (data transformation), `lib/etl/loaders/` (DB operations)
 - Workers: `workers/` directory for background processes
+
+## Code Style & Conventions
+
+### Naming Conventions
+- **Components**: PascalCase (e.g., `PlayerCard.tsx`)
+- **Functions**: camelCase (e.g., `calculateFantasyPoints`)
+- **Constants**: UPPER_SNAKE_CASE for true constants, camelCase for exported configs
+- **Database tables**: plural, lowercase (e.g., `players`, `teams`)
+- **Database columns**: camelCase in schema, snake_case in DB (Drizzle handles conversion)
+
+### TypeScript Best Practices
+- **Use strict TypeScript** with full type inference
+- **Leverage Drizzle's type inference** from schema - never manually type database results
+- **Use `type` for type aliases**, `interface` for object shapes that may be extended
+- **Prefer explicit return types** for functions that return complex types
+- **Use `as const`** for literal types when needed
+- **Type component props explicitly** using TypeScript interfaces
+
+### File Organization
+- **API Routes**: `app/api/[resource]/route.ts` - use Next.js 15 App Router conventions
+- **Components**: `components/[feature]/ComponentName.tsx` - feature-based organization
+- **UI Components**: `components/ui/` - shadcn/ui components (don't modify these directly)
+- **Database**: `lib/db/schema.ts` - single source of truth for all database schemas
+- **Utils**: `lib/utils/` - shared utility functions
+- **Types**: Inline with components/API routes, or in `lib/types/` if shared
+- **Tests**: Co-located with source files (`.test.ts`, `.test.tsx`)
+- **Documentation**: All documentation files (except README.md) go in `docs/` folder
 
 ## Critical Performance Patterns
 
@@ -89,6 +186,12 @@ for (const result of results) {
 - Use `inArray()` for batch fetching related records
 - Leverage Drizzle's query builder for complex filtering
 - Always consider index usage for frequently queried columns
+
+### Frontend Performance
+- **React Query**: Use for server state caching and automatic refetching
+- **Code Splitting**: Use dynamic imports for heavy components
+- **Optimize Imports**: Use named imports, avoid barrel exports in hot paths
+- **Image Optimization**: Always use Next.js Image component for images
 
 ## Code Patterns
 
@@ -140,6 +243,28 @@ import { calculateFantasyPoints } from '@/lib/utils/fantasy';
 const points = calculateFantasyPoints(player);
 ```
 
+## Error Handling
+
+### API Routes
+- **Return appropriate HTTP status codes**:
+  - `200`: Success
+  - `400`: Bad request (validation errors)
+  - `404`: Resource not found
+  - `500`: Internal server error
+  - `503`: Service unavailable (e.g., database not configured)
+- **Never expose sensitive details** in error messages
+- **Log technical details** to console for debugging
+
+### Components
+- **Use error boundaries** for component-level errors
+- **Show friendly error messages** to users
+- **Graceful degradation** when features fail
+
+### Database Operations
+- **Always handle null/undefined** cases from database queries
+- **Check for empty results** before accessing array elements
+- **Validate data** before inserting/updating
+
 ## Testing Strategy
 
 ### Test Organization
@@ -152,13 +277,22 @@ const points = calculateFantasyPoints(player);
 - **Node**: Default for API tests
 - **jsdom**: Automatically used for component tests (configured in vitest.config.ts)
 
-## Schema Changes Workflow
+## Development Workflows
 
+### Schema Changes
 1. Update schema in `lib/db/schema.ts`
 2. Generate migration: `bun run db:generate`
 3. Review generated migration in `drizzle/` directory
 4. Apply migration: `bun run db:migrate` (production) or `bun run db:push` (development)
 5. Types are automatically inferred - no manual type updates needed
+
+### Adding New Features
+1. **New API Route**: Create `app/api/[resource]/route.ts` following the standard pattern
+2. **New Component**: Create in `components/[feature]/` with proper TypeScript types
+3. **New Utility**: Add to `lib/utils/` with JSDoc comments explaining usage
+4. **Dependencies**: Use `bun add [package]` for dependencies, `bun add -d [package]` for devDeps
+5. **Documentation**: Place all documentation files (except README.md) in `docs/` folder
+6. **Tests**: Add tests co-located with the new code
 
 ## Package Management
 
@@ -262,6 +396,26 @@ const points = calculateFantasyPoints(player);
 - Automatic deployment: `main` branch → Production
 - PR branches → Preview deployments
 - Run linting, type-check, and tests before deployment
+
+## Avoid Over-Engineering
+
+Keep solutions simple and focused:
+- **Only make changes** that are directly requested or clearly necessary
+- **Don't add features, refactoring, or "improvements"** beyond what was asked
+- A bug fix doesn't need surrounding code cleaned up
+- A simple feature doesn't need extra configurability
+- **Don't add docstrings, comments, or type annotations** to code you didn't change
+- Only add comments where the logic isn't self-evident
+- **Don't add error handling** for scenarios that can't happen
+- Trust internal code and framework guarantees
+- Only validate at system boundaries (user input, external APIs)
+- **Don't create helpers/utilities** for one-time operations
+- **Don't design for hypothetical future requirements**
+- Three similar lines of code is better than a premature abstraction
+- **If something is unused, delete it completely** - no backwards-compatibility hacks like:
+  - Renaming unused variables with `_prefix`
+  - Re-exporting types for backwards compatibility
+  - Adding `// removed` comments for deleted code
 
 ## Important Constraints
 

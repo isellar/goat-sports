@@ -138,6 +138,51 @@ goat-sports/
   - Handle timezone edge cases
   - Handle games outside slate window
 
+#### Standings Utilities (`lib/utils/standings.ts`)
+- [ ] **Calculate Team Fantasy Points**
+  - Sum fantasy points for roster of players
+  - Handle empty roster (return 0)
+  - Handle skaters correctly
+  - Handle goalies correctly
+  - Handle null/undefined stats
+
+- [ ] **Calculate Win Percentage**
+  - Calculate percentage from wins, losses, ties
+  - Handle zero games played (return 0)
+  - Handle default ties parameter
+  - Calculate correctly with ties
+
+- [ ] **Format Win Percentage**
+  - Format as percentage string (e.g., "50.0")
+  - Handle decimal precision
+  - Format edge cases (0%, 100%)
+
+- [ ] **Get Rank Suffix**
+  - Return "1st", "2nd", "3rd" correctly
+  - Return "th" for 4-9
+  - Handle teens correctly (11th, 12th, 13th)
+  - Handle 21st, 22nd, 23rd correctly
+  - Handle larger numbers
+
+#### Draft Utilities (`lib/utils/draft.ts`)
+- [x] **Snake Draft Order Generation**
+  - Generate correct order for multiple rounds
+  - Reverse order on odd rounds
+  - Handle empty teams array
+  - Handle single team
+
+- [x] **Draft Order Shuffling**
+  - Return same number of teams
+  - Contain all team IDs
+  - Handle empty input
+
+- [x] **Pick Management**
+  - Get team for specific pick number
+  - Handle invalid pick numbers
+  - Calculate total picks
+  - Get round number from pick
+  - Detect last pick of round
+
 #### Data Validation
 - [ ] **Schema Validation**
   - Validate player data structure
@@ -220,12 +265,12 @@ goat-sports/
   - Return appropriate status codes
 
 ##### `/api/leagues` Route
-- [ ] **GET - List Leagues**
+- [x] **GET - List Leagues**
   - Return user's leagues
   - Filter by status
   - Include league metadata
 
-- [ ] **POST - Create League**
+- [x] **POST - Create League**
   - Create league with valid data
   - Validate required fields
   - Set commissioner correctly
@@ -233,17 +278,76 @@ goat-sports/
   - Handle duplicate names
   - Validate scoring settings
 
-- [ ] **GET - Get League by ID**
+- [x] **GET - Get League by ID**
   - Return league details
   - Include teams and members
   - Handle non-existent league
   - Verify authorization
 
-- [ ] **POST - Join League**
+- [x] **POST - Join League**
   - Join existing league
   - Check league capacity
   - Handle duplicate joins
   - Verify league status allows joining
+
+##### `/api/leagues/[id]/draft` Route
+- [x] **GET - Get Draft**
+  - Return draft for league
+  - Handle non-existent draft
+
+- [x] **POST - Create Draft**
+  - Create draft with valid data
+  - Generate snake draft order
+  - Validate minimum teams (2+)
+  - Handle existing draft
+  - Set pick time limit
+
+##### `/api/drafts/[id]` Route
+- [x] **GET - Get Draft Details**
+  - Return draft with picks and current team
+  - Include player and team info for picks
+  - Handle non-existent draft
+
+- [x] **PATCH - Update Draft**
+  - Update draft status
+  - Update current pick and team
+  - Set startedAt when status changes to in_progress
+  - Set completedAt when status changes to completed
+
+##### `/api/drafts/[id]/pick` Route
+- [x] **POST - Make Draft Pick**
+  - Create draft pick record
+  - Add player to roster automatically
+  - Advance to next pick
+  - Verify it's correct team's turn
+  - Check player not already drafted
+  - Complete draft when all picks made
+
+##### `/api/fantasy-teams/[id]/roster` Route
+- [x] **GET - Get Roster**
+  - Return roster with player details
+  - Include team information
+  - Handle non-existent team
+  - Return empty roster for new team
+
+- [x] **POST - Add Player**
+  - Add player to roster
+  - Validate playerId required
+  - Check for duplicate players
+  - Default lineupPosition to BN
+  - Return full player details
+
+##### `/api/fantasy-teams/[id]/roster/[playerId]` Route
+- [x] **DELETE - Remove Player**
+  - Remove player from roster
+  - Handle non-existent player
+  - Return success message
+
+- [x] **PATCH - Update Position**
+  - Update lineup position
+  - Validate lineupPosition required
+  - Update timestamp
+  - Handle non-existent player
 
 ##### `/api/health` Route
 - [ ] **GET - Health Check**
@@ -354,6 +458,26 @@ goat-sports/
   - Display sort indicator
   - Handle initial sort state
   - Reset sort correctly
+
+##### `StandingsTab` (League Detail Page)
+- [ ] **Rendering**
+  - Display standings table
+  - Show rank, team name, owner, fantasy points
+  - Display W-L-T record
+  - Show win percentage
+  - Display roster size
+  - Show trophy icon for first place
+
+- [ ] **Data Loading**
+  - Fetch standings on mount
+  - Show loading state
+  - Handle empty standings (no teams)
+  - Handle error state
+
+- [ ] **Sorting**
+  - Teams sorted by fantasy points (descending)
+  - Secondary sort by wins (when implemented)
+  - Tertiary sort by team name
 
 #### Navigation Components
 - [ ] **Navigation**
