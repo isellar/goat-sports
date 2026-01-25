@@ -29,8 +29,8 @@ export default function SignupPage() {
       return;
     }
 
-    if (password.length < 6) {
-      toast.error('Password must be at least 6 characters');
+    if (password.length < 8) {
+      toast.error('Password must be at least 8 characters');
       return;
     }
 
@@ -151,10 +151,10 @@ export default function SignupPage() {
                   required
                   disabled={loading}
                   className="pr-10"
-                  minLength={6}
+                  minLength={8}
                   autoComplete="new-password"
                   // @ts-ignore - passwordrules is Safari-specific but helps with password generation
-                  passwordrules="minlength: 6; required: lower; required: upper; required: digit; required: special;"
+                  passwordrules="minlength: 8; required: lower; required: upper; required: digit; required: special;"
                 />
                 <Button
                   type="button"
@@ -175,7 +175,7 @@ export default function SignupPage() {
                 </Button>
               </div>
               <p className="text-xs text-muted-foreground">
-                Must be at least 6 characters with uppercase, lowercase, number, and special character
+                Must be at least 8 characters with uppercase, lowercase, number, and special character
               </p>
             </div>
 
@@ -191,7 +191,7 @@ export default function SignupPage() {
                   required
                   disabled={loading}
                   className="pr-10"
-                  minLength={6}
+                  minLength={8}
                   autoComplete="new-password"
                 />
                 <Button
