@@ -2,9 +2,18 @@ import { NextRequest, NextResponse } from 'next/server';
 import { db } from '@/lib/db';
 import { leagues, leagueMemberships, fantasyTeams, users } from '@/lib/db/schema';
 import { eq, and } from 'drizzle-orm';
+import { requireAuth } from '@/lib/auth/server';
 
 export async function GET(request: NextRequest) {
   try {
+    const user = await requireAuth(request);
+    if (!user) {
+      return NextResponse.json(
+        { error: 'Unauthorized' },
+        { status: 401 }
+      );
+    }
+
     if (!db) {
       return NextResponse.json(
         { error: 'Database not configured' },
@@ -12,32 +21,22 @@ export async function GET(request: NextRequest) {
       );
     }
 
-    const { searchParams } = new URL(request.url);
-    const userId = searchParams.get('userId');
+    // Return leagues for the authenticated user
+    const userLeagues = await db
+      .select({
+        league: leagues,
+        membership: leagueMemberships,
+      })
+      .from(leagueMemberships)
+      .innerJoin(leagues, eq(leagueMemberships.leagueId, leagues.id))
+      .where(eq(leagueMemberships.userId, user.id));
 
-    // If userId provided, return leagues for that user
-    if (userId) {
-      const userLeagues = await db
-        .select({
-          league: leagues,
-          membership: leagueMemberships,
-        })
-        .from(leagueMemberships)
-        .innerJoin(leagues, eq(leagueMemberships.leagueId, leagues.id))
-        .where(eq(leagueMemberships.userId, userId));
-
-      return NextResponse.json({
-        leagues: userLeagues.map((ul) => ({
-          ...ul.league,
-          joinedAt: ul.membership.joinedAt,
-        })),
-      });
-    }
-
-    // Otherwise, return all public leagues (for now, all leagues)
-    const allLeagues = await db.select().from(leagues);
-
-    return NextResponse.json({ leagues: allLeagues });
+    return NextResponse.json({
+      leagues: userLeagues.map((ul) => ({
+        ...ul.league,
+        joinedAt: ul.membership.joinedAt,
+      })),
+    });
   } catch (error) {
     console.error('Error fetching leagues:', error);
     return NextResponse.json(
@@ -49,6 +48,14 @@ export async function GET(request: NextRequest) {
 
 export async function POST(request: NextRequest) {
   try {
+    const user = await requireAuth(request);
+    if (!user) {
+      return NextResponse.json(
+        { error: 'Unauthorized' },
+        { status: 401 }
+      );
+    }
+
     if (!db) {
       return NextResponse.json(
         { error: 'Database not configured' },
@@ -60,7 +67,6 @@ export async function POST(request: NextRequest) {
     const {
       name,
       description,
-      commissionerId,
       maxTeams = 12,
       draftType = 'snake',
       rosterSize = 20,
@@ -68,46 +74,39 @@ export async function POST(request: NextRequest) {
       draftDate,
     } = body;
 
-    if (!name || !commissionerId) {
+    if (!name) {
       return NextResponse.json(
-        { error: 'Name and commissionerId are required' },
+        { error: 'Name is required' },
         { status: 400 }
       );
     }
 
-    // Check if user exists, create if not (for development/testing)
+    // Ensure user exists in our users table (Supabase auth creates the auth.users record)
     const [existingUser] = await db
       .select()
       .from(users)
-      .where(eq(users.id, commissionerId));
+      .where(eq(users.id, user.id));
 
     if (!existingUser) {
-      // Create user for development/testing purposes
-      // In production, this should be handled by authentication
-      try {
-        await db.insert(users).values({
-          id: commissionerId,
-          email: `${commissionerId}@test.local`,
-          name: commissionerId.replace('_', ' ').replace(/\b\w/g, (l) => l.toUpperCase()),
-        });
-      } catch (userError: any) {
-        // If user creation fails (e.g., duplicate key), continue
-        // The user might have been created by another request
-        console.warn('Failed to create user, may already exist:', userError.message);
-      }
+      // Create user record in our database
+      await db.insert(users).values({
+        id: user.id,
+        email: user.email!,
+        name: user.user_metadata?.display_name || user.email?.split('@')[0] || 'User',
+      });
     }
 
     // Generate league ID
     const leagueId = `league_${Date.now()}_${Math.random().toString(36).substr(2, 9)}`;
 
-    // Create league
+    // Create league with authenticated user as commissioner
     const [newLeague] = await db
       .insert(leagues)
       .values({
         id: leagueId,
         name,
         description: description || null,
-        commissionerId,
+        commissionerId: user.id,
         maxTeams,
         draftType: draftType as 'snake' | 'auction',
         rosterSize,
@@ -121,7 +120,7 @@ export async function POST(request: NextRequest) {
     await db.insert(leagueMemberships).values({
       id: `membership_${Date.now()}_${Math.random().toString(36).substr(2, 9)}`,
       leagueId: newLeague.id,
-      userId: commissionerId,
+      userId: user.id,
     });
 
     // Create commissioner's fantasy team
@@ -129,7 +128,7 @@ export async function POST(request: NextRequest) {
     await db.insert(fantasyTeams).values({
       id: fantasyTeamId,
       leagueId: newLeague.id,
-      ownerId: commissionerId,
+      ownerId: user.id,
       name: `${name} - Commissioner`,
     });
 

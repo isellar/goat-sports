@@ -1,13 +1,22 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { db } from '@/lib/db';
-import { leagues, leagueMemberships, fantasyTeams } from '@/lib/db/schema';
+import { leagues, leagueMemberships, fantasyTeams, users } from '@/lib/db/schema';
 import { eq, and, count } from 'drizzle-orm';
+import { requireAuth } from '@/lib/auth/server';
 
 export async function POST(
   request: NextRequest,
   { params }: { params: Promise<{ id: string }> }
 ) {
   try {
+    const user = await requireAuth(request);
+    if (!user) {
+      return NextResponse.json(
+        { error: 'Unauthorized' },
+        { status: 401 }
+      );
+    }
+
     if (!db) {
       return NextResponse.json(
         { error: 'Database not configured' },
@@ -17,13 +26,20 @@ export async function POST(
 
     const { id: leagueId } = await params;
     const body = await request.json();
-    const { userId, teamName } = body;
+    const { teamName } = body;
 
-    if (!userId) {
-      return NextResponse.json(
-        { error: 'userId is required' },
-        { status: 400 }
-      );
+    // Ensure user exists in our users table
+    const [existingUser] = await db
+      .select()
+      .from(users)
+      .where(eq(users.id, user.id));
+
+    if (!existingUser) {
+      await db.insert(users).values({
+        id: user.id,
+        email: user.email!,
+        name: user.user_metadata?.display_name || user.email?.split('@')[0] || 'User',
+      });
     }
 
     // Check if league exists
@@ -46,13 +62,13 @@ export async function POST(
       .where(
         and(
           eq(leagueMemberships.leagueId, leagueId),
-          eq(leagueMemberships.userId, userId)
+          eq(leagueMemberships.userId, user.id)
         )
       );
 
     if (existingMembership) {
       return NextResponse.json(
-        { error: 'User is already a member of this league' },
+        { error: 'You are already a member of this league' },
         { status: 400 }
       );
     }
@@ -75,16 +91,17 @@ export async function POST(
     await db.insert(leagueMemberships).values({
       id: membershipId,
       leagueId,
-      userId,
+      userId: user.id,
     });
 
     // Create fantasy team
     const fantasyTeamId = `team_${Date.now()}_${Math.random().toString(36).substr(2, 9)}`;
+    const displayName = user.user_metadata?.display_name || user.email?.split('@')[0] || 'User';
     await db.insert(fantasyTeams).values({
       id: fantasyTeamId,
       leagueId,
-      ownerId: userId,
-      name: teamName || `Team ${userId.slice(0, 8)}`,
+      ownerId: user.id,
+      name: teamName || `${displayName}'s Team`,
     });
 
     return NextResponse.json(

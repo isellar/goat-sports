@@ -2,12 +2,21 @@ import { NextRequest, NextResponse } from 'next/server';
 import { db } from '@/lib/db';
 import { leagues, leagueMemberships, fantasyTeams, users } from '@/lib/db/schema';
 import { eq, and } from 'drizzle-orm';
+import { requireAuth } from '@/lib/auth/server';
 
 export async function GET(
   request: NextRequest,
   { params }: { params: Promise<{ id: string }> }
 ) {
   try {
+    const user = await requireAuth(request);
+    if (!user) {
+      return NextResponse.json(
+        { error: 'Unauthorized' },
+        { status: 401 }
+      );
+    }
+
     if (!db) {
       return NextResponse.json(
         { error: 'Database not configured' },
@@ -16,6 +25,22 @@ export async function GET(
     }
 
     const { id } = await params;
+
+    // Verify user is a member of the league
+    const [membership] = await db
+      .select()
+      .from(leagueMemberships)
+      .where(and(
+        eq(leagueMemberships.leagueId, id),
+        eq(leagueMemberships.userId, user.id)
+      ));
+
+    if (!membership) {
+      return NextResponse.json(
+        { error: 'Forbidden: You are not a member of this league' },
+        { status: 403 }
+      );
+    }
 
     // Get league with commissioner info
     const [league] = await db
@@ -82,6 +107,14 @@ export async function PATCH(
   { params }: { params: Promise<{ id: string }> }
 ) {
   try {
+    const user = await requireAuth(request);
+    if (!user) {
+      return NextResponse.json(
+        { error: 'Unauthorized' },
+        { status: 401 }
+      );
+    }
+
     if (!db) {
       return NextResponse.json(
         { error: 'Database not configured' },
@@ -92,6 +125,26 @@ export async function PATCH(
     const { id } = await params;
     const body = await request.json();
 
+    // Get league and verify user is commissioner
+    const [league] = await db
+      .select()
+      .from(leagues)
+      .where(eq(leagues.id, id));
+
+    if (!league) {
+      return NextResponse.json(
+        { error: 'League not found' },
+        { status: 404 }
+      );
+    }
+
+    if (league.commissionerId !== user.id) {
+      return NextResponse.json(
+        { error: 'Forbidden: Only the commissioner can update league settings' },
+        { status: 403 }
+      );
+    }
+
     // Update league
     const [updatedLeague] = await db
       .update(leagues)
@@ -101,13 +154,6 @@ export async function PATCH(
       })
       .where(eq(leagues.id, id))
       .returning();
-
-    if (!updatedLeague) {
-      return NextResponse.json(
-        { error: 'League not found' },
-        { status: 404 }
-      );
-    }
 
     return NextResponse.json({ league: updatedLeague });
   } catch (error) {
