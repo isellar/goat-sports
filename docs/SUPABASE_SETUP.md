@@ -38,7 +38,7 @@ This guide completes **Task #7: Configure Supabase Auth and environment** for Ph
        - OFF = Users can log in immediately (easier for development)
      - ✅ **Secure email change** - Keep ON (requires confirmation for email changes)
 
-3. **Email Templates** (Optional but Recommended)
+3. **Email Templates** (See detailed templates in Part 3.5 below)
    - Click **Email Templates** tab
    - Customize these templates with your branding:
      - **Confirm signup** - Sent when user signs up
@@ -46,59 +46,219 @@ This guide completes **Task #7: Configure Supabase Auth and environment** for Ph
      - **Change Email Address** - Confirmation for email changes
      - **Reset Password** - Password reset emails
 
-   Example customization for "Confirm signup":
-   ```html
-   <h2>Welcome to GOAT Sports!</h2>
-   <p>Please confirm your email address by clicking the link below:</p>
-   <p><a href="{{ .ConfirmationURL }}">Confirm your email</a></p>
-   ```
+## Part 2.5: Email Templates
 
-## Part 3: Configure Google OAuth
+Copy and paste these templates into Supabase → **Authentication** → **Email Templates**:
 
-1. **Create Google OAuth Credentials**
-   - Go to https://console.cloud.google.com/
-   - Create a new project or select existing one
-   - Navigate to **APIs & Services** → **Credentials**
-   - Click **+ CREATE CREDENTIALS** → **OAuth client ID**
-   - Choose **Web application**
+### 1. Confirm Signup Email
 
-2. **Configure OAuth Consent Screen** (if first time)
-   - Go to **APIs & Services** → **OAuth consent screen**
-   - Choose **External** user type
-   - Fill in required fields:
-     - App name: `GOAT Sports`
-     - User support email: Your email
-     - Developer contact: Your email
-   - Add scopes: `email`, `profile`
-   - Save
+**Subject:** `Welcome to GOAT Sports - Confirm Your Email`
 
-3. **Set Authorized Redirect URIs**
-   - In your OAuth client configuration, add these redirect URIs:
+**Message Body:**
+```html
+<h2>Welcome to GOAT Sports! 🏒</h2>
+
+<p>Thanks for signing up! You're one step away from creating your fantasy hockey dynasty.</p>
+
+<p>Please confirm your email address by clicking the button below:</p>
+
+<p style="text-align: center; margin: 30px 0;">
+  <a href="{{ .ConfirmationURL }}"
+     style="background-color: #2563eb; color: white; padding: 12px 24px; text-decoration: none; border-radius: 6px; display: inline-block;">
+    Confirm Email Address
+  </a>
+</p>
+
+<p>Or copy and paste this link into your browser:</p>
+<p style="word-break: break-all; color: #6b7280;">{{ .ConfirmationURL }}</p>
+
+<p style="margin-top: 40px; color: #6b7280; font-size: 14px;">
+  If you didn't create a GOAT Sports account, you can safely ignore this email.
+</p>
+
+<p style="margin-top: 20px;">
+  Best regards,<br>
+  The GOAT Sports Team
+</p>
+```
+
+### 2. Magic Link Email
+
+**Subject:** `Sign in to GOAT Sports`
+
+**Message Body:**
+```html
+<h2>Sign in to GOAT Sports 🏒</h2>
+
+<p>Click the button below to securely sign in to your account:</p>
+
+<p style="text-align: center; margin: 30px 0;">
+  <a href="{{ .ConfirmationURL }}"
+     style="background-color: #2563eb; color: white; padding: 12px 24px; text-decoration: none; border-radius: 6px; display: inline-block;">
+    Sign In Now
+  </a>
+</p>
+
+<p>Or copy and paste this link into your browser:</p>
+<p style="word-break: break-all; color: #6b7280;">{{ .ConfirmationURL }}</p>
+
+<p style="margin-top: 40px; color: #6b7280; font-size: 14px;">
+  This link expires in 1 hour. If you didn't request this email, you can safely ignore it.
+</p>
+
+<p style="margin-top: 20px;">
+  Best regards,<br>
+  The GOAT Sports Team
+</p>
+```
+
+### 3. Reset Password Email
+
+**Subject:** `Reset Your GOAT Sports Password`
+
+**Message Body:**
+```html
+<h2>Reset Your Password 🔒</h2>
+
+<p>We received a request to reset your GOAT Sports password.</p>
+
+<p>Click the button below to create a new password:</p>
+
+<p style="text-align: center; margin: 30px 0;">
+  <a href="{{ .ConfirmationURL }}"
+     style="background-color: #2563eb; color: white; padding: 12px 24px; text-decoration: none; border-radius: 6px; display: inline-block;">
+    Reset Password
+  </a>
+</p>
+
+<p>Or copy and paste this link into your browser:</p>
+<p style="word-break: break-all; color: #6b7280;">{{ .ConfirmationURL }}</p>
+
+<p style="margin-top: 40px; color: #6b7280; font-size: 14px;">
+  This link expires in 1 hour. If you didn't request a password reset, you can safely ignore this email - your password will not be changed.
+</p>
+
+<p style="margin-top: 20px;">
+  Best regards,<br>
+  The GOAT Sports Team
+</p>
+```
+
+### 4. Change Email Address
+
+**Subject:** `Confirm Your New Email Address`
+
+**Message Body:**
+```html
+<h2>Confirm Email Change 📧</h2>
+
+<p>You recently requested to change your GOAT Sports email address.</p>
+
+<p>Click the button below to confirm this change:</p>
+
+<p style="text-align: center; margin: 30px 0;">
+  <a href="{{ .ConfirmationURL }}"
+     style="background-color: #2563eb; color: white; padding: 12px 24px; text-decoration: none; border-radius: 6px; display: inline-block;">
+    Confirm Email Change
+  </a>
+</p>
+
+<p>Or copy and paste this link into your browser:</p>
+<p style="word-break: break-all; color: #6b7280;">{{ .ConfirmationURL }}</p>
+
+<p style="margin-top: 40px; color: #6b7280; font-size: 14px;">
+  If you didn't request this change, please contact support immediately - someone may be trying to access your account.
+</p>
+
+<p style="margin-top: 20px;">
+  Best regards,<br>
+  The GOAT Sports Team
+</p>
+```
+
+### 5. Invite User Email (Optional)
+
+**Subject:** `You've Been Invited to Join {{ .SiteURL }}`
+
+**Message Body:**
+```html
+<h2>You've Been Invited! 🏒</h2>
+
+<p>You've been invited to join a fantasy hockey league on GOAT Sports.</p>
+
+<p>Click the button below to accept your invitation and create your account:</p>
+
+<p style="text-align: center; margin: 30px 0;">
+  <a href="{{ .ConfirmationURL }}"
+     style="background-color: #2563eb; color: white; padding: 12px 24px; text-decoration: none; border-radius: 6px; display: inline-block;">
+    Accept Invitation
+  </a>
+</p>
+
+<p>Or copy and paste this link into your browser:</p>
+<p style="word-break: break-all; color: #6b7280;">{{ .ConfirmationURL }}</p>
+
+<p style="margin-top: 40px; color: #6b7280; font-size: 14px;">
+  This invitation expires in 7 days.
+</p>
+
+<p style="margin-top: 20px;">
+  Best regards,<br>
+  The GOAT Sports Team
+</p>
+```
+
+**How to Apply Templates:**
+1. Go to Supabase Dashboard → **Authentication** → **Email Templates**
+2. Select each template type from the dropdown
+3. Replace the default content with the templates above
+4. Click **Save** for each template
+
+## Part 3: Configure Discord OAuth
+
+1. **Create Discord Application**
+   - Go to https://discord.com/developers/applications
+   - Click **New Application**
+   - Name it: `GOAT Sports`
+   - Accept the Terms of Service
+   - Click **Create**
+
+2. **Configure OAuth2 Settings**
+   - In your application, click **OAuth2** in the left sidebar
+   - Under **OAuth2 → General**, find your:
+     - **Client ID** - Copy this
+     - **Client Secret** - Click **Reset Secret** if needed, then copy
+
+3. **Set Redirect URIs**
+   - Still in **OAuth2 → General**, scroll to **Redirects**
+   - Click **Add Redirect**
+   - Add these URIs (one at a time):
      ```
-     http://localhost:3000/auth/callback
      https://fvxthqcqumkskrwklrmu.supabase.co/auth/v1/callback
+     http://localhost:3000/auth/callback
      ```
-   - For production (when deployed):
+   - For production (when deployed), also add:
      ```
      https://your-domain.com/auth/callback
-     https://fvxthqcqumkskrwklrmu.supabase.co/auth/v1/callback
      ```
+   - Click **Save Changes**
 
-4. **Get OAuth Credentials**
-   - Copy your **Client ID** (looks like: `xxxxx.apps.googleusercontent.com`)
-   - Copy your **Client Secret**
-
-5. **Configure in Supabase**
-   - Back in Supabase dashboard → **Authentication** → **Providers**
-   - Find **Google** in the list
+4. **Configure in Supabase**
+   - Go to Supabase dashboard → **Authentication** → **Providers**
+   - Find **Discord** in the list
    - Toggle it **ON**
-   - Paste your **Client ID**
-   - Paste your **Client Secret**
-   - **Callback URL** is auto-generated (should show):
+   - Paste your Discord **Client ID**
+   - Paste your Discord **Client Secret**
+   - The **Callback URL** is auto-generated (should show):
      ```
      https://fvxthqcqumkskrwklrmu.supabase.co/auth/v1/callback
      ```
    - Click **Save**
+
+5. **Optional: Add Bot (for future Discord integration)**
+   - In Discord Developer Portal, click **Bot** in the left sidebar
+   - Click **Add Bot** (if you plan to send Discord notifications later)
+   - For now, OAuth2 login is all you need
 
 ## Part 4: Configure Site URL & Redirect URLs
 
@@ -133,10 +293,11 @@ This guide completes **Task #7: Configure Supabase Auth and environment** for Ph
    - Check your email for confirmation (if enabled)
    - Try logging in at http://localhost:3000/auth/login
 
-3. **Test Google OAuth Flow**
+3. **Test Discord OAuth Flow**
    - Navigate to http://localhost:3000/auth/login
-   - Click "Continue with Google"
-   - Sign in with your Google account
+   - Click "Continue with Discord"
+   - Sign in with your Discord account
+   - Authorize the GOAT Sports application
    - Should redirect back to /leagues
 
 4. **Verify Authentication**
@@ -166,10 +327,12 @@ SUPABASE_SERVICE_ROLE_KEY=<paste_your_service_role_key_here>
 - Verify your email provider is configured
 - For development, you can disable email confirmation
 
-### Google OAuth not working?
-- Verify redirect URIs exactly match in both Google Console and Supabase
-- Check that OAuth consent screen is published (at least in testing mode)
+### Discord OAuth not working?
+- Verify redirect URIs exactly match in both Discord Developer Portal and Supabase
+- Make sure you saved changes in Discord Developer Portal after adding redirects
+- Check that the application is not in a deleted state
 - Clear browser cookies and try again
+- Try in an incognito/private browsing window
 
 ### "Invalid redirect URL" error?
 - Add the redirect URL to **Authentication** → **URL Configuration** in Supabase
