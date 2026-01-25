@@ -5,6 +5,7 @@ import { usePathname } from 'next/navigation';
 import { Home, Users, Trophy, Menu, X } from 'lucide-react';
 import { cn } from '@/lib/utils';
 import { ThemeToggle } from '@/components/theme-toggle';
+import { UserMenu } from '@/components/auth/UserMenu';
 import { useState } from 'react';
 import { Button } from '@/components/ui/button';
 import {
@@ -66,8 +67,11 @@ export function Navigation() {
         </div>
 
         <div className="flex items-center gap-2">
+          <div className="hidden md:block">
+            <UserMenu />
+          </div>
           <ThemeToggle />
-          
+
           {/* Mobile Menu */}
           <Sheet open={mobileMenuOpen} onOpenChange={setMobileMenuOpen}>
             <SheetTrigger asChild>

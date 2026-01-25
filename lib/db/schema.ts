@@ -85,6 +85,16 @@ export const users = pgTable('users', {
   createdAt: timestamp('created_at').defaultNow(),
 });
 
+// Profiles (links to Supabase auth.users)
+export const profiles = pgTable('profiles', {
+  id: text('id').primaryKey(),
+  userId: text('user_id').unique().notNull(), // Links to Supabase auth.users.id
+  displayName: text('display_name'),
+  avatarUrl: text('avatar_url'),
+  createdAt: timestamp('created_at').defaultNow(),
+  updatedAt: timestamp('updated_at').defaultNow(),
+});
+
 // Fantasy Leagues
 export const leagues = pgTable('leagues', {
   id: text('id').primaryKey(),
@@ -261,6 +271,8 @@ export type Game = typeof games.$inferSelect;
 export type NewGame = typeof games.$inferInsert;
 export type User = typeof users.$inferSelect;
 export type NewUser = typeof users.$inferInsert;
+export type Profile = typeof profiles.$inferSelect;
+export type NewProfile = typeof profiles.$inferInsert;
 export type League = typeof leagues.$inferSelect;
 export type NewLeague = typeof leagues.$inferInsert;
 export type FantasyTeam = typeof fantasyTeams.$inferSelect;
