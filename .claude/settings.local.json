@@ -4,7 +4,9 @@
       "Bash(bd:*)",
       "Bash(test:*)",
       "Bash(git add:*)",
-      "Bash(git commit:*)"
+      "Bash(git commit:*)",
+      "Bash(git pull:*)",
+      "Bash(git push:*)"
     ]
   }
 }
