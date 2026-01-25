@@ -75,6 +75,28 @@ export async function POST(request: NextRequest) {
       );
     }
 
+    // Check if user exists, create if not (for development/testing)
+    const [existingUser] = await db
+      .select()
+      .from(users)
+      .where(eq(users.id, commissionerId));
+
+    if (!existingUser) {
+      // Create user for development/testing purposes
+      // In production, this should be handled by authentication
+      try {
+        await db.insert(users).values({
+          id: commissionerId,
+          email: `${commissionerId}@test.local`,
+          name: commissionerId.replace('_', ' ').replace(/\b\w/g, (l) => l.toUpperCase()),
+        });
+      } catch (userError: any) {
+        // If user creation fails (e.g., duplicate key), continue
+        // The user might have been created by another request
+        console.warn('Failed to create user, may already exist:', userError.message);
+      }
+    }
+
     // Generate league ID
     const leagueId = `league_${Date.now()}_${Math.random().toString(36).substr(2, 9)}`;
 

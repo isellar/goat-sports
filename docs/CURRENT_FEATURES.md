@@ -158,6 +158,35 @@ This document tracks the features currently implemented in GOAT Sports.
 - `GET /api/leagues/[id]` - Get league details with members and teams
 - `PATCH /api/leagues/[id]` - Update league settings
 - `POST /api/leagues/[id]/join` - Join a league
+- `GET /api/leagues/[id]/standings` - Get league standings with team rankings
+
+## Standings & Statistics
+
+### Standings Calculation
+- **Total Fantasy Points**: Sum of fantasy points from all players on each team's roster
+- **Team Rankings**: Teams ranked by total fantasy points (descending)
+- **Win/Loss Records**: Placeholder for future matchup tracking (currently 0-0-0)
+- **Win Percentage**: Calculated from wins, losses, and ties
+- **Roster Size**: Number of players on each team's roster
+
+### Standings Display
+- **Standings Tab**: New tab in league detail page (`/leagues/[id]`)
+- **Standings Table**: Shows rank, team name, owner, fantasy points, W-L-T record, win percentage, and roster size
+- **Visual Indicators**: Trophy icon for first place team
+- **Real-time Updates**: Standings recalculated on each page load based on current rosters
+
+### Standings Features
+- Automatic ranking by total fantasy points
+- Secondary sort by wins (when matchups are implemented)
+- Tertiary sort by team name (alphabetical)
+- Handles empty rosters (0 fantasy points)
+- Supports both skaters and goalies in calculations
+
+### Utility Functions
+- `calculateTeamFantasyPoints()` - Sum fantasy points for a roster
+- `calculateWinPercentage()` - Calculate win percentage from record
+- `formatWinPercentage()` - Format as percentage string
+- `getRankSuffix()` - Get rank suffix (1st, 2nd, 3rd, etc.)
 
 ## Roster Management
 
