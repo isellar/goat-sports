@@ -1,14 +1,23 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { db } from '@/lib/db';
-import { drafts, leagues, fantasyTeams } from '@/lib/db/schema';
-import { eq } from 'drizzle-orm';
+import { drafts, leagues, fantasyTeams, leagueMemberships } from '@/lib/db/schema';
+import { eq, and } from 'drizzle-orm';
 import { generateSnakeDraftOrder, shuffleDraftOrder } from '@/lib/utils/draft';
+import { requireAuth } from '@/lib/auth/server';
 
 export async function GET(
   request: NextRequest,
   { params }: { params: Promise<{ id: string }> }
 ) {
   try {
+    const user = await requireAuth(request);
+    if (!user) {
+      return NextResponse.json(
+        { error: 'Unauthorized' },
+        { status: 401 }
+      );
+    }
+
     if (!db) {
       return NextResponse.json(
         { error: 'Database not configured' },
@@ -17,6 +26,22 @@ export async function GET(
     }
 
     const { id: leagueId } = await params;
+
+    // Verify user is a member of the league
+    const [membership] = await db
+      .select()
+      .from(leagueMemberships)
+      .where(and(
+        eq(leagueMemberships.leagueId, leagueId),
+        eq(leagueMemberships.userId, user.id)
+      ));
+
+    if (!membership) {
+      return NextResponse.json(
+        { error: 'Forbidden: You are not a member of this league' },
+        { status: 403 }
+      );
+    }
 
     // Get draft for league
     const [draft] = await db
@@ -46,6 +71,14 @@ export async function POST(
   { params }: { params: Promise<{ id: string }> }
 ) {
   try {
+    const user = await requireAuth(request);
+    if (!user) {
+      return NextResponse.json(
+        { error: 'Unauthorized' },
+        { status: 401 }
+      );
+    }
+
     if (!db) {
       return NextResponse.json(
         { error: 'Database not configured' },
@@ -57,7 +90,7 @@ export async function POST(
     const body = await request.json();
     const { pickTimeLimit } = body;
 
-    // Check if league exists
+    // Check if league exists and user is commissioner
     const [league] = await db
       .select()
       .from(leagues)
@@ -67,6 +100,13 @@ export async function POST(
       return NextResponse.json(
         { error: 'League not found' },
         { status: 404 }
+      );
+    }
+
+    if (league.commissionerId !== user.id) {
+      return NextResponse.json(
+        { error: 'Forbidden: Only the commissioner can create a draft' },
+        { status: 403 }
       );
     }
 
