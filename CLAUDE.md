@@ -34,6 +34,74 @@ bun run db:studio        # Open Drizzle Studio for database inspection
 bun run db:seed          # Seed database with sample NHL data
 ```
 
+## Beads Workflow (Issue Tracking)
+
+This project uses **beads** (`bd`) for persistent issue tracking across sessions. Issues survive conversation compaction and provide context for multi-session work.
+
+### Core Commands
+```bash
+bd ready                 # Find available work (no blockers)
+bd show <id>             # View issue details with dependencies
+bd list --status=open    # All open issues
+bd create --title="..." --type=task|bug|feature --priority=2
+bd update <id> --status=in_progress  # Claim work
+bd close <id>            # Complete work
+bd close <id1> <id2>     # Close multiple issues efficiently
+bd sync                  # Sync beads changes with git
+bd dep add <issue> <depends-on>  # Add dependency
+bd blocked               # Show all blocked issues
+```
+
+### When to Use Beads
+- **Multi-session work** that needs persistence across conversations
+- **Complex tasks** with dependencies or blockers
+- **Strategic work** that must survive conversation compaction
+- **Discovered work** during implementation (create issues as you find them)
+- **Parallel work** - create multiple issues and work through them
+
+### Priority Levels
+Use numeric priorities: `0-4` or `P0-P4`
+- **P0/0**: Critical (production down, data loss)
+- **P1/1**: High (blocks key features)
+- **P2/2**: Medium (normal work, default)
+- **P3/3**: Low (nice to have)
+- **P4/4**: Backlog (future consideration)
+
+### Session Completion Checklist
+
+**MANDATORY STEPS** before ending ANY session:
+
+```bash
+# 1. Create issues for remaining work
+bd create --title="..." --type=task --priority=2
+
+# 2. Run quality gates (if code changed)
+bun run type-check && bun run lint && bun run test
+
+# 3. Update beads status
+bd close <id1> <id2>  # Close completed work
+bd update <id> --notes="Current status..."  # Update in-progress
+
+# 4. Commit code changes
+git add <files>
+git commit -m "Description
+
+Co-Authored-By: Claude Sonnet 4.5 <noreply@anthropic.com>"
+
+# 5. Push to remote (MANDATORY)
+git pull --rebase
+bd sync
+git push
+git status  # MUST show "up to date with origin"
+```
+
+**CRITICAL RULES:**
+- Work is NOT complete until `git push` succeeds
+- NEVER stop before pushing - stranded local work is lost work
+- NEVER say "ready to push when you are" - YOU must push
+- If push fails, resolve conflicts and retry until success
+- Create issues for ALL remaining work before ending session
+
 ## Architecture
 
 ### Database as Source of Truth
