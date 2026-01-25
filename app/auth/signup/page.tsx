@@ -34,6 +34,17 @@ export default function SignupPage() {
       return;
     }
 
+    // Validate password requirements
+    const hasUpperCase = /[A-Z]/.test(password);
+    const hasLowerCase = /[a-z]/.test(password);
+    const hasNumber = /[0-9]/.test(password);
+    const hasSpecialChar = /[^A-Za-z0-9]/.test(password);
+
+    if (!hasUpperCase || !hasLowerCase || !hasNumber || !hasSpecialChar) {
+      toast.error('Password must include uppercase, lowercase, number, and special character');
+      return;
+    }
+
     setLoading(true);
 
     try {
@@ -142,6 +153,8 @@ export default function SignupPage() {
                   className="pr-10"
                   minLength={6}
                   autoComplete="new-password"
+                  // @ts-ignore - passwordrules is Safari-specific but helps with password generation
+                  passwordrules="minlength: 6; required: lower; required: upper; required: digit; required: special;"
                 />
                 <Button
                   type="button"
@@ -162,7 +175,7 @@ export default function SignupPage() {
                 </Button>
               </div>
               <p className="text-xs text-muted-foreground">
-                Must be at least 6 characters
+                Must be at least 6 characters with uppercase, lowercase, number, and special character
               </p>
             </div>
 
