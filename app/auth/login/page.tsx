@@ -90,6 +90,7 @@ export default function LoginPage() {
                 onChange={(e) => setEmail(e.target.value)}
                 required
                 disabled={loading}
+                autoComplete="email"
               />
             </div>
 
@@ -105,6 +106,7 @@ export default function LoginPage() {
                   required
                   disabled={loading}
                   className="pr-10"
+                  autoComplete="current-password"
                 />
                 <Button
                   type="button"

@@ -110,6 +110,7 @@ export default function SignupPage() {
                 onChange={(e) => setDisplayName(e.target.value)}
                 required
                 disabled={loading}
+                autoComplete="name"
               />
             </div>
 
@@ -123,6 +124,7 @@ export default function SignupPage() {
                 onChange={(e) => setEmail(e.target.value)}
                 required
                 disabled={loading}
+                autoComplete="email"
               />
             </div>
 
@@ -138,6 +140,8 @@ export default function SignupPage() {
                   required
                   disabled={loading}
                   className="pr-10"
+                  minLength={6}
+                  autoComplete="new-password"
                 />
                 <Button
                   type="button"
@@ -157,6 +161,9 @@ export default function SignupPage() {
                   </span>
                 </Button>
               </div>
+              <p className="text-xs text-muted-foreground">
+                Must be at least 6 characters
+              </p>
             </div>
 
             <div className="space-y-2">
@@ -171,6 +178,8 @@ export default function SignupPage() {
                   required
                   disabled={loading}
                   className="pr-10"
+                  minLength={6}
+                  autoComplete="new-password"
                 />
                 <Button
                   type="button"
