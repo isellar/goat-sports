@@ -8,5 +8,9 @@
       "Bash(git pull:*)",
       "Bash(git push:*)"
     ]
-  }
+  },
+  "enabledMcpjsonServers": [
+    "playwright"
+  ],
+  "enableAllProjectMcpServers": true
 }
