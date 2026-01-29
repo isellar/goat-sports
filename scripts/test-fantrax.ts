@@ -44,15 +44,21 @@ async function testFantraxClient() {
     console.log('\n📋 Test 1: Fetching fantasy teams...');
     const teams = await client.getTeams();
     console.log(`✅ Found ${teams.length} teams:`);
-    teams.forEach((team, i) => {
-      console.log(`  ${i + 1}. ${team.name} (${team.abbreviation}) - Owner: ${team.owner}`);
+    teams.slice(0, 5).forEach((team, i) => {
+      console.log(`  ${i + 1}. ${team.name} (${team.abbreviation})`);
     });
+    if (teams.length > 5) {
+      console.log(`  ... and ${teams.length - 5} more teams`);
+    }
+    console.log('\n  Note: Owner info is fetched per-team via roster calls (see Test 2)');
 
     // Test 2: Get Roster for first team
     if (teams.length > 0) {
       console.log(`\n📋 Test 2: Fetching roster for "${teams[0].name}"...`);
       const roster = await client.getRosterInfo(teams[0].team_id);
-      console.log(`✅ Found ${roster.rows.length} roster slots:`);
+      console.log(`✅ Found ${roster.rows.length} roster slots`);
+      console.log(`   Owner: ${roster.owner || 'Unknown'}`);
+      console.log(`\n   Top 10 players:`);
 
       roster.rows.slice(0, 10).forEach((row, i) => {
         if (row.player) {
@@ -60,7 +66,7 @@ async function testFantraxClient() {
           const suspend = row.player.suspended ? ' 🚫' : '';
           console.log(
             `  ${i + 1}. ${row.player.short_name} (${row.player.pos_short_name}) - ` +
-            `${row.player.team_short_name} - FPPG: ${row.fppg}${injury}${suspend}`
+            `${row.player.team_short_name} - FPPG: ${row.fppg.toFixed(2)}${injury}${suspend}`
           );
         } else {
           console.log(`  ${i + 1}. [Empty Slot]`);

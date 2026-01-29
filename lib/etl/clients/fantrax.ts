@@ -102,6 +102,7 @@ export class FantraxAPIClient {
 
   /**
    * Fetch all fantasy teams in the league
+   * Note: Owner info not available here - use getRosterInfo to get owner
    */
   async getTeams(): Promise<FantraxTeam[]> {
     const response = await this.request('getFantasyTeams');
@@ -112,7 +113,7 @@ export class FantraxAPIClient {
         team_id: data.id,
         name: data.name,
         abbreviation: data.shortName,
-        owner: data.owner,
+        owner: undefined, // Owner not in teams list, get from roster call
       });
     }
 
@@ -122,8 +123,11 @@ export class FantraxAPIClient {
   /**
    * Fetch roster information for a specific fantasy team
    */
-  async getRosterInfo(teamId: string): Promise<FantraxRoster> {
+  async getRosterInfo(teamId: string): Promise<FantraxRoster & { owner?: string }> {
     const response = await this.request('getTeamRosterInfo', { teamId });
+
+    // Extract owner from teamHeadingInfo
+    const owner = response.teamHeadingInfo?.owners?.value;
 
     const rows = [];
     for (const group of response.tables || []) {
@@ -155,11 +159,17 @@ export class FantraxAPIClient {
             }
           }
 
+          // Parse FPPG from cells array (cells[3] is FPPG)
+          let fppg = 0;
+          if (row.cells && row.cells[3] && row.cells[3].content) {
+            fppg = parseFloat(row.cells[3].content) || 0;
+          }
+
           rows.push({
             player,
             pos: null, // Would need positions mapping
             pos_id: row.posId,
-            fppg: parseFloat(row.fppg || '0'),
+            fppg,
           });
         }
       }
@@ -168,6 +178,7 @@ export class FantraxAPIClient {
     return {
       team_id: teamId,
       rows,
+      owner,
     };
   }
 

@@ -1,0 +1,1913 @@
+{
+  "goBackDays": [
+    1,
+    7,
+    14,
+    30,
+    60
+  ],
+  "fantasyTeamInfo": {
+    "735m4vv0ma1rhfv3": {
+      "name": "Colorado Rockies",
+      "logoUrl512": "https://fantraximg.com/logos/iix/tmLogo_iixnklv7jsky3kvw_512.jpg",
+      "shortName": "COL"
+    },
+    "v8d8lr79ma1rhfvl": {
+      "name": "New Jersey Devils",
+      "logoUrl512": "https://fantraximg.com/logos/n6u/tmLogo_n6uuqya8lwqfo3cx_512.jpg",
+      "shortName": "NJD"
+    },
+    "k90e47n7ma1rhfv5": {
+      "name": "Toronto Maple Leafs",
+      "logoUrl512": "https://fantraximg.com/logos/7o7/tmLogo_7o73a5jckcdp4cyk_512.jpg",
+      "shortName": "TOR"
+    },
+    "d8dm5z4xma1rhfux": {
+      "name": "Minnesota North Stars",
+      "logoUrl512": "https://fantraximg.com/logos/ptz/tmLogo_ptzodbqpibbevq49_512.jpg",
+      "shortName": "MIN"
+    },
+    "j0gv37hyma1rhfv0": {
+      "name": "San Jose Sharks",
+      "logoUrl512": "https://fantraximg.com/logos/epk/tmLogo_epkifrp3l3nowy8o_512.jpg",
+      "shortName": "SJ"
+    },
+    "lfmww1xema1rhfuy": {
+      "name": "Carolina Hurricanes",
+      "logoUrl512": "https://fantraximg.com/logos/o6d/tmLogo_o6duj6vpmgfqxwuu_512.webp",
+      "shortName": "CAR"
+    },
+    "vd40qvj4ma1rhfv8": {
+      "name": "Philadelphia Flyers",
+      "logoUrl512": "https://fantraximg.com/logos/v3g/tmLogo_v3gytalxmgiksoaz_512.webp",
+      "shortName": "PHI"
+    },
+    "mt08jcikma1rhfut": {
+      "name": "Columbus Blue Jackets",
+      "logoUrl512": "https://fantraximg.com/logos/f8m/tmLogo_f8m5uxdhmfzslppz_512.webp",
+      "shortName": "CBJ"
+    },
+    "05xtl6r9ma1rhfv4": {
+      "name": "Toronto St. Pats",
+      "logoUrl512": "https://fantraximg.com/logos/ov5/tmLogo_ov5gylnomfa22ews_512.webp",
+      "shortName": "TSP"
+    },
+    "oh2qpmvpma1rhfve": {
+      "name": "Atlanta Thrashers",
+      "logoUrl512": "https://fantraximg.com/logos/1kk/tmLogo_1kk4847ml3oqnjos_512.jpg",
+      "shortName": "ATL"
+    },
+    "mz5zoz97ma1rhfvc": {
+      "name": "Brooklyn Americans",
+      "logoUrl512": "https://fantraximg.com/logos/fvq/tmLogo_fvq6y8aulix5wjs8_512.jpg",
+      "shortName": "BKA"
+    },
+    "3iz8wi5dma1rhfvh": {
+      "name": "Utah Mammoth",
+      "logoUrl512": "https://fantraximg.com/logos/nrx/tmLogo_nrxd4jghlwtma2o3_512.jpg",
+      "shortName": "UTA"
+    },
+    "bk9zoo4ama1rhfuv": {
+      "name": "Cleveland Barons",
+      "logoUrl512": "https://fantraximg.com/logos/otj/tmLogo_otjbaheqjuj5oysk_512.jpg",
+      "shortName": "CLE"
+    },
+    "a1c3t2yfma1rhfvb": {
+      "name": "Montreal Canadiens",
+      "logoUrl512": "https://fantraximg.com/logos/s6n/tmLogo_s6nk2sq8ibf7vya9_512.jpg",
+      "shortName": "MTL"
+    },
+    "klni4f2gma1rhfvm": {
+      "name": "St. Louis Eagles",
+      "logoUrl512": "https://fantraximg.com/logos/uzn/tmLogo_uznf3wfgmavqoknf_512.webp",
+      "shortName": "STL"
+    },
+    "zzmkhgd8ma1rhfvj": {
+      "name": "Pittsburgh Pirates",
+      "logoUrl512": "https://fantraximg.com/logos/nbh/tmLogo_nbhmiixrl3ntjjh8_512.jpg",
+      "shortName": "PIT"
+    },
+    "vu2xk0d1ma1rhfv7": {
+      "name": "Ottawa Senators",
+      "logoUrl512": "https://fantraximg.com/logos/z97/tmLogo_z975kme8kjcbs9uo_512.jpg",
+      "shortName": "OTT"
+    },
+    "ja55o8g5ma1rhfvg": {
+      "name": "Anaheim Ducks",
+      "logoUrl512": "https://fantraximg.com/logos/xam/tmLogo_xamip2t3mg1n81wz_512.webp",
+      "shortName": "ANA"
+    },
+    "z7dm29wfma1rhfv9": {
+      "name": "Hartford Whalers",
+      "logoUrl512": "https://fantraximg.com/logos/hw7/tmLogo_hw7k6rslibk2eyzt_512.jpg",
+      "shortName": "HRT"
+    },
+    "dr5onht5ma1rhfv1": {
+      "name": "Phoenix Coyotes",
+      "logoUrl512": "https://fantraximg.com/logos/ugs/tmLogo_ugszcbodibd50pi2_512.jpg",
+      "shortName": "PHX"
+    }
+  },
+  "displayedSelections": {
+    "projectionsAvailable": true,
+    "period": 1,
+    "timeStartType": "PERIOD_ONLY",
+    "view": "COMBINED",
+    "optimal": false,
+    "showTabs": true,
+    "hideGoBackDays": true,
+    "timeframeType": "YEAR_TO_DATE",
+    "proj": false,
+    "displayedStartDate": 1759809600000,
+    "showOptimal": true,
+    "displayedEndDate": 1769662800000
+  },
+  "miscData": {
+    "displayedMinDate": 1759809600000,
+    "showLogos": true,
+    "heading": "2025 Reddit Dynasty Hockey League",
+    "displayedMaxDate": 1776398399000
+  },
+  "tableList": [
+    {
+      "fixedRows": true,
+      "tableType": "H2hPointsBased1",
+      "fixedHeader": {
+        "cells": [
+          {
+            "sortDirection": 1,
+            "name": "Rank",
+            "shortName": "Rk",
+            "key": "rank"
+          },
+          {
+            "align": "LEFT",
+            "sortDirection": 1,
+            "name": "Team",
+            "shortName": "Team",
+            "key": "team"
+          }
+        ]
+      },
+      "caption": "Standings",
+      "subCaption": "COMBINED",
+      "header": {
+        "cells": [
+          {
+            "sortDirection": 1,
+            "name": "Win",
+            "shortName": "W",
+            "key": "win"
+          },
+          {
+            "sortDirection": 1,
+            "name": "Loss",
+            "shortName": "L",
+            "key": "loss"
+          },
+          {
+            "sortDirection": 1,
+            "name": "Tie",
+            "shortName": "T",
+            "key": "tie"
+          },
+          {
+            "sortDirection": 1,
+            "name": "Points",
+            "shortName": "Points",
+            "key": "points"
+          },
+          {
+            "sortDirection": 1,
+            "name": "Win Percentage",
+            "shortName": "Win%",
+            "key": "winpc"
+          },
+          {
+            "sortDirection": 1,
+            "name": "Division Record (W-L-T)",
+            "shortName": "Div",
+            "key": "div"
+          },
+          {
+            "sortDirection": 1,
+            "name": "Games Back",
+            "shortName": "GB",
+            "key": "gamesback"
+          },
+          {
+            "sortDirection": 1,
+            "name": "Total season fantasy points for",
+            "shortName": "FPtsF",
+            "key": "pointsFor"
+          },
+          {
+            "sortDirection": 1,
+            "name": "Total season fantasy points against",
+            "shortName": "FPtsA",
+            "key": "pointsAgainst"
+          },
+          {
+            "sortDirection": 1,
+            "name": "Streak",
+            "shortName": "Streak",
+            "key": "streak"
+          }
+        ]
+      },
+      "rows": [
+        {
+          "cells": [
+            {
+              "content": "13",
+              "toolTip": "13"
+            },
+            {
+              "content": "3",
+              "toolTip": "3"
+            },
+            {
+              "content": "0",
+              "toolTip": "0"
+            },
+            {
+              "content": "26",
+              "toolTip": "26"
+            },
+            {
+              "content": ".812"
+            },
+            {
+              "content": "7-1-0"
+            },
+            {
+              "content": "0"
+            },
+            {
+              "content": "3,022.308",
+              "toolTip": "3,022.308"
+            },
+            {
+              "content": "2,357.958",
+              "toolTip": "2,357.958"
+            },
+            {
+              "content": "6 (W)"
+            }
+          ],
+          "fixedCells": [
+            {
+              "content": "1"
+            },
+            {
+              "content": "New Jersey Devils",
+              "leagueId": "6yvek7rfma1rhfum",
+              "id": "6yvek7rfma1rhfum",
+              "teamId": "v8d8lr79ma1rhfvl"
+            }
+          ]
+        },
+        {
+          "cells": [
+            {
+              "content": "12",
+              "toolTip": "12"
+            },
+            {
+              "content": "4",
+              "toolTip": "4"
+            },
+            {
+              "content": "0",
+              "toolTip": "0"
+            },
+            {
+              "content": "24",
+              "toolTip": "24"
+            },
+            {
+              "content": ".750"
+            },
+            {
+              "content": "5-3-0"
+            },
+            {
+              "content": "1"
+            },
+            {
+              "content": "2,732.731",
+              "toolTip": "2,732.731"
+            },
+            {
+              "content": "2,412.005",
+              "toolTip": "2,412.005"
+            },
+            {
+              "content": "6 (W)"
+            }
+          ],
+          "fixedCells": [
+            {
+              "content": "2"
+            },
+            {
+              "content": "San Jose Sharks",
+              "leagueId": "6yvek7rfma1rhfum",
+              "id": "6yvek7rfma1rhfum",
+              "teamId": "j0gv37hyma1rhfv0"
+            }
+          ]
+        },
+        {
+          "cells": [
+            {
+              "content": "11",
+              "toolTip": "11"
+            },
+            {
+              "content": "5",
+              "toolTip": "5"
+            },
+            {
+              "content": "0",
+              "toolTip": "0"
+            },
+            {
+              "content": "22",
+              "toolTip": "22"
+            },
+            {
+              "content": ".688"
+            },
+            {
+              "content": "5-3-0"
+            },
+            {
+              "content": "2"
+            },
+            {
+              "content": "2,771.688",
+              "toolTip": "2,771.688"
+            },
+            {
+              "content": "2,311.913",
+              "toolTip": "2,311.913"
+            },
+            {
+              "content": "3 (W)"
+            }
+          ],
+          "fixedCells": [
+            {
+              "content": "3"
+            },
+            {
+              "content": "Philadelphia Flyers",
+              "leagueId": "6yvek7rfma1rhfum",
+              "id": "6yvek7rfma1rhfum",
+              "teamId": "vd40qvj4ma1rhfv8"
+            }
+          ]
+        },
+        {
+          "cells": [
+            {
+              "content": "11",
+              "toolTip": "11"
+            },
+            {
+              "content": "5",
+              "toolTip": "5"
+            },
+            {
+              "content": "0",
+              "toolTip": "0"
+            },
+            {
+              "content": "22",
+              "toolTip": "22"
+            },
+            {
+              "content": ".688"
+            },
+            {
+              "content": "5-3-0"
+            },
+            {
+              "content": "2"
+            },
+            {
+              "content": "2,590.971",
+              "toolTip": "2,590.971"
+            },
+            {
+              "content": "2,363.226",
+              "toolTip": "2,363.226"
+            },
+            {
+              "content": "7 (W)"
+            }
+          ],
+          "fixedCells": [
+            {
+              "content": "4"
+            },
+            {
+              "content": "Brooklyn Americans",
+              "leagueId": "6yvek7rfma1rhfum",
+              "id": "6yvek7rfma1rhfum",
+              "teamId": "mz5zoz97ma1rhfvc"
+            }
+          ]
+        },
+        {
+          "cells": [
+            {
+              "content": "11",
+              "toolTip": "11"
+            },
+            {
+              "content": "5",
+              "toolTip": "5"
+            },
+            {
+              "content": "0",
+              "toolTip": "0"
+            },
+            {
+              "content": "22",
+              "toolTip": "22"
+            },
+            {
+              "content": ".688"
+            },
+            {
+              "content": "4-3-0"
+            },
+            {
+              "content": "2"
+            },
+            {
+              "content": "2,561.925",
+              "toolTip": "2,561.925"
+            },
+            {
+              "content": "2,437.339",
+              "toolTip": "2,437.339"
+            },
+            {
+              "content": "1 (W)"
+            }
+          ],
+          "fixedCells": [
+            {
+              "content": "5"
+            },
+            {
+              "content": "Montreal Canadiens",
+              "leagueId": "6yvek7rfma1rhfum",
+              "id": "6yvek7rfma1rhfum",
+              "teamId": "a1c3t2yfma1rhfvb"
+            }
+          ]
+        },
+        {
+          "cells": [
+            {
+              "content": "10",
+              "toolTip": "10"
+            },
+            {
+              "content": "6",
+              "toolTip": "6"
+            },
+            {
+              "content": "0",
+              "toolTip": "0"
+            },
+            {
+              "content": "20",
+              "toolTip": "20"
+            },
+            {
+              "content": ".625"
+            },
+            {
+              "content": "5-3-0"
+            },
+            {
+              "content": "3"
+            },
+            {
+              "content": "2,561.063",
+              "toolTip": "2,561.063"
+            },
+            {
+              "content": "2,389.71",
+              "toolTip": "2,389.71"
+            },
+            {
+              "content": "1 (L)"
+            }
+          ],
+          "fixedCells": [
+            {
+              "content": "6"
+            },
+            {
+              "content": "Toronto Maple Leafs",
+              "leagueId": "6yvek7rfma1rhfum",
+              "id": "6yvek7rfma1rhfum",
+              "teamId": "k90e47n7ma1rhfv5"
+            }
+          ]
+        },
+        {
+          "cells": [
+            {
+              "content": "10",
+              "toolTip": "10"
+            },
+            {
+              "content": "6",
+              "toolTip": "6"
+            },
+            {
+              "content": "0",
+              "toolTip": "0"
+            },
+            {
+              "content": "20",
+              "toolTip": "20"
+            },
+            {
+              "content": ".625"
+            },
+            {
+              "content": "4-4-0"
+            },
+            {
+              "content": "3"
+            },
+            {
+              "content": "2,533.931",
+              "toolTip": "2,533.931"
+            },
+            {
+              "content": "2,441.325",
+              "toolTip": "2,441.325"
+            },
+            {
+              "content": "1 (L)"
+            }
+          ],
+          "fixedCells": [
+            {
+              "content": "7"
+            },
+            {
+              "content": "Minnesota North Stars",
+              "leagueId": "6yvek7rfma1rhfum",
+              "id": "6yvek7rfma1rhfum",
+              "teamId": "d8dm5z4xma1rhfux"
+            }
+          ]
+        },
+        {
+          "cells": [
+            {
+              "content": "10",
+              "toolTip": "10"
+            },
+            {
+              "content": "6",
+              "toolTip": "6"
+            },
+            {
+              "content": "0",
+              "toolTip": "0"
+            },
+            {
+              "content": "20",
+              "toolTip": "20"
+            },
+            {
+              "content": ".625"
+            },
+            {
+              "content": "5-3-0"
+            },
+            {
+              "content": "3"
+            },
+            {
+              "content": "2,356.485",
+              "toolTip": "2,356.485"
+            },
+            {
+              "content": "2,300.809",
+              "toolTip": "2,300.809"
+            },
+            {
+              "content": "1 (W)"
+            }
+          ],
+          "fixedCells": [
+            {
+              "content": "8"
+            },
+            {
+              "content": "Cleveland Barons",
+              "leagueId": "6yvek7rfma1rhfum",
+              "id": "6yvek7rfma1rhfum",
+              "teamId": "bk9zoo4ama1rhfuv"
+            }
+          ]
+        },
+        {
+          "cells": [
+            {
+              "content": "9",
+              "toolTip": "9"
+            },
+            {
+              "content": "7",
+              "toolTip": "7"
+            },
+            {
+              "content": "0",
+              "toolTip": "0"
+            },
+            {
+              "content": "18",
+              "toolTip": "18"
+            },
+            {
+              "content": ".562"
+            },
+            {
+              "content": "6-3-0"
+            },
+            {
+              "content": "4"
+            },
+            {
+              "content": "2,653.711",
+              "toolTip": "2,653.711"
+            },
+            {
+              "content": "2,460.967",
+              "toolTip": "2,460.967"
+            },
+            {
+              "content": "1 (W)"
+            }
+          ],
+          "fixedCells": [
+            {
+              "content": "9"
+            },
+            {
+              "content": "Ottawa Senators",
+              "leagueId": "6yvek7rfma1rhfum",
+              "id": "6yvek7rfma1rhfum",
+              "teamId": "vu2xk0d1ma1rhfv7"
+            }
+          ]
+        },
+        {
+          "cells": [
+            {
+              "content": "9",
+              "toolTip": "9"
+            },
+            {
+              "content": "7",
+              "toolTip": "7"
+            },
+            {
+              "content": "0",
+              "toolTip": "0"
+            },
+            {
+              "content": "18",
+              "toolTip": "18"
+            },
+            {
+              "content": ".562"
+            },
+            {
+              "content": "4-4-0"
+            },
+            {
+              "content": "4"
+            },
+            {
+              "content": "2,435.573",
+              "toolTip": "2,435.573"
+            },
+            {
+              "content": "2,297.269",
+              "toolTip": "2,297.269"
+            },
+            {
+              "content": "3 (W)"
+            }
+          ],
+          "fixedCells": [
+            {
+              "content": "10"
+            },
+            {
+              "content": "Pittsburgh Pirates",
+              "leagueId": "6yvek7rfma1rhfum",
+              "id": "6yvek7rfma1rhfum",
+              "teamId": "zzmkhgd8ma1rhfvj"
+            }
+          ]
+        },
+        {
+          "cells": [
+            {
+              "content": "8",
+              "toolTip": "8"
+            },
+            {
+              "content": "8",
+              "toolTip": "8"
+            },
+            {
+              "content": "0",
+              "toolTip": "0"
+            },
+            {
+              "content": "16",
+              "toolTip": "16"
+            },
+            {
+              "content": ".500"
+            },
+            {
+              "content": "3-4-0"
+            },
+            {
+              "content": "5"
+            },
+            {
+              "content": "2,558.534",
+              "toolTip": "2,558.534"
+            },
+            {
+              "content": "2,520.733",
+              "toolTip": "2,520.733"
+            },
+            {
+              "content": "1 (L)"
+            }
+          ],
+          "fixedCells": [
+            {
+              "content": "11"
+            },
+            {
+              "content": "Hartford Whalers",
+              "leagueId": "6yvek7rfma1rhfum",
+              "id": "6yvek7rfma1rhfum",
+              "teamId": "z7dm29wfma1rhfv9"
+            }
+          ]
+        },
+        {
+          "cells": [
+            {
+              "content": "8",
+              "toolTip": "8"
+            },
+            {
+              "content": "8",
+              "toolTip": "8"
+            },
+            {
+              "content": "0",
+              "toolTip": "0"
+            },
+            {
+              "content": "16",
+              "toolTip": "16"
+            },
+            {
+              "content": ".500"
+            },
+            {
+              "content": "3-4-0"
+            },
+            {
+              "content": "5"
+            },
+            {
+              "content": "2,369.133",
+              "toolTip": "2,369.133"
+            },
+            {
+              "content": "2,371.976",
+              "toolTip": "2,371.976"
+            },
+            {
+              "content": "1 (L)"
+            }
+          ],
+          "fixedCells": [
+            {
+              "content": "12"
+            },
+            {
+              "content": "Anaheim Ducks",
+              "leagueId": "6yvek7rfma1rhfum",
+              "id": "6yvek7rfma1rhfum",
+              "teamId": "ja55o8g5ma1rhfvg"
+            }
+          ]
+        },
+        {
+          "cells": [
+            {
+              "content": "8",
+              "toolTip": "8"
+            },
+            {
+              "content": "8",
+              "toolTip": "8"
+            },
+            {
+              "content": "0",
+              "toolTip": "0"
+            },
+            {
+              "content": "16",
+              "toolTip": "16"
+            },
+            {
+              "content": ".500"
+            },
+            {
+              "content": "4-3-0"
+            },
+            {
+              "content": "5"
+            },
+            {
+              "content": "2,220.531",
+              "toolTip": "2,220.531"
+            },
+            {
+              "content": "2,413.169",
+              "toolTip": "2,413.169"
+            },
+            {
+              "content": "1 (W)"
+            }
+          ],
+          "fixedCells": [
+            {
+              "content": "13"
+            },
+            {
+              "content": "Atlanta Thrashers",
+              "leagueId": "6yvek7rfma1rhfum",
+              "id": "6yvek7rfma1rhfum",
+              "teamId": "oh2qpmvpma1rhfve"
+            }
+          ]
+        },
+        {
+          "cells": [
+            {
+              "content": "7",
+              "toolTip": "7"
+            },
+            {
+              "content": "9",
+              "toolTip": "9"
+            },
+            {
+              "content": "0",
+              "toolTip": "0"
+            },
+            {
+              "content": "14",
+              "toolTip": "14"
+            },
+            {
+              "content": ".438"
+            },
+            {
+              "content": "4-3-0"
+            },
+            {
+              "content": "6"
+            },
+            {
+              "content": "2,339.488",
+              "toolTip": "2,339.488"
+            },
+            {
+              "content": "2,451.635",
+              "toolTip": "2,451.635"
+            },
+            {
+              "content": "3 (L)"
+            }
+          ],
+          "fixedCells": [
+            {
+              "content": "14"
+            },
+            {
+              "content": "Utah Mammoth",
+              "leagueId": "6yvek7rfma1rhfum",
+              "id": "6yvek7rfma1rhfum",
+              "teamId": "3iz8wi5dma1rhfvh"
+            }
+          ]
+        },
+        {
+          "cells": [
+            {
+              "content": "5",
+              "toolTip": "5"
+            },
+            {
+              "content": "11",
+              "toolTip": "11"
+            },
+            {
+              "content": "0",
+              "toolTip": "0"
+            },
+            {
+              "content": "10",
+              "toolTip": "10"
+            },
+            {
+              "content": ".312"
+            },
+            {
+              "content": "3-4-0"
+            },
+            {
+              "content": "8"
+            },
+            {
+              "content": "2,453.412",
+              "toolTip": "2,453.412"
+            },
+            {
+              "content": "2,447.16",
+              "toolTip": "2,447.16"
+            },
+            {
+              "content": "7 (L)"
+            }
+          ],
+          "fixedCells": [
+            {
+              "content": "15"
+            },
+            {
+              "content": "Carolina Hurricanes",
+              "leagueId": "6yvek7rfma1rhfum",
+              "id": "6yvek7rfma1rhfum",
+              "teamId": "lfmww1xema1rhfuy"
+            }
+          ]
+        },
+        {
+          "cells": [
+            {
+              "content": "5",
+              "toolTip": "5"
+            },
+            {
+              "content": "11",
+              "toolTip": "11"
+            },
+            {
+              "content": "0",
+              "toolTip": "0"
+            },
+            {
+              "content": "10",
+              "toolTip": "10"
+            },
+            {
+              "content": ".312"
+            },
+            {
+              "content": "3-5-0"
+            },
+            {
+              "content": "8"
+            },
+            {
+              "content": "2,028.834",
+              "toolTip": "2,028.834"
+            },
+            {
+              "content": "2,396.802",
+              "toolTip": "2,396.802"
+            },
+            {
+              "content": "1 (W)"
+            }
+          ],
+          "fixedCells": [
+            {
+              "content": "16"
+            },
+            {
+              "content": "Toronto St. Pats",
+              "leagueId": "6yvek7rfma1rhfum",
+              "id": "6yvek7rfma1rhfum",
+              "teamId": "05xtl6r9ma1rhfv4"
+            }
+          ]
+        },
+        {
+          "cells": [
+            {
+              "content": "4",
+              "toolTip": "4"
+            },
+            {
+              "content": "12",
+              "toolTip": "12"
+            },
+            {
+              "content": "0",
+              "toolTip": "0"
+            },
+            {
+              "content": "8",
+              "toolTip": "8"
+            },
+            {
+              "content": ".250"
+            },
+            {
+              "content": "2-5-0"
+            },
+            {
+              "content": "9"
+            },
+            {
+              "content": "2,069.364",
+              "toolTip": "2,069.364"
+            },
+            {
+              "content": "2,467.04",
+              "toolTip": "2,467.04"
+            },
+            {
+              "content": "3 (L)"
+            }
+          ],
+          "fixedCells": [
+            {
+              "content": "17"
+            },
+            {
+              "content": "Phoenix Coyotes",
+              "leagueId": "6yvek7rfma1rhfum",
+              "id": "6yvek7rfma1rhfum",
+              "teamId": "dr5onht5ma1rhfv1"
+            }
+          ]
+        },
+        {
+          "cells": [
+            {
+              "content": "4",
+              "toolTip": "4"
+            },
+            {
+              "content": "12",
+              "toolTip": "12"
+            },
+            {
+              "content": "0",
+              "toolTip": "0"
+            },
+            {
+              "content": "8",
+              "toolTip": "8"
+            },
+            {
+              "content": ".250"
+            },
+            {
+              "content": "1-6-0"
+            },
+            {
+              "content": "9"
+            },
+            {
+              "content": "1,998.78",
+              "toolTip": "1,998.78"
+            },
+            {
+              "content": "2,512.372",
+              "toolTip": "2,512.372"
+            },
+            {
+              "content": "1 (L)"
+            }
+          ],
+          "fixedCells": [
+            {
+              "content": "18"
+            },
+            {
+              "content": "Columbus Blue Jackets",
+              "leagueId": "6yvek7rfma1rhfum",
+              "id": "6yvek7rfma1rhfum",
+              "teamId": "mt08jcikma1rhfut"
+            }
+          ]
+        },
+        {
+          "cells": [
+            {
+              "content": "3",
+              "toolTip": "3"
+            },
+            {
+              "content": "13",
+              "toolTip": "13"
+            },
+            {
+              "content": "0",
+              "toolTip": "0"
+            },
+            {
+              "content": "6",
+              "toolTip": "6"
+            },
+            {
+              "content": ".188"
+            },
+            {
+              "content": "1-7-0"
+            },
+            {
+              "content": "10"
+            },
+            {
+              "content": "1,850.97",
+              "toolTip": "1,850.97"
+            },
+            {
+              "content": "2,478.328",
+              "toolTip": "2,478.328"
+            },
+            {
+              "content": "3 (L)"
+            }
+          ],
+          "fixedCells": [
+            {
+              "content": "19"
+            },
+            {
+              "content": "St. Louis Eagles",
+              "leagueId": "6yvek7rfma1rhfum",
+              "id": "6yvek7rfma1rhfum",
+              "teamId": "klni4f2gma1rhfvm"
+            }
+          ]
+        },
+        {
+          "cells": [
+            {
+              "content": "2",
+              "toolTip": "2"
+            },
+            {
+              "content": "14",
+              "toolTip": "14"
+            },
+            {
+              "content": "0",
+              "toolTip": "0"
+            },
+            {
+              "content": "4",
+              "toolTip": "4"
+            },
+            {
+              "content": ".125"
+            },
+            {
+              "content": "2-5-0"
+            },
+            {
+              "content": "11"
+            },
+            {
+              "content": "2,158.918",
+              "toolTip": "2,158.918"
+            },
+            {
+              "content": "2,436.614",
+              "toolTip": "2,436.614"
+            },
+            {
+              "content": "2 (L)"
+            }
+          ],
+          "fixedCells": [
+            {
+              "content": "20"
+            },
+            {
+              "content": "Colorado Rockies",
+              "leagueId": "6yvek7rfma1rhfum",
+              "id": "6yvek7rfma1rhfum",
+              "teamId": "735m4vv0ma1rhfv3"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "fixedRows": false,
+      "tableType": "H2hPointsBased2",
+      "caption": "Scoring Period 17",
+      "subCaption": "(Mon Jan 26, 2026 - Sun Feb 15, 2026)",
+      "header": {
+        "cells": [
+          {
+            "align": "LEFT",
+            "sortDirection": 1,
+            "name": "Away",
+            "shortName": "Away",
+            "key": "away"
+          },
+          {
+            "sortDirection": 1,
+            "name": "FPts",
+            "shortName": "FPts",
+            "key": "fpts"
+          },
+          {
+            "align": "LEFT",
+            "sortDirection": 1,
+            "name": "Home",
+            "shortName": "Home",
+            "key": "home"
+          },
+          {
+            "sortDirection": 1,
+            "name": "FPts",
+            "shortName": "FPts",
+            "key": "fpts"
+          }
+        ]
+      },
+      "rows": [
+        {
+          "cells": [
+            {
+              "content": "Utah Mammoth",
+              "leagueId": "6yvek7rfma1rhfum",
+              "id": "6yvek7rfma1rhfum",
+              "teamId": "3iz8wi5dma1rhfvh"
+            },
+            {
+              "content": "46.068"
+            },
+            {
+              "content": "Carolina Hurricanes",
+              "leagueId": "6yvek7rfma1rhfum",
+              "id": "6yvek7rfma1rhfum",
+              "teamId": "lfmww1xema1rhfuy"
+            },
+            {
+              "content": "32.926"
+            }
+          ]
+        },
+        {
+          "cells": [
+            {
+              "content": "Toronto St. Pats",
+              "leagueId": "6yvek7rfma1rhfum",
+              "id": "6yvek7rfma1rhfum",
+              "teamId": "05xtl6r9ma1rhfv4"
+            },
+            {
+              "content": "34.242"
+            },
+            {
+              "content": "New Jersey Devils",
+              "leagueId": "6yvek7rfma1rhfum",
+              "id": "6yvek7rfma1rhfum",
+              "teamId": "v8d8lr79ma1rhfvl"
+            },
+            {
+              "content": "75.833"
+            }
+          ]
+        },
+        {
+          "cells": [
+            {
+              "content": "Montreal Canadiens",
+              "leagueId": "6yvek7rfma1rhfum",
+              "id": "6yvek7rfma1rhfum",
+              "teamId": "a1c3t2yfma1rhfvb"
+            },
+            {
+              "content": "52.38"
+            },
+            {
+              "content": "Colorado Rockies",
+              "leagueId": "6yvek7rfma1rhfum",
+              "id": "6yvek7rfma1rhfum",
+              "teamId": "735m4vv0ma1rhfv3"
+            },
+            {
+              "content": "52.929"
+            }
+          ]
+        },
+        {
+          "cells": [
+            {
+              "content": "Minnesota North Stars",
+              "leagueId": "6yvek7rfma1rhfum",
+              "id": "6yvek7rfma1rhfum",
+              "teamId": "d8dm5z4xma1rhfux"
+            },
+            {
+              "content": "76.145"
+            },
+            {
+              "content": "Columbus Blue Jackets",
+              "leagueId": "6yvek7rfma1rhfum",
+              "id": "6yvek7rfma1rhfum",
+              "teamId": "mt08jcikma1rhfut"
+            },
+            {
+              "content": "34.63"
+            }
+          ]
+        },
+        {
+          "cells": [
+            {
+              "content": "Philadelphia Flyers",
+              "leagueId": "6yvek7rfma1rhfum",
+              "id": "6yvek7rfma1rhfum",
+              "teamId": "vd40qvj4ma1rhfv8"
+            },
+            {
+              "content": "54.816"
+            },
+            {
+              "content": "St. Louis Eagles",
+              "leagueId": "6yvek7rfma1rhfum",
+              "id": "6yvek7rfma1rhfum",
+              "teamId": "klni4f2gma1rhfvm"
+            },
+            {
+              "content": "49.043"
+            }
+          ]
+        },
+        {
+          "cells": [
+            {
+              "content": "Phoenix Coyotes",
+              "leagueId": "6yvek7rfma1rhfum",
+              "id": "6yvek7rfma1rhfum",
+              "teamId": "dr5onht5ma1rhfv1"
+            },
+            {
+              "content": "38.526"
+            },
+            {
+              "content": "Atlanta Thrashers",
+              "leagueId": "6yvek7rfma1rhfum",
+              "id": "6yvek7rfma1rhfum",
+              "teamId": "oh2qpmvpma1rhfve"
+            },
+            {
+              "content": "29.441"
+            }
+          ]
+        },
+        {
+          "cells": [
+            {
+              "content": "San Jose Sharks",
+              "leagueId": "6yvek7rfma1rhfum",
+              "id": "6yvek7rfma1rhfum",
+              "teamId": "j0gv37hyma1rhfv0"
+            },
+            {
+              "content": "40.762"
+            },
+            {
+              "content": "Ottawa Senators",
+              "leagueId": "6yvek7rfma1rhfum",
+              "id": "6yvek7rfma1rhfum",
+              "teamId": "vu2xk0d1ma1rhfv7"
+            },
+            {
+              "content": "64.098"
+            }
+          ]
+        },
+        {
+          "cells": [
+            {
+              "content": "Hartford Whalers",
+              "leagueId": "6yvek7rfma1rhfum",
+              "id": "6yvek7rfma1rhfum",
+              "teamId": "z7dm29wfma1rhfv9"
+            },
+            {
+              "content": "40.307"
+            },
+            {
+              "content": "Brooklyn Americans",
+              "leagueId": "6yvek7rfma1rhfum",
+              "id": "6yvek7rfma1rhfum",
+              "teamId": "mz5zoz97ma1rhfvc"
+            },
+            {
+              "content": "69.414"
+            }
+          ]
+        },
+        {
+          "cells": [
+            {
+              "content": "Anaheim Ducks",
+              "leagueId": "6yvek7rfma1rhfum",
+              "id": "6yvek7rfma1rhfum",
+              "teamId": "ja55o8g5ma1rhfvg"
+            },
+            {
+              "content": "50.193"
+            },
+            {
+              "content": "Toronto Maple Leafs",
+              "leagueId": "6yvek7rfma1rhfum",
+              "id": "6yvek7rfma1rhfum",
+              "teamId": "k90e47n7ma1rhfv5"
+            },
+            {
+              "content": "62.013"
+            }
+          ]
+        },
+        {
+          "cells": [
+            {
+              "content": "Pittsburgh Pirates",
+              "leagueId": "6yvek7rfma1rhfum",
+              "id": "6yvek7rfma1rhfum",
+              "teamId": "zzmkhgd8ma1rhfvj"
+            },
+            {
+              "content": "46.376"
+            },
+            {
+              "content": "Cleveland Barons",
+              "leagueId": "6yvek7rfma1rhfum",
+              "id": "6yvek7rfma1rhfum",
+              "teamId": "bk9zoo4ama1rhfuv"
+            },
+            {
+              "content": "50.313"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "fixedRows": false,
+      "tableType": "H2hPointsBased2",
+      "caption": "Scoring Period 16",
+      "subCaption": "(Mon Jan 19, 2026 - Sun Jan 25, 2026)",
+      "header": {
+        "cells": [
+          {
+            "align": "LEFT",
+            "sortDirection": 1,
+            "name": "Away",
+            "shortName": "Away",
+            "key": "away"
+          },
+          {
+            "sortDirection": 1,
+            "name": "FPts",
+            "shortName": "FPts",
+            "key": "fpts"
+          },
+          {
+            "align": "LEFT",
+            "sortDirection": 1,
+            "name": "Home",
+            "shortName": "Home",
+            "key": "home"
+          },
+          {
+            "sortDirection": 1,
+            "name": "FPts",
+            "shortName": "FPts",
+            "key": "fpts"
+          }
+        ]
+      },
+      "rows": [
+        {
+          "cells": [
+            {
+              "content": "Ottawa Senators",
+              "leagueId": "6yvek7rfma1rhfum",
+              "id": "6yvek7rfma1rhfum",
+              "teamId": "vu2xk0d1ma1rhfv7"
+            },
+            {
+              "content": "187.523"
+            },
+            {
+              "content": "Carolina Hurricanes",
+              "leagueId": "6yvek7rfma1rhfum",
+              "id": "6yvek7rfma1rhfum",
+              "teamId": "lfmww1xema1rhfuy"
+            },
+            {
+              "content": "122.729"
+            }
+          ]
+        },
+        {
+          "cells": [
+            {
+              "content": "Hartford Whalers",
+              "leagueId": "6yvek7rfma1rhfum",
+              "id": "6yvek7rfma1rhfum",
+              "teamId": "z7dm29wfma1rhfv9"
+            },
+            {
+              "content": "164.74"
+            },
+            {
+              "content": "San Jose Sharks",
+              "leagueId": "6yvek7rfma1rhfum",
+              "id": "6yvek7rfma1rhfum",
+              "teamId": "j0gv37hyma1rhfv0"
+            },
+            {
+              "content": "202.653"
+            }
+          ]
+        },
+        {
+          "cells": [
+            {
+              "content": "Anaheim Ducks",
+              "leagueId": "6yvek7rfma1rhfum",
+              "id": "6yvek7rfma1rhfum",
+              "teamId": "ja55o8g5ma1rhfvg"
+            },
+            {
+              "content": "149.036"
+            },
+            {
+              "content": "New Jersey Devils",
+              "leagueId": "6yvek7rfma1rhfum",
+              "id": "6yvek7rfma1rhfum",
+              "teamId": "v8d8lr79ma1rhfvl"
+            },
+            {
+              "content": "175.032"
+            }
+          ]
+        },
+        {
+          "cells": [
+            {
+              "content": "St. Louis Eagles",
+              "leagueId": "6yvek7rfma1rhfum",
+              "id": "6yvek7rfma1rhfum",
+              "teamId": "klni4f2gma1rhfvm"
+            },
+            {
+              "content": "130.864"
+            },
+            {
+              "content": "Toronto St. Pats",
+              "leagueId": "6yvek7rfma1rhfum",
+              "id": "6yvek7rfma1rhfum",
+              "teamId": "05xtl6r9ma1rhfv4"
+            },
+            {
+              "content": "164.37"
+            }
+          ]
+        },
+        {
+          "cells": [
+            {
+              "content": "Atlanta Thrashers",
+              "leagueId": "6yvek7rfma1rhfum",
+              "id": "6yvek7rfma1rhfum",
+              "teamId": "oh2qpmvpma1rhfve"
+            },
+            {
+              "content": "175.497"
+            },
+            {
+              "content": "Toronto Maple Leafs",
+              "leagueId": "6yvek7rfma1rhfum",
+              "id": "6yvek7rfma1rhfum",
+              "teamId": "k90e47n7ma1rhfv5"
+            },
+            {
+              "content": "159.761"
+            }
+          ]
+        },
+        {
+          "cells": [
+            {
+              "content": "Minnesota North Stars",
+              "leagueId": "6yvek7rfma1rhfum",
+              "id": "6yvek7rfma1rhfum",
+              "teamId": "d8dm5z4xma1rhfux"
+            },
+            {
+              "content": "156.868"
+            },
+            {
+              "content": "Brooklyn Americans",
+              "leagueId": "6yvek7rfma1rhfum",
+              "id": "6yvek7rfma1rhfum",
+              "teamId": "mz5zoz97ma1rhfvc"
+            },
+            {
+              "content": "182.954"
+            }
+          ]
+        },
+        {
+          "cells": [
+            {
+              "content": "Montreal Canadiens",
+              "leagueId": "6yvek7rfma1rhfum",
+              "id": "6yvek7rfma1rhfum",
+              "teamId": "a1c3t2yfma1rhfvb"
+            },
+            {
+              "content": "145.073"
+            },
+            {
+              "content": "Utah Mammoth",
+              "leagueId": "6yvek7rfma1rhfum",
+              "id": "6yvek7rfma1rhfum",
+              "teamId": "3iz8wi5dma1rhfvh"
+            },
+            {
+              "content": "142.74"
+            }
+          ]
+        },
+        {
+          "cells": [
+            {
+              "content": "Cleveland Barons",
+              "leagueId": "6yvek7rfma1rhfum",
+              "id": "6yvek7rfma1rhfum",
+              "teamId": "bk9zoo4ama1rhfuv"
+            },
+            {
+              "content": "139.5"
+            },
+            {
+              "content": "Columbus Blue Jackets",
+              "leagueId": "6yvek7rfma1rhfum",
+              "id": "6yvek7rfma1rhfum",
+              "teamId": "mt08jcikma1rhfut"
+            },
+            {
+              "content": "131.716"
+            }
+          ]
+        },
+        {
+          "cells": [
+            {
+              "content": "Pittsburgh Pirates",
+              "leagueId": "6yvek7rfma1rhfum",
+              "id": "6yvek7rfma1rhfum",
+              "teamId": "zzmkhgd8ma1rhfvj"
+            },
+            {
+              "content": "143.088"
+            },
+            {
+              "content": "Colorado Rockies",
+              "leagueId": "6yvek7rfma1rhfum",
+              "id": "6yvek7rfma1rhfum",
+              "teamId": "735m4vv0ma1rhfv3"
+            },
+            {
+              "content": "128.886"
+            }
+          ]
+        },
+        {
+          "cells": [
+            {
+              "content": "Phoenix Coyotes",
+              "leagueId": "6yvek7rfma1rhfum",
+              "id": "6yvek7rfma1rhfum",
+              "teamId": "dr5onht5ma1rhfv1"
+            },
+            {
+              "content": "118.962"
+            },
+            {
+              "content": "Philadelphia Flyers",
+              "leagueId": "6yvek7rfma1rhfum",
+              "id": "6yvek7rfma1rhfum",
+              "teamId": "vd40qvj4ma1rhfv8"
+            },
+            {
+              "content": "193.681"
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "displayedLists": {
+    "goBackDays": [
+      1,
+      7,
+      14,
+      30,
+      60
+    ],
+    "pagination": {
+      "startPageNum": 0,
+      "numTeamsPerPage": 25,
+      "endPageNum": 0,
+      "pageNum": 1
+    },
+    "tabs": [
+      {
+        "name": "Eichel Conference",
+        "id": "_4r2zafrdma1rhfum"
+      },
+      {
+        "name": "McDavid Conference",
+        "id": "_a28qwm4tma1rhfum"
+      },
+      {
+        "name": "All",
+        "id": "ALL"
+      },
+      {
+        "name": "Combined",
+        "id": "COMBINED"
+      },
+      {
+        "name": "Results",
+        "id": "SCHEDULE"
+      },
+      {
+        "name": "Season Stats",
+        "id": "SEASON_STATS"
+      },
+      {
+        "name": "Playoffs",
+        "id": "PLAYOFFS"
+      }
+    ],
+    "periods": [
+      {
+        "object2": "1 (Oct 7 - Oct 12)",
+        "object1": 1
+      },
+      {
+        "object2": "2 (Oct 13 - Oct 19)",
+        "object1": 2
+      },
+      {
+        "object2": "3 (Oct 20 - Oct 26)",
+        "object1": 3
+      },
+      {
+        "object2": "4 (Oct 27 - Nov 2)",
+        "object1": 4
+      },
+      {
+        "object2": "5 (Nov 3 - Nov 9)",
+        "object1": 5
+      },
+      {
+        "object2": "6 (Nov 10 - Nov 16)",
+        "object1": 6
+      },
+      {
+        "object2": "7 (Nov 17 - Nov 23)",
+        "object1": 7
+      },
+      {
+        "object2": "8 (Nov 24 - Nov 30)",
+        "object1": 8
+      },
+      {
+        "object2": "9 (Dec 1 - Dec 7)",
+        "object1": 9
+      },
+      {
+        "object2": "10 (Dec 8 - Dec 14)",
+        "object1": 10
+      },
+      {
+        "object2": "11 (Dec 15 - Dec 21)",
+        "object1": 11
+      },
+      {
+        "object2": "12 (Dec 22 - Dec 28)",
+        "object1": 12
+      },
+      {
+        "object2": "13 (Dec 29 - Jan 4)",
+        "object1": 13
+      },
+      {
+        "object2": "14 (Jan 5 - Jan 11)",
+        "object1": 14
+      },
+      {
+        "object2": "15 (Jan 12 - Jan 18)",
+        "object1": 15
+      },
+      {
+        "object2": "16 (Jan 19 - Jan 25)",
+        "object1": 16
+      },
+      {
+        "object2": "17 (Jan 26 - Feb 15)",
+        "object1": 17
+      },
+      {
+        "object2": "18 (Feb 16 - Feb 22)",
+        "object1": 18
+      },
+      {
+        "object2": "19 (Feb 23 - Mar 1)",
+        "object1": 19
+      },
+      {
+        "object2": "20 (Mar 2 - Mar 15)",
+        "object1": 20
+      },
+      {
+        "object2": "21 (Mar 16 - Mar 29)",
+        "object1": 21
+      },
+      {
+        "object2": "22 (Mar 30 - Apr 12)",
+        "object1": 22
+      }
+    ],
+    "timeframeTypes": [
+      {
+        "name": "YTD",
+        "id": "YEAR_TO_DATE"
+      },
+      {
+        "name": "By Period",
+        "id": "BY_PERIOD"
+      }
+    ],
+    "timeStartTypes": [
+      {
+        "object2": "Period Only",
+        "object1": "PERIOD_ONLY"
+      },
+      {
+        "object2": "From Start Of Season",
+        "object1": "FROM_SEASON_START"
+      }
+    ]
+  }
+}

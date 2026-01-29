@@ -1,0 +1,184 @@
+{
+  "fantasyTeams": [
+    {
+      "logoUrl256": "https://fantraximg.com/logos/xam/tmLogo_xamip2t3mg1n81wz_256.webp",
+      "name": "Anaheim Ducks",
+      "id": "ja55o8g5ma1rhfvg",
+      "logoUrl128": "https://fantraximg.com/logos/xam/tmLogo_xamip2t3mg1n81wz_128.webp",
+      "shortName": "ANA",
+      "commissioner": false,
+      "logoId": "xamip2t3mg1n81wz"
+    },
+    {
+      "logoUrl256": "https://fantraximg.com/logos/1kk/tmLogo_1kk4847ml3oqnjos_256.jpg",
+      "name": "Atlanta Thrashers",
+      "id": "oh2qpmvpma1rhfve",
+      "logoUrl128": "https://fantraximg.com/logos/1kk/tmLogo_1kk4847ml3oqnjos_128.jpg",
+      "shortName": "ATL",
+      "commissioner": false,
+      "logoId": "1kk4847ml3oqnjos"
+    },
+    {
+      "logoUrl256": "https://fantraximg.com/logos/fvq/tmLogo_fvq6y8aulix5wjs8_256.jpg",
+      "name": "Brooklyn Americans",
+      "id": "mz5zoz97ma1rhfvc",
+      "logoUrl128": "https://fantraximg.com/logos/fvq/tmLogo_fvq6y8aulix5wjs8_128.jpg",
+      "shortName": "BKA",
+      "commissioner": false,
+      "logoId": "fvq6y8aulix5wjs8"
+    },
+    {
+      "logoUrl256": "https://fantraximg.com/logos/o6d/tmLogo_o6duj6vpmgfqxwuu_256.webp",
+      "name": "Carolina Hurricanes",
+      "id": "lfmww1xema1rhfuy",
+      "logoUrl128": "https://fantraximg.com/logos/o6d/tmLogo_o6duj6vpmgfqxwuu_128.webp",
+      "shortName": "CAR",
+      "commissioner": false,
+      "logoId": "o6duj6vpmgfqxwuu"
+    },
+    {
+      "logoUrl256": "https://fantraximg.com/logos/otj/tmLogo_otjbaheqjuj5oysk_256.jpg",
+      "name": "Cleveland Barons",
+      "id": "bk9zoo4ama1rhfuv",
+      "logoUrl128": "https://fantraximg.com/logos/otj/tmLogo_otjbaheqjuj5oysk_128.jpg",
+      "shortName": "CLE",
+      "commissioner": false,
+      "logoId": "otjbaheqjuj5oysk"
+    },
+    {
+      "logoUrl256": "https://fantraximg.com/logos/iix/tmLogo_iixnklv7jsky3kvw_256.jpg",
+      "name": "Colorado Rockies",
+      "id": "735m4vv0ma1rhfv3",
+      "logoUrl128": "https://fantraximg.com/logos/iix/tmLogo_iixnklv7jsky3kvw_128.jpg",
+      "shortName": "COL",
+      "commissioner": false,
+      "logoId": "iixnklv7jsky3kvw"
+    },
+    {
+      "logoUrl256": "https://fantraximg.com/logos/f8m/tmLogo_f8m5uxdhmfzslppz_256.webp",
+      "name": "Columbus Blue Jackets",
+      "id": "mt08jcikma1rhfut",
+      "logoUrl128": "https://fantraximg.com/logos/f8m/tmLogo_f8m5uxdhmfzslppz_128.webp",
+      "shortName": "CBJ",
+      "commissioner": false,
+      "logoId": "f8m5uxdhmfzslppz"
+    },
+    {
+      "logoUrl256": "https://fantraximg.com/logos/hw7/tmLogo_hw7k6rslibk2eyzt_256.jpg",
+      "name": "Hartford Whalers",
+      "id": "z7dm29wfma1rhfv9",
+      "logoUrl128": "https://fantraximg.com/logos/hw7/tmLogo_hw7k6rslibk2eyzt_128.jpg",
+      "shortName": "HRT",
+      "commissioner": false,
+      "logoId": "hw7k6rslibk2eyzt"
+    },
+    {
+      "logoUrl256": "https://fantraximg.com/logos/ptz/tmLogo_ptzodbqpibbevq49_256.jpg",
+      "name": "Minnesota North Stars",
+      "id": "d8dm5z4xma1rhfux",
+      "logoUrl128": "https://fantraximg.com/logos/ptz/tmLogo_ptzodbqpibbevq49_128.jpg",
+      "shortName": "MIN",
+      "commissioner": false,
+      "logoId": "ptzodbqpibbevq49"
+    },
+    {
+      "logoUrl256": "https://fantraximg.com/logos/s6n/tmLogo_s6nk2sq8ibf7vya9_256.jpg",
+      "name": "Montreal Canadiens",
+      "id": "a1c3t2yfma1rhfvb",
+      "logoUrl128": "https://fantraximg.com/logos/s6n/tmLogo_s6nk2sq8ibf7vya9_128.jpg",
+      "shortName": "MTL",
+      "commissioner": false,
+      "logoId": "s6nk2sq8ibf7vya9"
+    },
+    {
+      "logoUrl256": "https://fantraximg.com/logos/n6u/tmLogo_n6uuqya8lwqfo3cx_256.jpg",
+      "name": "New Jersey Devils",
+      "id": "v8d8lr79ma1rhfvl",
+      "logoUrl128": "https://fantraximg.com/logos/n6u/tmLogo_n6uuqya8lwqfo3cx_128.jpg",
+      "shortName": "NJD",
+      "commissioner": false,
+      "logoId": "n6uuqya8lwqfo3cx"
+    },
+    {
+      "logoUrl256": "https://fantraximg.com/logos/z97/tmLogo_z975kme8kjcbs9uo_256.jpg",
+      "name": "Ottawa Senators",
+      "id": "vu2xk0d1ma1rhfv7",
+      "logoUrl128": "https://fantraximg.com/logos/z97/tmLogo_z975kme8kjcbs9uo_128.jpg",
+      "shortName": "OTT",
+      "commissioner": false,
+      "logoId": "z975kme8kjcbs9uo"
+    },
+    {
+      "logoUrl256": "https://fantraximg.com/logos/v3g/tmLogo_v3gytalxmgiksoaz_256.webp",
+      "name": "Philadelphia Flyers",
+      "id": "vd40qvj4ma1rhfv8",
+      "logoUrl128": "https://fantraximg.com/logos/v3g/tmLogo_v3gytalxmgiksoaz_128.webp",
+      "shortName": "PHI",
+      "commissioner": false,
+      "logoId": "v3gytalxmgiksoaz"
+    },
+    {
+      "logoUrl256": "https://fantraximg.com/logos/ugs/tmLogo_ugszcbodibd50pi2_256.jpg",
+      "name": "Phoenix Coyotes",
+      "id": "dr5onht5ma1rhfv1",
+      "logoUrl128": "https://fantraximg.com/logos/ugs/tmLogo_ugszcbodibd50pi2_128.jpg",
+      "shortName": "PHX",
+      "commissioner": false,
+      "logoId": "ugszcbodibd50pi2"
+    },
+    {
+      "logoUrl256": "https://fantraximg.com/logos/nbh/tmLogo_nbhmiixrl3ntjjh8_256.jpg",
+      "name": "Pittsburgh Pirates",
+      "id": "zzmkhgd8ma1rhfvj",
+      "logoUrl128": "https://fantraximg.com/logos/nbh/tmLogo_nbhmiixrl3ntjjh8_128.jpg",
+      "shortName": "PIT",
+      "commissioner": false,
+      "logoId": "nbhmiixrl3ntjjh8"
+    },
+    {
+      "logoUrl256": "https://fantraximg.com/logos/epk/tmLogo_epkifrp3l3nowy8o_256.jpg",
+      "name": "San Jose Sharks",
+      "id": "j0gv37hyma1rhfv0",
+      "logoUrl128": "https://fantraximg.com/logos/epk/tmLogo_epkifrp3l3nowy8o_128.jpg",
+      "shortName": "SJ",
+      "commissioner": false,
+      "logoId": "epkifrp3l3nowy8o"
+    },
+    {
+      "logoUrl256": "https://fantraximg.com/logos/uzn/tmLogo_uznf3wfgmavqoknf_256.webp",
+      "name": "St. Louis Eagles",
+      "id": "klni4f2gma1rhfvm",
+      "logoUrl128": "https://fantraximg.com/logos/uzn/tmLogo_uznf3wfgmavqoknf_128.webp",
+      "shortName": "STL",
+      "commissioner": false,
+      "logoId": "uznf3wfgmavqoknf"
+    },
+    {
+      "logoUrl256": "https://fantraximg.com/logos/7o7/tmLogo_7o73a5jckcdp4cyk_256.jpg",
+      "name": "Toronto Maple Leafs",
+      "id": "k90e47n7ma1rhfv5",
+      "logoUrl128": "https://fantraximg.com/logos/7o7/tmLogo_7o73a5jckcdp4cyk_128.jpg",
+      "shortName": "TOR",
+      "commissioner": false,
+      "logoId": "7o73a5jckcdp4cyk"
+    },
+    {
+      "logoUrl256": "https://fantraximg.com/logos/ov5/tmLogo_ov5gylnomfa22ews_256.webp",
+      "name": "Toronto St. Pats",
+      "id": "05xtl6r9ma1rhfv4",
+      "logoUrl128": "https://fantraximg.com/logos/ov5/tmLogo_ov5gylnomfa22ews_128.webp",
+      "shortName": "TSP",
+      "commissioner": true,
+      "logoId": "ov5gylnomfa22ews"
+    },
+    {
+      "logoUrl256": "https://fantraximg.com/logos/nrx/tmLogo_nrxd4jghlwtma2o3_256.jpg",
+      "name": "Utah Mammoth",
+      "id": "3iz8wi5dma1rhfvh",
+      "logoUrl128": "https://fantraximg.com/logos/nrx/tmLogo_nrxd4jghlwtma2o3_128.jpg",
+      "shortName": "UTA",
+      "commissioner": false,
+      "logoId": "nrxd4jghlwtma2o3"
+    }
+  ]
+}
