@@ -1,13 +1,22 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { db } from '@/lib/db';
-import { rosters, fantasyTeams, players, teams } from '@/lib/db/schema';
+import { rosters, fantasyTeams, players, teams, leagueMemberships } from '@/lib/db/schema';
 import { eq, and } from 'drizzle-orm';
+import { requireAuth } from '@/lib/auth/server';
 
 export async function GET(
   request: NextRequest,
   { params }: { params: Promise<{ id: string }> }
 ) {
   try {
+    const user = await requireAuth(request);
+    if (!user) {
+      return NextResponse.json(
+        { error: 'Unauthorized' },
+        { status: 401 }
+      );
+    }
+
     if (!db) {
       return NextResponse.json(
         { error: 'Database not configured' },
@@ -27,6 +36,22 @@ export async function GET(
       return NextResponse.json(
         { error: 'Fantasy team not found' },
         { status: 404 }
+      );
+    }
+
+    // Verify user is a member of the league
+    const [membership] = await db
+      .select()
+      .from(leagueMemberships)
+      .where(and(
+        eq(leagueMemberships.leagueId, team.leagueId),
+        eq(leagueMemberships.userId, user.id)
+      ));
+
+    if (!membership) {
+      return NextResponse.json(
+        { error: 'Forbidden: You are not a member of this league' },
+        { status: 403 }
       );
     }
 
@@ -66,6 +91,14 @@ export async function POST(
   { params }: { params: Promise<{ id: string }> }
 ) {
   try {
+    const user = await requireAuth(request);
+    if (!user) {
+      return NextResponse.json(
+        { error: 'Unauthorized' },
+        { status: 401 }
+      );
+    }
+
     if (!db) {
       return NextResponse.json(
         { error: 'Database not configured' },
@@ -94,6 +127,14 @@ export async function POST(
       return NextResponse.json(
         { error: 'Fantasy team not found' },
         { status: 404 }
+      );
+    }
+
+    // Verify user owns the team
+    if (team.ownerId !== user.id) {
+      return NextResponse.json(
+        { error: 'Forbidden: You do not own this team' },
+        { status: 403 }
       );
     }
 

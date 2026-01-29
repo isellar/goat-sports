@@ -1,14 +1,23 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { db } from '@/lib/db';
-import { drafts, draftPicks, rosters, players, leagues } from '@/lib/db/schema';
+import { drafts, draftPicks, rosters, players, leagues, fantasyTeams, leagueMemberships } from '@/lib/db/schema';
 import { eq, and } from 'drizzle-orm';
 import { getTeamForPick, calculateTotalPicks } from '@/lib/utils/draft';
+import { requireAuth } from '@/lib/auth/server';
 
 export async function POST(
   request: NextRequest,
   { params }: { params: Promise<{ id: string }> }
 ) {
   try {
+    const user = await requireAuth(request);
+    if (!user) {
+      return NextResponse.json(
+        { error: 'Unauthorized' },
+        { status: 401 }
+      );
+    }
+
     if (!db) {
       return NextResponse.json(
         { error: 'Database not configured' },
@@ -40,6 +49,22 @@ export async function POST(
       );
     }
 
+    // Verify user is a member of the league
+    const [membership] = await db
+      .select()
+      .from(leagueMemberships)
+      .where(and(
+        eq(leagueMemberships.leagueId, draft.leagueId),
+        eq(leagueMemberships.userId, user.id)
+      ));
+
+    if (!membership) {
+      return NextResponse.json(
+        { error: 'Forbidden: You are not a member of this league' },
+        { status: 403 }
+      );
+    }
+
     if (draft.status !== 'in_progress') {
       return NextResponse.json(
         { error: 'Draft is not in progress' },
@@ -52,6 +77,26 @@ export async function POST(
       return NextResponse.json(
         { error: 'No current team set for draft' },
         { status: 400 }
+      );
+    }
+
+    // Verify user owns the current team
+    const [currentTeam] = await db
+      .select()
+      .from(fantasyTeams)
+      .where(eq(fantasyTeams.id, draft.currentTeamId));
+
+    if (!currentTeam) {
+      return NextResponse.json(
+        { error: 'Current team not found' },
+        { status: 404 }
+      );
+    }
+
+    if (currentTeam.ownerId !== user.id) {
+      return NextResponse.json(
+        { error: 'Forbidden: It is not your turn to pick' },
+        { status: 403 }
       );
     }
 

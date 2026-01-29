@@ -1,13 +1,22 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { db } from '@/lib/db';
-import { drafts, draftPicks, fantasyTeams, players, teams } from '@/lib/db/schema';
+import { drafts, draftPicks, fantasyTeams, players, teams, leagues, leagueMemberships } from '@/lib/db/schema';
 import { eq, and, asc } from 'drizzle-orm';
+import { requireAuth } from '@/lib/auth/server';
 
 export async function GET(
   request: NextRequest,
   { params }: { params: Promise<{ id: string }> }
 ) {
   try {
+    const user = await requireAuth(request);
+    if (!user) {
+      return NextResponse.json(
+        { error: 'Unauthorized' },
+        { status: 401 }
+      );
+    }
+
     if (!db) {
       return NextResponse.json(
         { error: 'Database not configured' },
@@ -27,6 +36,22 @@ export async function GET(
       return NextResponse.json(
         { error: 'Draft not found' },
         { status: 404 }
+      );
+    }
+
+    // Verify user is a member of the league
+    const [membership] = await db
+      .select()
+      .from(leagueMemberships)
+      .where(and(
+        eq(leagueMemberships.leagueId, draft.leagueId),
+        eq(leagueMemberships.userId, user.id)
+      ));
+
+    if (!membership) {
+      return NextResponse.json(
+        { error: 'Forbidden: You are not a member of this league' },
+        { status: 403 }
       );
     }
 
@@ -83,6 +108,14 @@ export async function PATCH(
   { params }: { params: Promise<{ id: string }> }
 ) {
   try {
+    const user = await requireAuth(request);
+    if (!user) {
+      return NextResponse.json(
+        { error: 'Unauthorized' },
+        { status: 401 }
+      );
+    }
+
     if (!db) {
       return NextResponse.json(
         { error: 'Database not configured' },
@@ -93,6 +126,38 @@ export async function PATCH(
     const { id: draftId } = await params;
     const body = await request.json();
     const { status, currentPick, currentTeamId } = body;
+
+    // Get draft and league to verify commissioner
+    const [draft] = await db
+      .select()
+      .from(drafts)
+      .where(eq(drafts.id, draftId));
+
+    if (!draft) {
+      return NextResponse.json(
+        { error: 'Draft not found' },
+        { status: 404 }
+      );
+    }
+
+    const [league] = await db
+      .select()
+      .from(leagues)
+      .where(eq(leagues.id, draft.leagueId));
+
+    if (!league) {
+      return NextResponse.json(
+        { error: 'League not found' },
+        { status: 404 }
+      );
+    }
+
+    if (league.commissionerId !== user.id) {
+      return NextResponse.json(
+        { error: 'Forbidden: Only the commissioner can update draft settings' },
+        { status: 403 }
+      );
+    }
 
     const updateData: any = {
       updatedAt: new Date(),
@@ -113,13 +178,6 @@ export async function PATCH(
       .set(updateData)
       .where(eq(drafts.id, draftId))
       .returning();
-
-    if (!updatedDraft) {
-      return NextResponse.json(
-        { error: 'Draft not found' },
-        { status: 404 }
-      );
-    }
 
     return NextResponse.json({ draft: updatedDraft });
   } catch (error) {
