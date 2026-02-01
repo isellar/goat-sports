@@ -51,7 +51,9 @@ export async function loadTeamRoster(
       result.cleared = deleted.length || 0;
     }
 
-    // Process each roster row
+    // Batch collect roster entries
+    const rosterEntries = [];
+
     for (const row of fantraxRoster.rows) {
       // Skip empty slots
       if (!row.player) {
@@ -59,51 +61,35 @@ export async function loadTeamRoster(
         continue;
       }
 
+      const playerId = `fantrax_${row.player.id}`;
+      rosterEntries.push({
+        fantasyTeamId,
+        playerId,
+        lineupPosition: row.pos_id ? mapPositionIdToLineupPosition(row.pos_id) : null,
+        acquiredDate: new Date(),
+      });
+    }
+
+    // Batch insert roster entries (much faster!)
+    if (rosterEntries.length > 0) {
       try {
-        const playerId = `fantrax_${row.player.id}`;
-
-        // Check if this roster entry exists
-        const [existingRoster] = await db
-          .select()
-          .from(rosters)
-          .where(
-            and(
-              eq(rosters.fantasyTeamId, fantasyTeamId),
-              eq(rosters.playerId, playerId)
-            )
-          )
-          .limit(1);
-
-        const rosterData = {
-          fantasyTeamId,
-          playerId,
-          // Map position ID if available
-          lineupPosition: row.pos_id ? mapPositionIdToLineupPosition(row.pos_id) : null,
-          acquiredDate: existingRoster?.acquiredDate || new Date(),
-        };
-
-        if (existingRoster) {
-          // Update existing roster entry
-          await db
-            .update(rosters)
-            .set({
-              ...rosterData,
-              updatedAt: new Date(),
-            })
-            .where(eq(rosters.id, existingRoster.id));
-          result.updated++;
-        } else {
-          // Insert new roster entry
-          await db.insert(rosters).values(rosterData);
-          result.inserted++;
-        }
+        await db.insert(rosters).values(rosterEntries);
+        result.inserted += rosterEntries.length;
       } catch (error: any) {
-        result.failed++;
-        result.errors.push({
-          team: fantraxRoster.team_id,
-          player: row.player?.short_name,
-          error: error.message,
-        });
+        // If batch insert fails, fall back to individual inserts
+        for (const entry of rosterEntries) {
+          try {
+            await db.insert(rosters).values(entry);
+            result.inserted++;
+          } catch (err: any) {
+            result.failed++;
+            result.errors.push({
+              team: fantraxRoster.team_id,
+              player: entry.playerId,
+              error: err.message,
+            });
+          }
+        }
       }
     }
   } catch (error: any) {

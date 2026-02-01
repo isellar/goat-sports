@@ -15,7 +15,8 @@
       "WebFetch(domain:fantraxapi.kometa.wiki)",
       "Bash(grep:*)",
       "Bash(ls:*)",
-      "Bash(python:*)"
+      "Bash(python:*)",
+      "Bash(bun -e:*)"
     ]
   },
   "enableAllProjectMcpServers": true,
