@@ -17,7 +17,8 @@
       "Bash(ls:*)",
       "Bash(python:*)",
       "Bash(bun -e:*)",
-      "Bash(tee:*)"
+      "Bash(tee:*)",
+      "Bash(bun:*)"
     ]
   },
   "enableAllProjectMcpServers": true,
