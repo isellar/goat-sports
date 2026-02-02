@@ -79,50 +79,71 @@ export async function loadPlayers(
     console.log(`Created ${newTeams.length} NHL teams`);
   }
 
-  // Now process players
+  // Batch process players
+  const playerIds = fantraxPlayers.map(p => `fantrax_${p.id}`);
+
+  // Get existing players in one query
+  const existingPlayers = await db
+    .select({ id: players.id })
+    .from(players)
+    .where(inArray(players.id, playerIds));
+
+  const existingPlayerIds = new Set(existingPlayers.map(p => p.id));
+
+  // Separate into inserts and updates
+  const playersToInsert = [];
+  const playersToUpdate = [];
+
   for (const fantraxPlayer of fantraxPlayers) {
     try {
-      // Transform to our schema
       const playerData = transformFantraxPlayerToSchema(fantraxPlayer);
-
-      // Map NHL team
       const teamId = mapNHLTeamNameToId(fantraxPlayer.team_short_name);
       if (teamId) {
         playerData.teamId = teamId;
       }
 
-      // Generate unique ID from Fantrax ID
       const playerId = `fantrax_${fantraxPlayer.id}`;
 
-      // Check if player exists
-      const [existingPlayer] = await db
-        .select()
-        .from(players)
-        .where(eq(players.id, playerId))
-        .limit(1);
-
-      if (existingPlayer) {
-        // Update existing player
-        await db
-          .update(players)
-          .set({
-            ...playerData,
-            updatedAt: new Date(),
-          })
-          .where(eq(players.id, playerId));
-        result.updated++;
+      if (existingPlayerIds.has(playerId)) {
+        playersToUpdate.push({ id: playerId, ...playerData });
       } else {
-        // Insert new player
-        await db.insert(players).values({
-          id: playerId,
-          ...playerData,
-        });
-        result.inserted++;
+        playersToInsert.push({ id: playerId, ...playerData });
       }
     } catch (error: any) {
       result.failed++;
       result.errors.push({
         player: fantraxPlayer.short_name || fantraxPlayer.name,
+        error: error.message,
+      });
+    }
+  }
+
+  // Batch insert new players
+  if (playersToInsert.length > 0) {
+    try {
+      await db.insert(players).values(playersToInsert);
+      result.inserted += playersToInsert.length;
+    } catch (error: any) {
+      result.errors.push({
+        player: 'batch_insert',
+        error: error.message,
+      });
+    }
+  }
+
+  // Batch update existing players (still need individual updates for now)
+  for (const player of playersToUpdate) {
+    try {
+      const { id, ...data } = player;
+      await db
+        .update(players)
+        .set({ ...data, updatedAt: new Date() })
+        .where(eq(players.id, id));
+      result.updated++;
+    } catch (error: any) {
+      result.failed++;
+      result.errors.push({
+        player: id,
         error: error.message,
       });
     }
