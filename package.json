@@ -21,7 +21,8 @@
     "debug:fantrax": "bun scripts/debug-fantrax.ts",
     "inspect:fantrax": "bun scripts/inspect-fields.ts",
     "test:etl": "bun scripts/test-etl.ts",
-    "e2e:etl": "bun scripts/e2e-test-etl.ts"
+    "e2e:etl": "bun scripts/e2e-test-etl.ts",
+    "migrate:apply": "bun scripts/apply-migration.ts"
   },
   "dependencies": {
     "@hookform/resolvers": "^3.9.0",
