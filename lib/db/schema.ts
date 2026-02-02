@@ -120,8 +120,9 @@ export const leagues = pgTable('leagues', {
 export const fantasyTeams = pgTable('fantasy_teams', {
   id: text('id').primaryKey(),
   leagueId: text('league_id').references(() => leagues.id).notNull(),
-  ownerId: text('owner_id').references(() => users.id).notNull(),
+  ownerId: text('owner_id').references(() => users.id), // Nullable - team may not have owner yet
   name: text('name').notNull(),
+  abbreviation: text('abbreviation'),
   createdAt: timestamp('created_at').defaultNow(),
   updatedAt: timestamp('updated_at').defaultNow(),
 });

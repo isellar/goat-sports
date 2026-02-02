@@ -62,11 +62,15 @@ export async function loadTeamRoster(
       }
 
       const playerId = `fantrax_${row.player.id}`;
+      // Generate unique ID for roster entry
+      const rosterId = `${fantasyTeamId}_${playerId}`;
+
       rosterEntries.push({
+        id: rosterId,
         fantasyTeamId,
         playerId,
         lineupPosition: row.pos_id ? mapPositionIdToLineupPosition(row.pos_id) : null,
-        acquiredDate: new Date(),
+        addedAt: new Date(),
       });
     }
 
